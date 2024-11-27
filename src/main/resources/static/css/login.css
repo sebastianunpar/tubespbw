@@ -1,0 +1,118 @@
+* {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #202020;
+    position: relative;
+    overflow: hidden;
+}
+
+.loginPageContainer {
+    position: absolute;
+    display: flex;
+    box-sizing: border-box;
+    padding-top: 250px;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.loginContainer {
+    background-color: white;
+    border-radius: 12px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px 50px;
+
+}
+
+input, button, form{
+    font-size: 16px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+
+input {
+    margin: 10px 0;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid lightgray;
+    text-indent: 10px;
+}
+
+button {
+    margin: 10px 0;
+    height: 40px;
+    border-radius: 50px;
+    border: none;
+    background-color: #FFDC52;
+}
+
+.registerLink {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.filmBackGroundContainer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+
+}
+
+.filmColumn {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+img {
+    height: 300px;
+    width: 200px;
+    padding: 10px;
+}
+
+.filmColumn:nth-child(even) > img {
+    animation: scrollUp 100s linear infinite;
+}
+
+.filmColumn:nth-child(odd) > img {
+    animation: scrollDown 100s linear infinite;
+}
+
+
+@keyframes scrollUp {
+    0% {
+        transform: translateY(0); 
+    }
+    100% {
+        transform: translateY(-1265px);
+    }
+}
+
+@keyframes scrollDown {
+    0% {
+        transform: translateY(-1265px); 
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
