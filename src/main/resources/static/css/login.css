@@ -15,13 +15,11 @@ body {
     position: absolute;
     display: flex;
     box-sizing: border-box;
-    padding-top: 250px;
+    padding-top: 25vh;
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     z-index: 3;
-    top: 0;
-    left: 0;
     background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -34,10 +32,13 @@ body {
     align-items: center;
     box-sizing: border-box;
     padding: 20px 50px;
-
 }
 
-input, button, form{
+.addHeight {
+    height: 430px;
+}
+
+input, button.loginButton, form{
     font-size: 16px;
     box-sizing: border-box;
     display: block;
@@ -49,15 +50,27 @@ input {
     height: 40px;
     border-radius: 50px;
     border: 1px solid lightgray;
-    text-indent: 10px;
+    text-indent: 12px;
 }
 
-button {
+button.loginButton {
     margin: 10px 0;
     height: 40px;
     border-radius: 50px;
     border: none;
     background-color: #FFDC52;
+}
+
+button.toRegister {
+    padding: 8px;
+    background-color: white;
+    border: none;
+    border-radius: 8em;
+}
+
+button.toRegister:hover {
+    background-color: rgb(240, 240, 240);
+    cursor: pointer;
 }
 
 .registerLink {
@@ -66,24 +79,22 @@ button {
     flex-direction: row-reverse;
 }
 
-.filmBackGroundContainer {
-    height: 100%;
+.filmContainer {
     width: 100%;
+    height: 1260px;
     position: absolute;
-    top: 0;
-    left: 0;
     z-index: 1;
     display: flex;
     justify-content: center;
-
+    overflow: hidden;
 }
 
 .filmColumn {
     margin: 0 10px;
     display: flex;
     flex-direction: column;
-    
 }
+
 img {
     height: 300px;
     width: 200px;
@@ -98,6 +109,9 @@ img {
     animation: scrollDown 100s linear infinite;
 }
 
+.hidden {
+    display: none;
+}
 
 @keyframes scrollUp {
     0% {
