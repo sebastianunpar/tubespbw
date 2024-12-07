@@ -1,8 +1,6 @@
-package com.example.tubespbw.repository;
+package com.example.tubespbw.user;
 
 import java.util.List;
-
-import com.example.tubespbw.model.User;
 
 public interface UserRepository {
     List<User> findUser ();
