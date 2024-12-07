@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/manageActors.css">
+    <title>Manage Actors</title>
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="manageActors.html" class="active">Aktor</a></li>
+                <li><a href="manageGenres.html">Genre</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Manage Aktor</h1>
+        
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form action="" method="GET">
+                <input type="text" name="actor_name" placeholder="Search Actor by Name" value="">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Actors Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Actor</th>
+                    <th>Actor Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Jason Statham</td>
+                    <td class="actions">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <!-- Add more actor rows here -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

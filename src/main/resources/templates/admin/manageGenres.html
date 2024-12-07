@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Genres</title>
+    <link rel="stylesheet" href="../../static/css/manageGenres.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="manageActors.html">Aktor</a></li>
+                <li><a href="manageGenres.html" class="active">Genre</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Manage Movie Genres</h1>
+        
+        <div class="search-bar">
+            <form action="" method="GET">
+                <input type="text" name="genre_name" placeholder="Search Genre">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Genre</th>
+                    <th>Genre Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Repeat this for each genre -->
+                <tr>
+                    <td>1</td>
+                    <td>Action</td>
+                    <td class="actions">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Comedy</td>
+                    <td class="actions">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <!-- More rows here... -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
