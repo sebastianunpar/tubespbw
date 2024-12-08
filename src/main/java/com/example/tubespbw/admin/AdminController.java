@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @GetMapping("/home")
+    @GetMapping({"", "/"})
     public String showHome() {
         return "admin/home";
     }
@@ -26,6 +26,21 @@ public class AdminController {
     @GetMapping("/film-graph")
     public String showFilmGraph() {
         return "admin/filmGraph";
+    }
+
+    @GetMapping("/add-movie")
+    public String showAddMovie() {
+        return "admin/addMovie";
+    }
+
+    @GetMapping("/manage-actors")
+    public String showManageActors() {
+        return "admin/manageActors";
+    }
+
+    @GetMapping("/manage-genres")
+    public String showManageGenres() {
+        return "admin/manageGenres";
     }
 
     @GetMapping("/report")

@@ -41,4 +41,9 @@ public class UserController {
     public String login() {
         return "redirect:";
     }
+
+    @PostMapping("register")
+    public String register() {
+        return "redirect:/admin";
+    }
 }

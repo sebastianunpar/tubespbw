@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/user/userHistory-Lease.css">
   <title>User Profile</title>
+
+  <!-- tambahan style buat link nya -->
+  <style>
+    a {
+      all: unset;
+      cursor: pointer;
+    }
+  </style>
+  <!-- tambahan style buat link nya -->
+
 </head>
 <body>
   <div class="back-btn"><img src="/assets/svg/back.svg">Back</div>
@@ -15,13 +25,28 @@
         <h2>Nama</h2>
         <p>Sedang dipinjam: <span>30</span> film</p>
       </div>
-      <div class="logout-btn"><img src="/assets/svg/logout-icon.svg">Log out</div>
+
+      <!-- tambah link -->
+      <div class="logout-btn">
+        <a href="/login">
+          <img src="/assets/svg/logout-icon.svg">Log out
+        </a>
+      </div>
+      <!-- tambah link -->
+
     </div>
     
     <div class="right-panel">
       <nav>
-        <div class="tab active">SEDANG DIPINJAM</div>
-        <div class="tab">HISTORY</div>
+        <!-- tambah link -->
+        <div class="tab active">
+          <a href="/rentals" style="color: #FEC600;">SEDANG DIPINJAM</a>
+        </div>
+        <div class="tab">
+          <a href="/history">HISTORY</a>
+        </div>
+        <!-- tambah link -->
+
       </nav>
       <div class="rental-info">
         <table>
