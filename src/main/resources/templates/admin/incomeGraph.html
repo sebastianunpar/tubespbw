@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/admin/HomepageAdmin.css">
-    <title>Homepage Admin</title>
+    <link rel="stylesheet" href="/css/admin/grafikPemasuk.css">
+    <title>Penjualan</title>
+    <script src="/js/admin/grafikPemasukan.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="page-container">
@@ -15,7 +17,7 @@
 
         <!-- Header Section -->
         <div class="header">
-            <p class="dashboard-header">Homepage</p>
+            <p class="dashboard-header">Grafik Penjualan</p>
             <img class="profile" src="/assets/svg/generic-avatar0.svg" />
         </div>
 
@@ -29,7 +31,7 @@
 
             <div class="menu-item daftar-film">
                 <img class="icon-film" src="/assets/svg/film.svg" />
-                <p class="nav-daftar-film">Daftar Film</p>
+                <p class="nav-daftar-umk">Daftar UMK</p>
             </div>
 
             <div class="menu-item genre-aktor">
@@ -58,39 +60,25 @@
             </div>
             </div>
         </div>
+
         <div class="main-content">
-            <div class="title-container">
-                Welcome, admin!
+            <div class="tabs">
+                <button class="tab">By Jumlah Film</button>
+                <button class="tab active">By Pemasukan</button>
             </div>
-            <div class="main-content-grid">
-                <div class="main-container banyak-film">
-                        <img src="/assets/svg/movie-recorder.svg" class="icon-main">
-                        <p>Banyak film saat ini</p>
-                        <p><span>30</span> film</p>
+            <div class="chart-container">
+                <div class="chart-header">
+                <span>Pemasukan</span>
+                <select class="year-select">
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
                 </div>
-                <div class="main-container total-pemasukan">
-                    <img src="/assets/svg/money-bag.svg" class="icon-main">
-                    <p>Total pemasukan saat ini</p>
-                    <p>Rp.<span>30.000.000</span></p>
-                </div>
-                <div class="main-container banyak-genre">
-                    <img src="/assets/svg/theater-masks.svg" class="icon-main">
-                    <p>Banyak genre saat ini</p>
-                    <p><span>30</span> genre</p>
-                </div>
-                <div class="main-container banyak-aktor">
-                    <img src="/assets/svg/people.svg" class="icon-main">
-                    <p>Banyak aktor saat ini</p>
-                    <p><span>30</span> aktor</p>
-                </div>
-                <div class="main-container film-terlaris">
-                    <span class="title-container-film-terlaris">Film terlaris<p>bulan ini</p></span>
-                    <div class="img-title-terlaris"></div>
-                    <span class="title-terlaris">Titanis(2020)</span>
-                    <p><span>99</span>x disewa</p>
-                </div>
-            </div>   
-        </div> 
+                <canvas id="chart"></canvas>
+            </div>
+            </div>
+        </div>
+        
     </div>
 </body>
 </html>
