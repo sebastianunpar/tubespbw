@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/laporanBulanan.css">
+    <title>Laporan Bulanan</title>
+</head>
+<body>
+    <div class="page-container">
+
+        <div class="logo">
+            <p class="morent">MOREnt.</p>
+        </div>
+
+        <!-- Header Section -->
+        <div class="header">
+            <p class="dashboard-header">Grafik & Laporan > Laporan Bulanan</p>
+            <img class="profile" src="/assets/svg/header-nav/generic-avatar0.svg" />
+        </div>
+
+      <!-- Sidebar Section -->
+        <div class="sidebar">
+            <div class="navigation">
+            <div class="menu-item dashboard">
+                <img class="icon-dashboard" src="/assets/svg/header-nav/home-20.svg" />
+                <p class="nav-dashboard">Dashboard</p>
+            </div>
+
+            <div class="menu-item daftar-film">
+                <img class="icon-film" src="/assets/svg/header-nav/film.svg" />
+                <p class="nav-daftar-film">Daftar Film</p>
+            </div>
+
+            <div class="menu-item genre-aktor">
+                <img class="icon-genre-aktor" src="/assets/svg/header-nav/folder-check0.svg" />
+                <p class="nav-genre-aktor">Genre & Aktor</p>
+                <!-- <span class="badge">13</span> -->
+            </div>
+
+            <div class="menu-item laporan">
+                <img class="icon-laporan" src="/assets/svg/header-nav/icon-graph0.svg" />
+                <p class="nav-laporan">Laporan</p>
+            </div>
+
+            <div class="nav-divider">
+                <hr class="solid" />
+            </div>
+
+            <div class="menu-item log-out">
+                <img class="icon-log-out" src="/assets/svg/header-nav/logout-040.svg" />
+                <p class="nav-log-out">Log Out</p>
+            </div>
+
+            <div class="menu-item faq">
+                <img class="icon-faq" src="/assets/svg/header-nav/help-circle-contained0.svg" />
+                <p class="nav-faq">FAQ</p>
+            </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="upper-content">
+                <div class="saldo-saldo-container">
+                    <div class="container-saldo">
+                        <img src="/assets/svg/moneybag.svg" class="logo-saldo">
+                        <div class="saldo-title">
+                        Total pemasukan saat ini
+                        </div>
+                        <div class="nominal-saldo">
+                            Rp.xxxx.xxx
+                        </div>
+                    </div>
+                    <div class="container-saldo">
+                        <img src="/assets/img/coin.png" class="logo-saldo">
+                        <div class="saldo-title">
+                            Pemasukan anda bulan ini
+                        </div>
+                        <div class="nominal-saldo">
+                            Rp.xxxx.xxx
+                        </div>
+                    </div>
+                </div>
+                <div class="date-picker-container">
+                    <div class="date-picker">
+                        <label for="start-date">Tanggal Mulai:</label>
+                        <input type="date" id="start-date" value="2024-10-17">
+                    </div>
+                    
+                    <div class="date-picker">
+                        <label for="end-date">Tanggal Akhir:</label>
+                        <input type="date" id="end-date" value="2024-10-20">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                  <tr>
+                    <th>No</th>
+                    <th>Judul Film</th>
+                    <th>Tanggal Peminjaman</th>
+                    <th>Tanggal Pengembalian</th>
+                    <th>Pemasukan</th>
+                  </tr>
+                  <tr>
+                    <td>No HP</td>
+                    <td>Nama UMK</td>
+                    <td>Pemilik UMK</td>
+                    <td>Tanggal Pengajuan</td>
+                    <td>Detail UMK</td>
+                  </tr>
+                </table>
+                
+              </div>
+        </div>
+    </div>
+</body>
+</html>

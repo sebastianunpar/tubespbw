@@ -1,0 +1,51 @@
+.main-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    color:  white;
+    column-gap: 10%;
+    background: linear-gradient(145deg, #1a1a1d, #121212);
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.main-left-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding-left:40px;
+    padding-right:40px;
+    border:1px solid #b1b1b1;
+}
+.grafik-img, .laporan-img{
+    margin-top: 20px;
+    height: 200px;
+}
+.main-right-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding-left:40px;
+    padding-right:40px;
+    border:1px solid #b1b1b1;
+}
+
+
+.menu{
+    background: linear-gradient(145deg, #2B2B2B, #545454);
+    
+}
+.menu:hover {
+    background: linear-gradient(145deg, #4a4a4a, #323232);
+    color: #ffffff;
+    border-left: 4px solid #f5c518;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(245, 197, 24, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}

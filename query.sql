@@ -12,7 +12,6 @@ CREATE TABLE film (
     synopsis VARCHAR(500),
     image BYTEA,
     stock INT CHECK (stock >= 0),
-    sold INT,
     price NUMERIC
 );
 
@@ -42,5 +41,8 @@ CREATE TABLE rental (
     rentalId SERIAL PRIMARY KEY,
     rentalDate DATE NOT NULL,
     dueDate DATE NOT NULL,
-    returnDate DATE
+    returnDate DATE,
+    filmId INT NOT NULL REFERENCES film(filmId),
+    userId INT NOT NULL REFERENCES users(userId),
+    metodePembayaran VARCHAR(50) NOT NULL
 );

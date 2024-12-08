@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Details UI</title>
+  <link rel="stylesheet" href="css/movieDetail.css">
+  <script src="js/pengguna/movieDetail.js" defer></script>
+
+</head>
+<body>
+
+ <!-- Payment Dialog -->
+<dialog id="payment-dialog" class="payment-dialog">
+  <div class="dialog-content">
+    <h1>Venom: The Last Dance</h1>
+    <p class="price">Rp 96.000</p>
+
+    <div class="payment-methods">
+      <p class="methods-title">Metode Pembayaran</p>
+
+      <button class="method" id="bca-method">
+        <img src="assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
+        <p>BCA Virtual Account</p>
+        <span class="arrow">&rarr;</span>
+      </button>
+
+      <button class="method" id="mandiri-method">
+        <img src="assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
+        <p>Mandiri Virtual Account</p>
+        <span class="arrow">&rarr;</span>
+      </button>
+    </div>
+
+    <!-- Virtual Account Section (Hidden initially) -->
+    <div id="virtual-account-section" class="virtual-account-section">
+      <div class="virtual-account">
+        <div class="bank-logo" id="bank-logo">Mandiri Virtual Account</div>
+        <div class="account-number" id="account-number">-</div>
+        <button class="copy-button" onclick="copyToClipboard()">Salin</button>
+      </div>
+    </div>
+
+  </div>
+  <button id="close-dialog" class="close-btn">&times;</button>
+</dialog>
+
+
+
+  
+  <div class="container">
+    <!-- Back Button -->
+    <div class="back-button">
+      <span>&larr; Back</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Movie Poster Section -->
+      <div class="poster-section">
+        <div class="poster">
+          <div class="poster-placeholder">
+            <img src="assets/img/venomlastdance.png" alt="" width="280" height="400">
+          </div>
+        </div>
+        <div class="poster-info">
+          <p>Tersewa 96 kali</p>
+          <p class="available">Available to lease</p>
+          <p>Stock: 1</p>
+        </div>
+      </div>
+
+      <!-- Movie Details Section -->
+      <div class="details-section">
+        <h1>Venom: The Last Dance</h1>
+        <div class="rental-info">
+          <p class="label">Sewa</p>
+          <button id="open-dialog" class="open-btn">Rp. 96.000</button>
+        </div>
+        <div class="storyline">
+          <p class="label">Storyline</p>
+          <p>Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.</p>
+        </div>
+
+        <!-- Divider Line -->
+        <div class="divider"></div>
+
+        <div class="additional-info">
+          <!-- Genres Section -->
+          <div class="genres">
+            <p class="label">Genres</p>
+            <div class="genre-buttons">
+              <button>Action</button>
+              <button>Sci-Fi</button>
+              <button>Adventure</button>
+            </div>
+          </div>
+          <!-- Cast Section -->
+          <div class="casts">
+            <p class="label">Casts</p>
+            <div class="cast-list">
+              <button>Chiwetel Ejiofor</button>
+              <button>Peggy Lu</button>
+              <button>Alanna Ubach</button>
+              <button>Rhys Ifans</button>
+              <button>tephen Graham</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
