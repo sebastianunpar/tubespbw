@@ -61,6 +61,11 @@ button.loginButton {
     background-color: #FFDC52;
 }
 
+button.loginButton:hover {
+    background-color: #ffcf10;
+    cursor: pointer;
+}
+
 button.toRegister {
     padding: 8px;
     background-color: white;

@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/admin/HomepageAdmin.css">
     <title>Homepage Admin</title>
+
+    <style>
+        a {
+            all: unset;
+        }
+    </style>
+
 </head>
 <body>
     <div class="page-container">
@@ -24,23 +31,35 @@
             <div class="navigation">
             <div class="menu-item dashboard">
                 <img class="icon-dashboard" src="/assets/svg/home-20.svg" />
-                <p class="nav-dashboard">Dashboard</p>
+                <p class="nav-dashboard">
+                    <a href="/admin">Dashboard</a>
+                </p>
             </div>
 
             <div class="menu-item daftar-film">
                 <img class="icon-film" src="/assets/svg/film.svg" />
-                <p class="nav-daftar-film">Daftar Film</p>
+                <p class="nav-daftar-film">
+                    <a href="/admin/add-movie">Daftar Film</a>
+                </p>
             </div>
 
             <div class="menu-item genre-aktor">
                 <img class="icon-genre-aktor" src="/assets/svg/folder-check0.svg" />
-                <p class="nav-genre-aktor">Genre & Aktor</p>
+                <p class="nav-genre-aktor">
+                    <a href="/admin/manage-genres">Genre & Aktor</a>
+                </p>
                 <!-- <span class="badge">13</span> -->
             </div>
 
             <div class="menu-item laporan">
                 <img class="icon-laporan" src="/assets/svg/icon-graph0.svg" />
-                <p class="nav-laporan">Laporan</p>
+
+                <!-- tambahan link -->
+                <p class="nav-laporan">
+                    <a href="/admin/report">Laporan</a>
+                </p>
+                <!-- tambahan link -->
+
             </div>
 
             <div class="nav-divider">
@@ -49,7 +68,9 @@
 
             <div class="menu-item log-out">
                 <img class="icon-log-out" src="/assets/svg/logout-040.svg" />
-                <p class="nav-log-out">Log Out</p>
+                <p class="nav-log-out">
+                    <a href="/login">Log Out</a>
+                </p>
             </div>
 
             <div class="menu-item faq">

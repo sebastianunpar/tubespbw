@@ -6,6 +6,16 @@
   <title>Browse UI</title>
   <link rel="stylesheet" href="css/browsePage.css">
   <script src="js/pengguna/browsePage.js" defer></script>
+  
+  <!-- tambahan style buat link nya -->
+  <style>
+    a {
+      all: unset;
+      cursor: pointer;
+    }
+  </style>
+  <!-- tambahan style buat link nya -->
+
 </head>
 <body>
 
@@ -43,8 +53,16 @@
 
   <header class="navbar">
     <div class="nav-left">
-      <div class="nav-item">HOME</div>
-      <div class="nav-item active">BROWSE</div>
+
+      <!-- nambah link -->
+      <div class="nav-item">
+        <a href="/">HOME</a>
+      </div>
+      <div class="nav-item active" >
+        <a href="/browse">BROWSE</a>
+      </div>
+      <!-- nambah link -->
+
     </div>
     <div class="nav-middle">
       <div class="search-bar">
@@ -55,7 +73,9 @@
       </div>
     </div>
     <div class="nav-right">
-      <div class="profile-icon"></div>
+      <a href="/rentals">
+        <div class="profile-icon"></div>
+      </a>
     </div>
   </header>
   <main class="content">
@@ -110,7 +130,10 @@
       </div>
       <div class="card">
         <div class="image-placeholder">
-            <img src="assets/img/venomlastdance.png" alt="">
+            <!-- tambah link -->
+            <a href="/movie-detail">
+              <img src="assets/img/venomlastdance.png" alt="">
+            </a>
         </div>
         <p>Venom: The Last Dance</p>
       </div>
