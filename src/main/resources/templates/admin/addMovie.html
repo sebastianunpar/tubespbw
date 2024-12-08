@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Leasing - Add New Movie</title>
+    <link rel="stylesheet" href="../../static/css/addMovie.css">
+</head>
+<body>
+    <form action="">
+
+        <div class="container">
+            <h2>Add New Movie</h2>
+            
+            <div class="form-container">
+                <!-- Left Section: Movie Image Upload -->
+                <div class="left-section">
+                    <div class="image-upload">
+                        <label for="movieImage">Movie Poster:</label>
+                        <div id="imagePreview" class="image-preview" style="background-image: url('');">
+                            <span>Preview Poster</span>
+                        </div>
+                        <input type="file" name="movieImage" id="movieImage" accept="image/*" class="file-input" onchange="previewImage(event)" />
+                    </div>
+                </div>
+                
+                <!-- Right Section: Movie Details Form -->
+                <div class="right-section">
+                    <div class="movie-form">
+                        <div class="form-field">
+                            <label for="movieName">Movie Name:</label>
+                            <input name="title" type="text" id="movieName" placeholder="Enter movie name">
+                        </div>
+    
+                        <div class="form-field">
+                            <label for="price">Price:</label>
+                            <input name="price" type="number" id="price" placeholder="Enter price">
+                        </div>
+    
+                        <div class="form-field">
+                            <label for="stock">Stock:</label>
+                            <input name="stock" type="number" id="stock" placeholder="Enter stock quantity">
+                        </div>
+    
+                        <div class="form-field">
+                            <label for="storyline">Storyline:</label>
+                            <textarea name="storyline" id="storyline" placeholder="Enter storyline"></textarea>
+                        </div>
+    
+                        <!-- Genres Checkbox -->
+                        <label>Genres:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="genre1" name="genres" value="Action" onchange="updateSelection('genres')">
+                            <label for="genre1">Action</label>
+
+                            <input type="checkbox" id="genre2" name="genres" value="Comedy" onchange="updateSelection('genres')">
+                            <label for="genre2">Comedy</label>
+
+                            <input type="checkbox" id="genre3" name="genres" value="Drama" onchange="updateSelection('genres')">
+                            <label for="genre3">Drama</label>
+                        </div>
+                        <div id="selectedGenres" style="margin-top: 10px; color: #ffc107; font-size: 14px;"></div>
+    
+                        <!-- Actors Checkbox -->
+                        <label>Actors:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="actor1" name="actors" value="Actor 1" onchange="updateSelection('actors')">
+                            <label for="actor1">Actor 1</label>
+
+                            <input type="checkbox" id="actor2" name="actors" value="Actor 2" onchange="updateSelection('actors')">
+                            <label for="actor2">Actor 2</label>
+
+                            <input type="checkbox" id="actor3" name="actors" value="Actor 3" onchange="updateSelection('actors')">
+                            <label for="actor3">Actor 3</label>
+                        </div>
+                        <div id="selectedActors" class="selected-items"></div>
+                            
+                    </div>
+    
+                        <!-- Save Button -->
+                        <button type="submit" class="save-button">Save Movie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        // Function to handle image preview
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function() {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.style.backgroundImage = `url(${reader.result})`;
+                imagePreview.innerHTML = ''; // Clear the "Click to upload image" text
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+
+        function updateSelection(type) {
+            // Get the selected checkboxes
+            const checkboxes = document.querySelectorAll(`input[name='${type}']:checked`);
+            const selectedItemsContainer = document.getElementById(`selected${capitalizeFirstLetter(type)}`);
+            const selectedItems = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            // Clear previous selections
+            selectedItemsContainer.innerHTML = '';
+
+            // Display the selected items
+            if (selectedItems.length > 0) {
+                const ul = document.createElement('ul');
+                selectedItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+                selectedItemsContainer.appendChild(ul);
+            }
+        }
+
+        // Function to capitalize the first letter of a string
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+    </script>
+</body>
+</html>
