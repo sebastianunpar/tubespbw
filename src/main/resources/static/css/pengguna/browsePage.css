@@ -1,0 +1,260 @@
+/* General body styling */
+body {
+    margin: 10px;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+  }
+  
+  /* Navbar styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between ;
+    align-items: center;
+    padding: 10px 60px;
+  /*background-color: #1e1e1e;*/
+  }
+
+  /* Navbar styling */
+.nav-item {
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    position: relative; /* Dibutuhkan untuk pseudo-element */
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item.active {
+    color: #FEC600;
+    text-shadow: 0 0 8px #FEC600, 0 0 15px #FEC600, 0 0 30px #FEC600; /* Efek cahaya halus ke tulisan */
+  }
+  
+  .nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* Posisikan sedikit lebih jauh agar tidak terlalu dekat */
+    left: 0;
+    width: 100%;
+    height: 3px; /* Lebih tipis agar tidak terlalu tebal */
+    background-color: #FEC600; /* Warna kuning */
+    border-radius: 2px; /* Membuat garis lebih halus */
+    box-shadow: 0 0 5px 0px #FEC600; /* Efek cahaya halus */
+    transition: all 0.3s ease; /* Animasi halus */
+  }
+  
+  .nav-item:hover {
+    color: #FEC600; /* Warna berubah saat hover */
+  }
+  
+  
+  .nav-left {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-item {
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .nav-item.active {
+    color: #FEC600;
+  }
+
+  .nav-middle{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .search-bar input {
+    padding: 8px 10px;
+    width: 400px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .search-bar select {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background-color: #333;
+    color: white;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .filter button {
+    padding: 10px 20px; /* Perbesar ukuran tombol */
+    font-size: 16px; /* Perbesar teks tombol */
+    border-radius: 20px;
+    border: none;
+    background-color: gray;
+    color: black;
+    cursor: pointer;
+    align-self: center; /* Untuk menyelaraskan dengan search bar */
+    transition: background-color 0.3s;
+}
+
+.filter button:hover {
+    background-color: #FEC600; /* Efek hover */
+    transform: scale(1.05);
+    
+}
+
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .profile-icon {
+    width: 50px;
+    height: 50px;
+    background-color: gray;
+    border-radius: 50%;
+    border: 2px solid gold;
+  }
+  
+  /* Main content */
+  .content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  /* Card styling */
+  .card {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #333;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 16px;
+    margin: 0;
+  }
+  
+/*filter*/
+
+  .open-btn {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .filter-header {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    gap: 10px;
+  }
+  
+  .filter-input {
+    flex: 1;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .search-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .filter-options label {
+    display: block;
+    margin: 5px 0;
+  }
+  
+  .dialog-footer {
+    text-align: right;
+    margin-top: 20px;
+  }
+
+   /* Close Button */
+   .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #121212;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: #ffcc00;
+  }
+
+  img {
+    width: 135px;
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 5px; 
+  }
+  
