@@ -2,12 +2,10 @@ package com.example.tubespbw.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
 
 @Controller
 public class UserController {
-    @GetMapping("")
+    @GetMapping({"", "/"})
     public String showHome() {
         return "home";
     }
@@ -15,11 +13,6 @@ public class UserController {
     @GetMapping("/browse")
     public String showBrowse() {
         return "browse";
-    }
-
-    @GetMapping("/login")
-    public String showLogin() {
-        return "login";
     }
 
     @GetMapping("/rentals")
@@ -35,15 +28,5 @@ public class UserController {
     @GetMapping("/movie-detail")
     public String showMovieDetail() {
         return "movieDetail";
-    }
-
-    @PostMapping("login")
-    public String login() {
-        return "redirect:";
-    }
-
-    @PostMapping("register")
-    public String register() {
-        return "redirect:/admin";
     }
 }
