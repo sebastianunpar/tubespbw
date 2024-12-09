@@ -3,58 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Genres</title>
     <link rel="stylesheet" href="/css/admin/manageGenres.css">
+    <title>Manage Genres</title>
+
 </head>
 <body>
-    <header>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="/admin/manage-actors">Aktor</a></li>
-                <li><a href="/admin/manage-genres" class="active">Genre</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="page-container">
 
-    <div class="container">
-        <h1>Manage Movie Genres</h1>
-        
-        <div class="search-bar">
-            <form action="" method="GET">
-                <input type="text" name="genre_name" placeholder="Search Genre">
-                <button type="submit">Search</button>
-            </form>
+        <div class="logo">
+            <p class="morent">MOREnt.</p>
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Genre</th>
-                    <th>Genre Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Repeat this for each genre -->
-                <tr>
-                    <td>1</td>
-                    <td>Action</td>
-                    <td class="actions">
-                        <button>Edit</button>
-                        <button>Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Comedy</td>
-                    <td class="actions">
-                        <button>Edit</button>
-                        <button>Delete</button>
-                    </td>
-                </tr>
-                <!-- More rows here... -->
-            </tbody>
-        </table>
+        <!-- Header Section -->
+        <div class="header">
+            <p class="dashboard-header">Homepage</p>
+            <img class="profile" src="/assets/svg/generic-avatar0.svg" />
+        </div>
+
+      <!-- Sidebar Section -->
+        <div class="sidebar">
+            <div class="navigation">
+            <div class="menu-item dashboard">
+                <img class="icon-dashboard" src="/assets/svg/home-20.svg" />
+                <p class="nav-dashboard">
+                    <a href="/admin">Dashboard</a>
+                </p>
+            </div>
+
+            <div class="menu-item daftar-film">
+                <img class="icon-film" src="/assets/svg/film.svg" />
+                <p class="nav-daftar-film">
+                    <a href="/admin/add-movie">Daftar Film</a>
+                </p>
+            </div>
+
+            <div class="menu-item genre-aktor">
+                <img class="icon-genre-aktor" src="/assets/svg/folder-check0.svg" />
+                <p class="nav-genre-aktor">
+                    <a href="/admin/manage-genres">Genre & Aktor</a>
+                </p>
+                <!-- <span class="badge">13</span> -->
+            </div>
+
+            <div class="menu-item laporan">
+                <img class="icon-laporan" src="/assets/svg/icon-graph0.svg" />
+
+                <!-- tambahan link -->
+                <p class="nav-laporan">
+                    <a href="/admin/report">Laporan</a>
+                </p>
+                <!-- tambahan link -->
+
+            </div>
+
+            <div class="nav-divider">
+                <hr class="solid" />
+            </div>
+
+            <div class="menu-item log-out">
+                <img class="icon-log-out" src="/assets/svg/logout-040.svg" />
+                <p class="nav-log-out">
+                    <a href="/login">Log Out</a>
+                </p>
+            </div>
+
+            <div class="menu-item faq">
+                <img class="icon-faq" src="/assets/svg/help-circle-contained0.svg" />
+                <p class="nav-faq">FAQ</p>
+            </div>
+            </div>
+        </div>
+
+        <!-- main contents -->
+        <div class="main-content">
+            <header>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/admin/manage-actors" >Aktor</a></li>
+                        <li><a href="/admin/manage-genres" class="active">Genre</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="container">
+                <h1>Manage Movie Genres</h1>
+                
+                <div class="search-bar">
+                    <form action="" method="GET">
+                        <input type="text" name="genre_name" placeholder="Search Genre">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+        
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Genre</th>
+                            <th>Genre Name</th>
+                            <th class="action-head">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Repeat this for each genre -->
+                        <tr>
+                            <td>1</td>
+                            <td>Action</td>
+                            <td class="actions">
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Comedy</td>
+                            <td class="actions">
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <!-- More rows here... -->
+                    </tbody>
+                </table>
+            </div>
+                
+        </div> 
     </div>
 </body>
 </html>
