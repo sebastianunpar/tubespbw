@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Renting Website</title>
-    <link rel="stylesheet" href="css/home.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Renting Website</title>
+  <link rel="stylesheet" href="css/home.css">
+  <script href="js/home.js" defer></script>
+  
 </head>
 <body>
-    <header>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="/browse">Browse</a></li>
-                <li><a href="">About Us</a></li>
-            </ul>
-            <a href="/login" class="login-btn">Log In</a>  <!-- diganti dari button jadi link -->
-        </nav>
+
+    <!-- nav bar -->
+    <header class="navbar">
+        <!-- bagian kiri -->
+        <div class="nav-left">
+            <div class="nav-item active">
+                <a href="/">HOME</a>
+            </div>
+            <div class="nav-item" >
+                <a href="/browse">BROWSE</a>
+            </div>
+            <div class="nav-item">
+                <a href="">ABOUT US</a>
+            </div>
+        </div>
+
+        <!-- bagian login -->
+        <div class="nav-right">
+            <!-- <a href="/rentals">
+                <div class="profile-icon"></div>
+            </a> -->
+            <a href="/login"><button>Login</button></a>
+        </div>
+
     </header>
+    
 
     <main>
         <section class="welcome-section">
-            <h1>Welcome to <span>Your App Name</span></h1>
-            <p>Choose your fav film and lease now! Get your leased movie at <strong>our store</strong> in jl unpar ema ema.</p>
+            <h1>Welcome to <span>MOREnt.</span></h1>
+            <p>
+                Ayo cari film favorit kamu dan sewa sekarang! Kamu juga dapat mampir mengunjungi toko offline  
+                <strong>MoreEnt. </strong> 
+                di Jl unpar ema ema.
+            </p>
         </section>
 
         <section class="popular-films">
@@ -45,42 +67,9 @@
                         "https://i0.wp.com/stories.briefer.id/wp-content/uploads/2024/05/IMG_8183.jpeg?w=600&ssl=1"                    
                     alt="movie 3">
                 </label>
-                <!-- <label for="item-4" class="card">
-                    <img src=
-                        "https://wallpapers.com/images/high/arcane-poster-powder-jfjyqs2drcql3ar6.webp"
-                    alt="">
-                </label> -->
-                <!-- <label for="item-5" class="card">
-                    <img src=
-                        "https://www.hdwallpapers.in/thumbs/2021/valorant_2021_game_poster_hd_valorant-t2.jpg"
-                    alt="">
-                </label> -->
             </section>
         </section>
-    </main>
 
-    <!-- <footer>
-        <p>&copy; 2024 Movie Renting Website. All Rights Reserved.</p>
-        <p><a href="#">Contact Us</a> | <a href="#">Privacy Policy</a></p>
-    </footer> -->
-
-    <script>
-        $('input').on('change', function() {
-            $('body').toggleClass('blue');
-        });
-
-        // Highlight the active tab when switching between pages
-        const navLinks = document.querySelectorAll('.nav-links a');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.forEach(item => item.classList.remove('active'));
-                link.classList.add('active');
-            });
-        });
-
-
-
-    </script>
+  </main>
 </body>
 </html>
