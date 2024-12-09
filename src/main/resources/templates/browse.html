@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse UI</title>
-  <link rel="stylesheet" href="css/browsePage.css">
-  <script src="js/pengguna/browsePage.js" defer></script>
+  <link rel="stylesheet" href="/src/main/resources/static/css/browsePage.css">
+  <script src="/src/main/resources/static/js/pengguna/browsePage.js" defer></script>
   
   <!-- tambahan style buat link nya -->
   <style>
@@ -53,31 +53,37 @@
 
   <header class="navbar">
     <div class="nav-left">
-
-      <!-- nambah link -->
+      <div class="nav-item logo">
+        <img src="/src/main/resources/static/assets/img/Logo-Tubes_PBW.png" alt="">
+      </div>
       <div class="nav-item">
         <a href="/">HOME</a>
       </div>
       <div class="nav-item active" >
         <a href="/browse">BROWSE</a>
       </div>
-      <!-- nambah link -->
-
+      <div class="nav-item" >
+        <a href="/">ABOUT US</a>
+      </div>
     </div>
+
     <div class="nav-middle">
       <div class="search-bar">
           <input type="text" placeholder="Search..."/>
+          <img src="/src/main/resources/static/assets/img/search-bar-logo.png" alt="">
       </div>
       <div class="filter">
-        <button id="open-dialog" class="open-btn">filter</button>
+        <button id="open-dialog" class="open-btn"><img src="/src/main/resources/static/assets/svg/filter-logo.svg" alt=""></button>
       </div>
     </div>
+
     <div class="nav-right">
       <a href="/rentals">
         <div class="profile-icon"></div>
       </a>
     </div>
   </header>
+
   <main class="content">
     <div class="card-container">
       <div class="card">

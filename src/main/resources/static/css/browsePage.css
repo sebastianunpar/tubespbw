@@ -1,5 +1,5 @@
-/* General body styling */
-body {
+  /* General body styling */
+  body {
     margin: 10px;
     font-family: Arial, sans-serif;
     background-color: #121212;
@@ -16,7 +16,7 @@ body {
   }
 
   /* Navbar styling */
-.nav-item {
+  .nav-item {
     font-size: 16px;
     cursor: pointer;
     color: white;
@@ -46,10 +46,21 @@ body {
     color: #FEC600; /* Warna berubah saat hover */
   }
   
-  
   .nav-left {
-    display: flex;
-    gap: 20px;
+    display: flex; /* Gunakan flexbox */
+    align-items: center; /* Vertikal sejajar */
+    gap: 20px; /* Beri jarak antar elemen */
+  }
+  
+  .nav-left .logo {
+    display: flex; /* Gunakan flexbox pada logo */
+    align-items: center; /* Pusatkan vertikal */
+  }
+
+  .nav-left .logo img {
+    height: 40px; /* Sesuaikan tinggi logo */
+    width: auto; /* Jaga proporsi logo */
+    margin-right: 10px; /* Jarak antara logo dan teks berikutnya (jika ada) */
   }
   
   .nav-item {
@@ -69,15 +80,16 @@ body {
   }
 
   .search-bar input {
-    padding: 8px 10px;
+    padding: 8px 40px 8px 10px;
     width: 400px;
     border-radius: 20px;
     border: none;
     outline: none;
-    background-color: #333;
+    background-color: #333; /* Warna awal search bar */
     color: white;
     font-size: 14px;
-  }
+    transition: all 0.3s ease; /* Menambahkan transisi untuk perubahan ukuran dan warna */
+}
   
   .search-bar select {
     padding: 5px 10px;
@@ -89,10 +101,23 @@ body {
   }
 
   .search-bar {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 20px;
   }
+
+/* Untuk ikon pencarian */
+.search-bar img {
+    position: absolute;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Menambahkan transisi saat hover */
+}
+
+
 
   .filter button {
     padding: 10px 20px; /* Perbesar ukuran tombol */
@@ -109,7 +134,57 @@ body {
 .filter button:hover {
     background-color: #FEC600; /* Efek hover */
     transform: scale(1.05);
-    
+}
+
+/*filter*/
+.filter button {
+  background-color: transparent; /* Menghilangkan background */
+  border: none; /* Menghilangkan border */
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Menyelaraskan logo secara vertikal */
+  justify-content: center; /* Menyelaraskan logo secara horizontal */
+}
+
+.filter button img {
+  width: 25px; /* Ukuran logo sesuai dengan input */
+  height: 25px;
+  transition: filter 0.3s ease; /* Transisi halus saat hover */
+  filter: brightness(0.8); /* Warna kuning agak lebih gelap */
+}
+
+.filter button:hover img {
+  filter: brightness(1.2); /* Membuat logo lebih terang saat hover */
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  gap: 10px;
+}
+
+.filter-input {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filter-options label {
+  display: block;
+  margin: 5px 0;
 }
 
   
@@ -130,7 +205,7 @@ body {
     height: 50px;
     background-color: gray;
     border-radius: 50%;
-    border: 2px solid gold;
+    border: 2px solid #FEC600;
   }
   
   /* Main content */
@@ -174,7 +249,7 @@ body {
     margin: 0;
   }
   
-/*filter*/
+
 
   .open-btn {
     padding: 10px 20px;
@@ -193,42 +268,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
-  .filter-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .filter-section {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .filter-header {
-    display: flex;
-    align-items: center;
-    width: 90%;
-    gap: 10px;
-  }
-  
-  .filter-input {
-    flex: 1;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .search-btn {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .filter-options label {
-    display: block;
-    margin: 5px 0;
-  }
+
   
   .dialog-footer {
     text-align: right;
