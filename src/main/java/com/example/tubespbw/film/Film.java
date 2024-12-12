@@ -9,5 +9,6 @@ import lombok.Data;
 public class Film {
     private int filmId;
     private String title;
+    private int stock;
     private byte[] poster;
 }

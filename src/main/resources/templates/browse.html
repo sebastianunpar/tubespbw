@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse UI</title>
-  <link rel="stylesheet" href="/src/main/resources/static/css/browsePage.css">
-  <script src="/src/main/resources/static/js/pengguna/browsePage.js" defer></script>
+  <link rel="stylesheet" href="css/browsePage.css">
+  <script src="js/pengguna/browsePage.js" defer></script>
   
   <!-- tambahan style buat link nya -->
   <style>
@@ -86,6 +86,13 @@
 
   <main class="content">
     <div class="card-container">
+      <a href="@{'/film'/} + @{filmId}" class="card" th:each="film : ${films}">
+        <div class="image-placeholder">
+          <img src="assets/img/deadpool&wolverine.jpg" alt="">
+        </div>
+        <p th:text="film.title"></p>
+        <p th:text="film.stock"></p>
+      </a>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/deadpool&wolverine.jpg" alt="">

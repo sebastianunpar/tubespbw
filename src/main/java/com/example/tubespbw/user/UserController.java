@@ -10,11 +10,6 @@ public class UserController {
         return "home";
     }
 
-    @GetMapping("/browse")
-    public String showBrowse() {
-        return "browse";
-    }
-
     @GetMapping("/rentals")
     public String showRentals() {
         return "user/rentals";
@@ -23,10 +18,5 @@ public class UserController {
     @GetMapping("/history")
     public String showHistory() {
         return "user/history";
-    }
-
-    @GetMapping("/movie-detail")
-    public String showMovieDetail() {
-        return "movieDetail";
     }
 }
