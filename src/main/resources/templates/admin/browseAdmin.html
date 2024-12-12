@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse UI</title>
+  <link rel="stylesheet" href="/src/main/resources/static/css/admin/browse.css">
+  <script src="/src/main/resources/static/js/admin/browse.js" defer></script>
+  
+  <!-- tambahan style buat link nya -->
+  <style>
+    a {
+      all: unset;
+      cursor: pointer;
+    }
+  </style>
+  <!-- tambahan style buat link nya -->
+
+</head>
+<body>
+
+  <dialog id="filter-dialog">
+    <div class="filter-container">
+      <div class="filter-section">
+        <div class="filter-header">
+          <input type="text" placeholder="Actor..." class="filter-input">
+        </div>
+        <div class="filter-options">
+          <label><input type="checkbox"> Theo James</label>
+          <label><input type="checkbox"> Dian Sastro</label>
+          <label><input type="checkbox"> Cillian Murphy</label>
+          <label><input type="checkbox"> Nicolas Saputra</label>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-header">
+          <input type="text" placeholder="Genre..." class="filter-input">
+        </div>
+        <div class="filter-options">
+          <label><input type="checkbox"> Action</label>
+          <label><input type="checkbox"> Sci-Fi</label>
+          <label><input type="checkbox"> Horror</label>
+          <label><input type="checkbox"> Romance</label>
+          <label><input type="checkbox"> Drama</label>
+          <label><input type="checkbox"> Comedy</label>
+        </div>
+      </div>
+    </div>
+
+    <button id="close-dialog" class="close-btn">&times;</button>
+
+  </dialog>
+
+  <header class="navbar">
+    <div class="nav-left">
+
+      <!-- nambah link -->
+      <div class="nav-item">
+        <a href="/"><img src="/src/main/resources/static/assets/img/Logo-PBW.png" alt=""></a>
+      </div>
+      <div class="nav-item">
+        <a href="/">HOME</a>
+      </div>
+      <div class="nav-item active" >
+        <a href="/browse">BROWSE</a>
+      </div>
+      <div class="nav-item" >
+        <a href="">ABOUT US</a>
+      </div>
+      <!-- nambah link -->
+
+    </div>
+    <div class="nav-middle">
+      <div class="search-bar">
+          <input type="text" placeholder="Search..."/>
+      </div>
+      <div class="filter">
+        <button id="open-dialog" class="open-btn">filter</button>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a href="/rentals">
+        <div class="profile-icon"></div>
+      </a>
+    </div>
+  </header>
+  <main class="content">
+    <div class="card-container">
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/deadpool&wolverine.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">Deadpool & Wolverine</div>
+            <div class="price">Rp. 88.000</div>
+            <div class="stock">Stock: 2</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/interstellar.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">Interstellar</div>
+            <div class="price">Rp. 89.000</div>
+            <div class="stock">Stock: 2</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/fightclub.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">Fight club</div>
+            <div class="price">Rp. 83.000</div>
+            <div class="stock">Stock: 1</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/forrestgump.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">Forest Gump</div>
+            <div class="price">Rp. 90.000</div>
+            <div class="stock">Stock: 3</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/pulpfiction.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">Pulp Fiction</div>
+            <div class="price">Rp. 78.000</div>
+            <div class="stock">Stock: 3</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/thegodfather.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">The God Father</div>
+            <div class="price">Rp. 85.000</div>
+            <div class="stock">Stock: 3</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/12angrymen.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">12 Angry Man</div>
+            <div class="price">Rp. 78.000</div>
+            <div class="stock">Stock: 1</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <img src="assets/img/lordoftherings.jpg" alt="">
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">Lord of The Rings</div>
+            <div class="price">Rp. 92.000</div>
+            <div class="stock">Stock: 1</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image-placeholder">
+            <!-- tambah link -->
+            <a href="/movie-detail">
+              <img src="assets/img/venomlastdance.png" alt="">
+            </a>
+        </div>
+        <div class="movie-info">
+            <div class="movie-name">Venom: The Last Dance</div>
+            <div class="price">Rp. 98.000</div>
+            <div class="stock">Stock: 3</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

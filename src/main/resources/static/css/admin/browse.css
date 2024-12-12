@@ -1,0 +1,240 @@
+/* General body styling */
+body {
+  margin: 10px;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: white;
+}
+
+/* Navbar Styling */
+.navbar {
+display: flex;
+justify-content: space-between;
+align-items: center; /* Tetap menjaga elemen lain sejajar vertikal */
+padding: 10px 60px;
+color: white;
+}
+
+/* Grup kiri, tengah, kanan */
+.nav-left, .nav-middle, .nav-right {
+display: flex;
+align-items: center; /* Sejajarkan semua elemen secara vertikal */
+gap: 20px;
+}
+
+/* Logo Styling */
+.nav-item img {
+width: 120px;
+height: auto; 
+display: block; 
+position: relative; 
+top: 5px; 
+}
+
+.nav-item.active {
+color: #FEC600; /* Warna kuning untuk elemen aktif */
+position: relative; /* Dibutuhkan untuk pseudo-element */
+}
+
+.nav-item.active::after {
+content: ''; 
+position: absolute; 
+bottom: -8px;
+left: 0;
+width: 100%; 
+height: 3px; 
+background-color: #FEC600; 
+border-radius: 3px; 
+transition: all 0.3s ease; 
+}
+
+.nav-item:hover {
+color: #FEC600; /* Perubahan warna saat hover */
+}
+
+.nav-item:hover::after {
+background-color: #FFD700; /* Sedikit lebih terang saat hover */
+}
+
+
+/* Search bar */
+.search-bar input {
+padding: 8px 10px;
+width: 300px;
+border-radius: 20px;
+border: none;
+outline: none;
+background-color: #333;
+color: white;
+font-size: 14px;
+}
+
+/* Filter button */
+.filter button {
+padding: 10px 20px;
+font-size: 16px;
+border-radius: 20px;
+border: none;
+background-color: #FEC600;
+color: black;
+cursor: pointer;
+transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filter button:hover {
+background-color: gray;
+transform: scale(1.05);
+}
+
+/* Profil di kanan */
+.profile-icon {
+width: 50px;
+height: 50px;
+background-color: gray;
+border-radius: 50%;
+border: 2px solid gold;
+}
+
+
+/* Main content */
+.content {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Card styling */
+.card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #333;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/*filter*/
+
+.open-btn {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+dialog {
+  position: absolute; /* Pastikan absolute untuk kendali penuh */
+  border: none;
+  padding: 20px;
+  width: 300px;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+dialog[open] {
+  display: block;
+  z-index: 1000;
+}
+
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  gap: 10px;
+}
+
+.filter-input {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.filter-options label {
+  display: block;
+  margin: 5px 0;
+}
+
+.dialog-footer {
+  text-align: right;
+  margin-top: 20px;
+}
+
+ /* Close Button */
+ .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #121212;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ffcc00;
+}
+
+.nav-item img{
+  width: 120px;
+  height: 45px;
+}
+
+.movie-info .price{
+  color: gray;
+  font-size: 12px;;
+}
+
+
+.movie-info .stock{
+  color: gray;
+  font-size: 12px;;
+}
