@@ -8,93 +8,126 @@ body {
 
 /* Navbar Styling */
 .navbar {
-display: flex;
-justify-content: space-between;
-align-items: center; /* Tetap menjaga elemen lain sejajar vertikal */
-padding: 10px 60px;
-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Menjaga elemen sejajar secara vertikal */
+  padding: 10px 60px;
+  color: white;
 }
 
 /* Grup kiri, tengah, kanan */
 .nav-left, .nav-middle, .nav-right {
-display: flex;
-align-items: center; /* Sejajarkan semua elemen secara vertikal */
-gap: 20px;
+  display: flex;
+  align-items: center; /* Menyelaraskan semua elemen dalam grup secara vertikal */
+  gap: 20px;
 }
 
 /* Logo Styling */
+.logo img {
+  height: 50px; /* Atur tinggi logo sesuai dengan kebutuhan */
+  object-fit: contain;
+  display: block; /* Pastikan gambar adalah elemen blok */
+}
+
+.nav-item {
+  cursor: pointer;
+  position: relative;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+/* Logo Styling */
 .nav-item img {
-width: 120px;
-height: auto; 
-display: block; 
-position: relative; 
-top: 5px; 
+  width: 120px;
+  height: auto; 
+  display: block; 
+  position: relative; 
+  top: 0; /* Sesuaikan agar logo sejajar dengan elemen navbar lainnya */
 }
 
 .nav-item.active {
-color: #FEC600; /* Warna kuning untuk elemen aktif */
-position: relative; /* Dibutuhkan untuk pseudo-element */
+  color: #FEC600; /* Warna kuning untuk elemen aktif */
+  
+  position: relative; /* Dibutuhkan untuk pseudo-element */
 }
 
 .nav-item.active::after {
-content: ''; 
-position: absolute; 
-bottom: -8px;
-left: 0;
-width: 100%; 
-height: 3px; 
-background-color: #FEC600; 
-border-radius: 3px; 
-transition: all 0.3s ease; 
+  content: ''; 
+  position: absolute; 
+  bottom: -8px;
+  left: 0;
+  width: 100%; 
+  height: 3px; 
+  background-color: #FEC600; 
+  border-radius: 3px; 
+  transition: all 0.3s ease; 
 }
 
 .nav-item:hover {
-color: #FEC600; /* Perubahan warna saat hover */
+  color: #FEC600; /* Perubahan warna saat hover */
 }
 
 .nav-item:hover::after {
-background-color: #FFD700; /* Sedikit lebih terang saat hover */
+  background-color: #FFD700; /* Sedikit lebih terang saat hover */
 }
 
+.search-bar {
+  position: relative; 
+  display: flex;
+  align-items: center;
+}
 
-/* Search bar */
 .search-bar input {
-padding: 8px 10px;
-width: 300px;
-border-radius: 20px;
-border: none;
-outline: none;
-background-color: #333;
-color: white;
-font-size: 14px;
+  padding: 8px 40px 8px 40px; /* Ruang untuk ikon di dalam input */
+  width: 300px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background-color: #333;
+  color: white;
+  font-size: 14px;
+}
+
+.search-bar img {
+  position: absolute;
+  left: 10px; /* Jarak ikon dari tepi kiri input */
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 /* Filter button */
 .filter button {
-padding: 10px 20px;
-font-size: 16px;
-border-radius: 20px;
-border: none;
-background-color: #FEC600;
-color: black;
-cursor: pointer;
-transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+  background-color: #FEC600;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .filter button:hover {
-background-color: gray;
-transform: scale(1.05);
+  background-color: gray;
+  transform: scale(1.05);
+}
+
+/* Aturan tambahan untuk menyelaraskan search bar dan filter button */
+.nav-middle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* Profil di kanan */
 .profile-icon {
-width: 50px;
-height: 50px;
-background-color: gray;
-border-radius: 50%;
-border: 2px solid gold;
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+  border-radius: 50%;
+  border: 2px solid gold;
 }
-
 
 /* Main content */
 .content {

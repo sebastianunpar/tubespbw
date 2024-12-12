@@ -7,26 +7,31 @@ body {
   }
   
   /* Navbar styling */
-  .navbar {
-    display: flex;
-    justify-content: space-between ;
-    align-items: center;
-    padding: 10px 60px;
-  /*background-color: #1e1e1e;*/
-  }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 10px 60px;
+}
 
-  /* Navbar styling */
-.nav-item {
+.logo img {
+  height: 40px; 
+  object-fit: contain; 
+  display: block; 
+}
+
+  .nav-item {
     font-size: 16px;
     cursor: pointer;
     color: white;
-    position: relative; /* Dibutuhkan untuk pseudo-element */
+    position: relative; 
     transition: color 0.3s ease;
   }
   
-  .nav-item.active {
-    color: #FEC600;
-    text-shadow: 0 0 8px #FEC600, 0 0 15px #FEC600, 0 0 30px #FEC600; /* Efek cahaya halus ke tulisan */
+  .nav-left, .nav-middle, .nav-right {
+    display: flex;
+    align-items: center; /* Menjaga elemen dalam grup sejajar secara vertikal */
+    gap: 20px;
   }
   
   .nav-item.active::after {
@@ -59,7 +64,10 @@ body {
   }
   
   .nav-item.active {
-    color: #FEC600;
+    color: #FEC600; /* Warna kuning untuk elemen aktif */
+    position: relative; /* Dibutuhkan untuk pseudo-element */
+    text-shadow: 0 0 8px #FEC600, 0 0 12px #FEC600; /* Efek glow pada teks */
+    transition: all 0.3s ease;
   }
 
   .nav-middle{
@@ -69,8 +77,8 @@ body {
   }
 
   .search-bar input {
-    padding: 8px 10px;
     width: 400px;
+    padding: 8px 35px 8px 15px; /* Tambah ruang untuk ikon di kanan */
     border-radius: 20px;
     border: none;
     outline: none;
@@ -132,6 +140,128 @@ body {
     border-radius: 50%;
     border: 2px solid gold;
   }
+
+  .input-container {
+    position: relative;
+    width: 100%; 
+  }
+  
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px; 
+    transform: translateY(-50%);
+    width: 18px; 
+    height: 18px;
+    cursor: pointer;
+    filter: invert(100%); 
+  }
+  
+  
+    .open-btn {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    dialog {
+      border: none;
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .filter-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .filter-section {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .filter-header {
+      display: flex;
+      align-items: center;
+      width: 90%;
+      gap: 10px;
+    }
+    
+    .filter-input {
+      flex: 1;
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    .search-btn {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .filter-options label {
+      display: block;
+      margin: 5px 0;
+    }
+  
+    img {
+      width: 135px;
+      height: 200px; 
+      object-fit: cover; 
+      border-radius: 5px; 
+    }
+  
+    .logo img{
+      width: 70px;
+      height: 40px;
+    }
+    
+    .filter {
+      display: flex;
+      align-items: center;
+    }
+    
+    .filter .open-btn {
+      padding: 8px; 
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    
+    .filter .filter-icon {
+      width: 18px; 
+      height: 18px;
+      filter: invert(100%);
+    }
+  
+      /* Close Button */
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #121212;
+        cursor: pointer;
+      }
+      
+      .close-btn:hover {
+        color: #ffcc00;
+      }
+  
+      .dialog-footer {
+        text-align: right;
+        margin-top: 20px;
+      }
   
   /* Main content */
   .content {
@@ -173,88 +303,4 @@ body {
     font-size: 16px;
     margin: 0;
   }
-  
-/*filter*/
 
-  .open-btn {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  dialog {
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .filter-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .filter-section {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .filter-header {
-    display: flex;
-    align-items: center;
-    width: 90%;
-    gap: 10px;
-  }
-  
-  .filter-input {
-    flex: 1;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .search-btn {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .filter-options label {
-    display: block;
-    margin: 5px 0;
-  }
-  
-  .dialog-footer {
-    text-align: right;
-    margin-top: 20px;
-  }
-
-   /* Close Button */
-   .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #121212;
-    cursor: pointer;
-  }
-  
-  .close-btn:hover {
-    color: #ffcc00;
-  }
-
-  img {
-    width: 135px;
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 5px; 
-  }
-  
