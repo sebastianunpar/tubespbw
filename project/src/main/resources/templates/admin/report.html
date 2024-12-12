@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/mainLaporan.css">
+    <title>Laporan Bulanan</title>
+
+    <style>
+        a {
+            all: unset;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="page-container">
+
+        <div class="logo">
+            <p class="morent">MOREnt.</p>
+        </div>
+
+        <!-- Header Section -->
+        <div class="header">
+            <p class="dashboard-header">Grafik & Laporan</p>
+            <img class="profile" src="/assets/svg/header-nav/generic-avatar0.svg" />
+        </div>
+
+      <!-- Sidebar Section -->
+        <div class="sidebar">
+            <div class="navigation">
+            <div class="menu-item dashboard">
+                <img class="icon-dashboard" src="/assets/svg/header-nav/home-20.svg" />
+                <p class="nav-dashboard">
+                    <a href="/admin">Dashboard</a>
+                </p>
+            </div>
+
+            <div class="menu-item daftar-film">
+                <img class="icon-film" src="/assets/svg/header-nav/film.svg" />
+                <p class="nav-daftar-film">                    
+                    <a href="/admin/add-movie">Daftar Film</a>
+                </p>
+            </div>
+
+            <div class="menu-item genre-aktor">
+                <img class="icon-genre-aktor" src="/assets/svg/header-nav/folder-check0.svg" />
+                <p class="nav-genre-aktor">
+                    <a href="/admin/manage-genres">Genre & Aktor</a>
+                </p>
+                <!-- <span class="badge">13</span> -->
+            </div>
+
+            <div class="menu-item laporan">
+                <img class="icon-laporan" src="/assets/svg/header-nav/icon-graph0.svg" />
+                <p class="nav-laporan">
+                    <a href="/admin/report">Laporan</a>
+                </p>
+            </div>
+
+            <div class="nav-divider">
+                <hr class="solid" />
+            </div>
+
+            <div class="menu-item log-out">
+                <img class="icon-log-out" src="/assets/svg/header-nav/logout-040.svg" />
+                <p class="nav-log-out">
+                    <a href="/login">Log Out</a>
+                </p>
+            </div>
+
+            <div class="menu-item faq">
+                <img class="icon-faq" src="/assets/svg/header-nav/help-circle-contained0.svg" />
+                <p class="nav-faq">FAQ</p>
+            </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="main-left-section menu">
+                <!-- tambahan link -->
+                <a href="/admin/film-graph">
+                    <img src="/assets/svg/grafik.svg" class="grafik-img">
+                    <h2 class="left-section-title">Grafik Penyewaan</h2>
+                </a>
+                <!-- tambahan link -->
+
+            </div>
+            <div class="main-right-section menu">
+                <!-- tambahan link -->
+                <a href="/admin/income">
+                    <img src="/assets/svg/laporan.svg" class="laporan-img">
+                    <h2 class="right-section-title">Laporan Bulanan</h2>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
