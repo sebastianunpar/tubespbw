@@ -14,16 +14,13 @@
   padding: 10px 60px;
 }
 
-<<<<<<< HEAD:src/main/resources/static/css/browsePage.css
-  /* Navbar styling */
-=======
+/* Navbar styling */
 .logo img {
   height: 40px; 
   object-fit: contain; 
   display: block; 
 }
 
->>>>>>> d98b2dd8a21ca897532682ef46e335777935b5ec:src/main/resources/static/css/pengguna/browsePage.css
   .nav-item {
     font-size: 16px;
     cursor: pointer;
@@ -92,10 +89,7 @@
   }
 
   .search-bar input {
-<<<<<<< HEAD:src/main/resources/static/css/browsePage.css
     padding: 8px 40px 8px 10px;
-=======
->>>>>>> d98b2dd8a21ca897532682ef46e335777935b5ec:src/main/resources/static/css/pengguna/browsePage.css
     width: 400px;
     padding: 8px 35px 8px 15px; /* Tambah ruang untuk ikon di kanan */
     border-radius: 20px;
@@ -386,7 +380,6 @@
     font-size: 16px;
     margin: 0;
   }
-<<<<<<< HEAD:src/main/resources/static/css/browsePage.css
   
 
 
@@ -437,6 +430,6 @@
     border-radius: 5px; 
   }
   
-=======
 
->>>>>>> d98b2dd8a21ca897532682ef46e335777935b5ec:src/main/resources/static/css/pengguna/browsePage.css
+
+  

@@ -1,185 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Browse UI</title>
-  <link rel="stylesheet" href="/src/main/resources/static/css/admin/browse.css">
-  <script src="/src/main/resources/static/js/admin/browse.js" defer></script>
-  
-  <!-- tambahan style buat link nya -->
-  <style>
-    a {
-      all: unset;
-      cursor: pointer;
-    }
-  </style>
-  <!-- tambahan style buat link nya -->
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/main/resources/static/css/admin/browse.css">
+    <title>Browser Admin</title>
 </head>
 <body>
+    <div class="page-container">
 
-  <dialog id="filter-dialog">
-    <div class="filter-container">
-      <div class="filter-section">
-        <div class="filter-header">
-          <input type="text" placeholder="Actor..." class="filter-input">
+        <div class="logo">
+            <p class="morent">MOREnt.</p>
         </div>
-        <div class="filter-options">
-          <label><input type="checkbox"> Theo James</label>
-          <label><input type="checkbox"> Dian Sastro</label>
-          <label><input type="checkbox"> Cillian Murphy</label>
-          <label><input type="checkbox"> Nicolas Saputra</label>
+
+        <!-- Header Section -->
+        <div class="header">
+            <p class="dashboard-header">Homepage</p>
+            <img class="profile" src="assets/generic-avatar0.svg" />
         </div>
-      </div>
-      <div class="filter-section">
-        <div class="filter-header">
-          <input type="text" placeholder="Genre..." class="filter-input">
+
+      <!-- Sidebar Section -->
+        <div class="sidebar">
+            <div class="navigation">
+            <div class="menu-item dashboard">
+                <img class="icon-dashboard" src="assets/home-20.svg" />
+                <p class="nav-dashboard">Dashboard</p>
+            </div>
+
+            <div class="menu-item daftar-film">
+                <img class="icon-film" src="assets/film.svg" />
+                <p class="nav-daftar-film">Daftar Film</p>
+            </div>
+
+            <div class="menu-item genre-aktor">
+                <img class="icon-genre-aktor" src="assets/folder-check0.svg" />
+                <p class="nav-genre-aktor">Genre & Aktor</p>
+                <!-- <span class="badge">13</span> -->
+            </div>
+
+            <div class="menu-item laporan">
+                <img class="icon-laporan" src="assets/icon-graph0.svg" />
+                <p class="nav-laporan">Laporan</p>
+            </div>
+
+            <div class="nav-divider">
+                <hr class="solid" />
+            </div>
+
+            <div class="menu-item log-out">
+                <img class="icon-log-out" src="assets/logout-040.svg" />
+                <p class="nav-log-out">Log Out</p>
+            </div>
+
+            <div class="menu-item faq">
+                <img class="icon-faq" src="assets/help-circle-contained0.svg" />
+                <p class="nav-faq">FAQ</p>
+            </div>
+            </div>
         </div>
-        <div class="filter-options">
-          <label><input type="checkbox"> Action</label>
-          <label><input type="checkbox"> Sci-Fi</label>
-          <label><input type="checkbox"> Horror</label>
-          <label><input type="checkbox"> Romance</label>
-          <label><input type="checkbox"> Drama</label>
-          <label><input type="checkbox"> Comedy</label>
-        </div>
-      </div>
-    </div>
-
-    <button id="close-dialog" class="close-btn">&times;</button>
-
-  </dialog>
-
-  <header class="navbar">
-    <div class="nav-left">
-
-      <!-- nambah link -->
-      <div class="nav-item">
-        <a href="/"><img src="/src/main/resources/static/assets/img/Logo-PBW-2.png" alt=""></a>
-      </div>
-      <div class="nav-item">
-        <a href="/">HOME</a>
-      </div>
-      <div class="nav-item active" >
-        <a href="/browse">BROWSE</a>
-      </div>
-      <div class="nav-item" >
-        <a href="">ABOUT US</a>
-      </div>
-      <!-- nambah link -->
-
-    </div>
-    <div class="nav-middle">
-      <div class="search-bar">
-          <input type="text" placeholder="Search..."/>
-      </div>
-      <div class="filter">
-        <button id="open-dialog" class="open-btn">filter</button>
-      </div>
-    </div>
-    <div class="nav-right">
-      <a href="/rentals">
-        <div class="profile-icon"></div>
-      </a>
-    </div>
-  </header>
+        
   <main class="content">
     <div class="card-container">
       <div class="card">
         <div class="image-placeholder">
-            <img src="assets/img/deadpool&wolverine.jpg" alt="">
+            <img src="/src/main/" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">Deadpool & Wolverine</div>
-            <div class="price">Rp. 88.000</div>
-            <div class="stock">Stock: 2</div>
-        </div>
+        <p>Deadpool & Wolverine</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/interstellar.jpg" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">Interstellar</div>
-            <div class="price">Rp. 89.000</div>
-            <div class="stock">Stock: 2</div>
-        </div>
+        <p>Interstellar</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/fightclub.jpg" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">Fight club</div>
-            <div class="price">Rp. 83.000</div>
-            <div class="stock">Stock: 1</div>
-        </div>
+        <p>Fight Club</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/forrestgump.jpg" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">Forest Gump</div>
-            <div class="price">Rp. 90.000</div>
-            <div class="stock">Stock: 3</div>
-        </div>
+        <p>Forrest Gump</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/pulpfiction.jpg" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">Pulp Fiction</div>
-            <div class="price">Rp. 78.000</div>
-            <div class="stock">Stock: 3</div>
-        </div>
+        <p>Pulp Fiction</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/thegodfather.jpg" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">The God Father</div>
-            <div class="price">Rp. 85.000</div>
-            <div class="stock">Stock: 3</div>
-        </div>
+        <p>The God Father</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/12angrymen.jpg" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">12 Angry Man</div>
-            <div class="price">Rp. 78.000</div>
-            <div class="stock">Stock: 1</div>
-        </div>
+        <p>12 Angry Men</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
             <img src="assets/img/lordoftherings.jpg" alt="">
         </div>
-        <div class="movie-info">
-            <div class="movie-name">Lord of The Rings</div>
-            <div class="price">Rp. 92.000</div>
-            <div class="stock">Stock: 1</div>
-        </div>
+        <p>Lord of The Rings</p>
+        <p class="stock">Stock:0</p>
       </div>
       <div class="card">
         <div class="image-placeholder">
-            <!-- tambah link -->
             <a href="/movie-detail">
               <img src="assets/img/venomlastdance.png" alt="">
             </a>
         </div>
-        <div class="movie-info">
-            <div class="movie-name">Venom: The Last Dance</div>
-            <div class="price">Rp. 98.000</div>
-            <div class="stock">Stock: 3</div>
-        </div>
+        <p>Venom: The Last Dance</p>
+        <p class="stock">Stock:0</p>
       </div>
     </div>
   </main>
+    </div>
 </body>
 </html>
