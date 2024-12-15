@@ -12,7 +12,8 @@
     <div class="page-container">
 
         <div class="logo">
-            <img src="/src/main/resources/static/assets/img/Logo-Tubes_PBW.png" alt="">
+            <p class="morent">
+                <img src="/src/main/resources/static/assets/img/LOGO-PBW_FIX.png" alt="">            </p>
         </div>
 
         <!-- Header Section -->
@@ -63,15 +64,26 @@
 
         <div class="main-content">
             <div class="tabs">
-                <button class="tab">By Jumlah Film</button>
-                <button class="tab active">By Pemasukan</button>
+                <button class="tab active">By Jumlah Film</button>
+                <button class="tab">By Pemasukan</button>
+                <button class="download">Download PDF</button>
             </div>
             <div class="chart-container">
                 <div class="chart-header">
-                <span>Pemasukan</span>
+                <span>Film sewa</span>
                 <select class="year-select">
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
                 </select>
                 </div>
                 <canvas id="chart"></canvas>
