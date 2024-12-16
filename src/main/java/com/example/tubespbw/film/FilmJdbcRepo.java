@@ -16,7 +16,7 @@ public class FilmJdbcRepo implements FilmRepository{
 
     @Override //untuk page browse, cuma perlu id title poster
     public List<Film> getAll() throws SQLException {
-        String sql = "SELECT filmId, title, poster, stock FROM film";
+        String sql = "SELECT filmId, title, stock, poster FROM film";
         return jdbcTemplate.query(sql, this::mapRowToFilm);
     }
     private Film mapRowToFilm (ResultSet resultSet, int rowNum) throws SQLException {

@@ -17,11 +17,15 @@ body {
   }
   
   /* Back Button */
-  .back-button {
-    margin-bottom: 20px;
-    font-size: 18px;
-    cursor: pointer;
-  }
+.back-button {
+  margin-bottom: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  position: absolute; 
+  top: 50px; 
+  left: 50px; 
+}
+
   
   .back-button span {
     color: white;
@@ -327,4 +331,8 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+input{
+  width: 70px;
 }

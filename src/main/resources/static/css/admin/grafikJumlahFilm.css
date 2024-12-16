@@ -29,6 +29,12 @@ body{
     background-color: #2B2B2B;
     color: #FEC600;
 }
+
+.logo img {
+    width: auto; 
+    height: 50px; 
+    margin-left: 40px; 
+  }
   
 .sidebar {
     grid-area: sidebar;
@@ -179,4 +185,21 @@ body{
 
 span {
     color: #cccccc;
+}
+
+.download {
+    background-color: #FEC600; /* Bright yellow color */
+    color: #121212; /* Dark text */
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 15px; /* Similar padding to tabs */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.download:hover {
+    background-color: #f7b500; /* Darker yellow on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }

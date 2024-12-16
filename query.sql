@@ -18,7 +18,8 @@ CREATE TABLE film (
     filmId SERIAL PRIMARY KEY,
     title VARCHAR(30),
     synopsis VARCHAR(500),
-    image BYTEA,
+    -- ganti dari image jadi poster
+    poster BYTEA, 
     stock INT CHECK (stock >= 0),
     price NUMERIC,
 	valid BOOLEAN
@@ -67,7 +68,7 @@ INSERT INTO users (name, email, password, role) VALUES
 ('iger tanks', 'iger@gmail.com', 'iger', 'user'),
 ('john doe', 'john@gmail.com', 'john', 'user');
 
-INSERT INTO film (title, synopsis, image, stock, price, valid)
+INSERT INTO film (title, synopsis, poster, stock, price, valid)
 VALUES
     ('The Adventure Begins', 'A young adventurer sets off on a perilous journey to find the lost city of gold, facing dangers and discovering secrets along the way.', NULL, 50, 12.99, 'true'),
     ('Mystery at Midnight', 'A detective is called to solve a series of mysterious disappearances that seem to be connected to a supernatural entity.', NULL, 30, 15.49, 'true'),

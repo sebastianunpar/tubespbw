@@ -19,9 +19,4 @@ public class UserController {
     public String showHistory() {
         return "user/history";
     }
-
-    @GetMapping("/movie-detail")
-    public String showMovieDetail() {
-        return "movieDetail";
-    }
 }

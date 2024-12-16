@@ -1,131 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Leasing - Add New Movie</title>
-    <link rel="stylesheet" href="/css/admin/addMovie.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/admin/addMovie.css">
+  <title>Add New Movie</title>
 </head>
 <body>
-    <form action="">
+  <div class="container">
+    <div class="header">
+      <h2>Add New Movie</h2>
+    </div>
 
-        <div class="container">
-            <h2>Add New Movie</h2>
-            
-            <div class="form-container">
-                <!-- Left Section: Movie Image Upload -->
-                <div class="left-section">
-                    <div class="image-upload">
-                        <label for="movieImage">Movie Poster:</label>
-                        <div id="imagePreview" class="image-preview" style="background-image: url('');">
-                            <span>Preview Poster</span>
-                        </div>
-                        <input type="file" name="movieImage" id="movieImage" accept="image/*" class="file-input" onchange="previewImage(event)" />
-                    </div>
-                </div>
-                
-                <!-- Right Section: Movie Details Form -->
-                <div class="right-section">
-                    <div class="movie-form">
-                        <div class="form-field">
-                            <label for="movieName">Movie Name:</label>
-                            <input name="title" type="text" id="movieName" placeholder="Enter movie name">
-                        </div>
-    
-                        <div class="form-field">
-                            <label for="price">Price:</label>
-                            <input name="price" type="number" id="price" placeholder="Enter price">
-                        </div>
-    
-                        <div class="form-field">
-                            <label for="stock">Stock:</label>
-                            <input name="stock" type="number" id="stock" placeholder="Enter stock quantity">
-                        </div>
-    
-                        <div class="form-field">
-                            <label for="storyline">Storyline:</label>
-                            <textarea name="storyline" id="storyline" placeholder="Enter storyline"></textarea>
-                        </div>
-    
-                        <!-- Genres Checkbox -->
-                        <label>Genres:</label>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="genre1" name="genres" value="Action" onchange="updateSelection('genres')">
-                            <label for="genre1">Action</label>
+    <div class="left-section">
+      <div class="image-preview" id="imagePreview">
+        <span style="color: #aaa;">No image</span>
+      </div>
+      <input type="file" id="imageUpload" class="button" accept="image/*" onchange="previewImage(event)">
+    </div>
 
-                            <input type="checkbox" id="genre2" name="genres" value="Comedy" onchange="updateSelection('genres')">
-                            <label for="genre2">Comedy</label>
+    <div class="right-section">
+      <form class="form" action="/add-movie" method="POST">
+        <label for="name">Nama Film:</label>
+        <input type="text" id="name" name="name" placeholder="Enter movie name" required>
 
-                            <input type="checkbox" id="genre3" name="genres" value="Drama" onchange="updateSelection('genres')">
-                            <label for="genre3">Drama</label>
-                        </div>
-                        <div id="selectedGenres" style="margin-top: 10px; color: #ffc107; font-size: 14px;"></div>
-    
-                        <!-- Actors Checkbox -->
-                        <label>Actors:</label>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="actor1" name="actors" value="Actor 1" onchange="updateSelection('actors')">
-                            <label for="actor1">Actor 1</label>
+        <label for="price">Harga:</label>
+        <input type="number" id="price" name="price" placeholder="Enter price" required>
 
-                            <input type="checkbox" id="actor2" name="actors" value="Actor 2" onchange="updateSelection('actors')">
-                            <label for="actor2">Actor 2</label>
-
-                            <input type="checkbox" id="actor3" name="actors" value="Actor 3" onchange="updateSelection('actors')">
-                            <label for="actor3">Actor 3</label>
-                        </div>
-                        <div id="selectedActors" class="selected-items"></div>
-                            
-                    </div>
-    
-                        <!-- Save Button -->
-                        <button type="submit" class="save-button">Save Movie</button>
-                    </div>
-                </div>
-            </div>
+        <label>Genres:</label>
+        <div class="checkbox-group" id="genreCheckboxes">
+          <input type="checkbox" id="action" name="genres" value="Action">
+          <label for="action">Action</label>
+        
+          <input type="checkbox" id="comedy" name="genres" value="Comedy">
+          <label for="comedy">Comedy</label>
+        
+          <input type="checkbox" id="drama" name="genres" value="Drama">
+          <label for="drama">Drama</label>
+        
+          <input type="checkbox" id="horror" name="genres" value="Horror">
+          <label for="horror">Horror</label>
+        
+          <input type="checkbox" id="scifi" name="genres" value="Sci-Fi">
+          <label for="scifi">Sci-Fi</label>
         </div>
-    </form>
-    <script>
-        // Function to handle image preview
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function() {
-                const imagePreview = document.getElementById('imagePreview');
-                imagePreview.style.backgroundImage = `url(${reader.result})`;
-                imagePreview.innerHTML = ''; // Clear the "Click to upload image" text
-            }
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
+        <button type="button" class="add-genre-btn" onclick="toggleGenreInput()">Tambah Genre</button>
+        <div id="newGenreInput" style="display: none;">
+          <input type="text" id="newGenre" placeholder="Enter new genre">
+          <button class="add-new" type="button" onclick="addNewGenre()">Add New Genre</button>
+        </div>
+        
+        <label>Aktor:</label>
+        <div class="checkbox-group" id="actorCheckboxes">
+          <input type="checkbox" id="actor1" name="actors" value="Actor 1">
+          <label for="actor1">Actor 1</label>
+        
+          <input type="checkbox" id="actor2" name="actors" value="Actor 2">
+          <label for="actor2">Actor 2</label>
+        
+          <input type="checkbox" id="actor3" name="actors" value="Actor 3">
+          <label for="actor3">Actor 3</label>
+        
+          <input type="checkbox" id="actor4" name="actors" value="Actor 4">
+          <label for="actor4">Actor 4</label>
+        </div>
+        <button type="button" class="add-actor-btn" onclick="toggleActorInput()">Tambah Aktor</button>
+        <div id="newActorInput" style="display: none;">
+          <input type="text" id="newActor" placeholder="Enter new actor">
+          <button class="add-new" type="button" onclick="addNewActor()">Add New Actor</button>
+        </div>
+        
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" placeholder="Enter stock" required>
 
+        <label for="storyline">Storyline:</label>
+        <textarea id="storyline" name="storyline" placeholder="Enter storyline" rows="4" required></textarea>
 
-        function updateSelection(type) {
-            // Get the selected checkboxes
-            const checkboxes = document.querySelectorAll(`input[name='${type}']:checked`);
-            const selectedItemsContainer = document.getElementById(`selected${capitalizeFirstLetter(type)}`);
-            const selectedItems = Array.from(checkboxes).map(checkbox => checkbox.value);
+        <div class="actions">
+          <button type="button" class="back-btn" onclick="history.back()">Cancel</button>
+          <button type="submit" class="save-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-            // Clear previous selections
-            selectedItemsContainer.innerHTML = '';
+  <script>
+    function previewImage(event) {
+      const imagePreview = document.getElementById('imagePreview');
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imagePreview.innerHTML = `<img src="${e.target.result}" alt="Movie Poster">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
 
-            // Display the selected items
-            if (selectedItems.length > 0) {
-                const ul = document.createElement('ul');
-                selectedItems.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    ul.appendChild(li);
-                });
-                selectedItemsContainer.appendChild(ul);
-            }
-        }
+    // Toggle Genre Input Box
+function toggleGenreInput() {
+  const genreInput = document.getElementById('newGenreInput');
+  genreInput.style.display = genreInput.style.display === 'none' ? 'block' : 'none';
+}
 
-        // Function to capitalize the first letter of a string
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
+// Toggle Actor Input Box
+function toggleActorInput() {
+  const actorInput = document.getElementById('newActorInput');
+  actorInput.style.display = actorInput.style.display === 'none' ? 'block' : 'none';
+}
 
-    </script>
+// Add New Genre to the Genre List and Database
+function addNewGenre() {
+  const newGenre = document.getElementById('newGenre').value.trim();
+  if (newGenre) {
+    // Add new genre checkbox dynamically
+    const genreContainer = document.getElementById('genreCheckboxes');
+    const newCheckbox = document.createElement('div');
+    newCheckbox.innerHTML = `
+      <input type="checkbox" name="genres" value="${newGenre}" id="genre_${newGenre}">
+      <label for="genre_${newGenre}">${newGenre}</label>
+    `;
+    genreContainer.appendChild(newCheckbox);
+    
+    // Optionally, send the new genre to the backend to store in the database (AJAX or form submission)
+    // Example: send to server using AJAX
+    fetch('/add-genre', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ genre: newGenre })
+    });
+
+    // Clear the input box
+    document.getElementById('newGenre').value = '';
+  }
+}
+
+// Add New Actor to the Actor List and Database
+function addNewActor() {
+  const newActor = document.getElementById('newActor').value.trim();
+  if (newActor) {
+    // Add new actor checkbox dynamically
+    const actorContainer = document.getElementById('actorCheckboxes');
+    const newCheckbox = document.createElement('div');
+    newCheckbox.innerHTML = `
+      <input type="checkbox" name="actors" value="${newActor}" id="actor_${newActor}">
+      <label for="actor_${newActor}">${newActor}</label>
+    `;
+    actorContainer.appendChild(newCheckbox);
+    
+    fetch('/add-actor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ actor: newActor })
+    });
+
+    // Clear the input box
+    document.getElementById('newActor').value = '';
+  }
+}
+  </script>
 </body>
 </html>
