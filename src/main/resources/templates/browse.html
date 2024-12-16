@@ -86,12 +86,12 @@
 
   <main class="content">
     <div class="card-container">
-      <a th:href="@{film/} + @{film.id}" class="card" th:each="film : ${films}">
+      <a th:each="film : ${films}" th:href="@{film.filmId}" class="card">
         <div class="image-placeholder">
           <img src="assets/img/deadpool&wolverine.jpg" alt="">
         </div>
-        <p th:text="film.title"></p>
-        <p th:text="film.stock"></p>
+        <p th:text="${film.title}"></p>
+        <p th:text="${film.stock}"></p>
       </a>
       <div class="card">
         <div class="image-placeholder">
