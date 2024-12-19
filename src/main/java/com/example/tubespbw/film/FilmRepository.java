@@ -9,5 +9,5 @@ public interface FilmRepository {
     List<String> getFilmGenres(int filmId) throws SQLException;
     List<String> getFilmActors(int filmId) throws SQLException;
     Optional<FilmDetail> getFilmDetail(int filmId) throws SQLException;
-    
+    int getFilmSales(int filmId) throws SQLException;
 }

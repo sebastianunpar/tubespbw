@@ -42,3 +42,7 @@ function copyToClipboard() {
     .then(() => alert('Nomor Virtual Account berhasil disalin!'))
     .catch(() => alert('Gagal menyalin nomor Virtual Account.'));
 }
+
+function goBack() {
+  window.history.back();
+}

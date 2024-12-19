@@ -67,6 +67,13 @@
     </div>
   </header>
   <main class="content">
+    <a href="@{'/film'/} + @{filmId}" class="card-container" th:each="film : ${films}">
+      <div class="image-placeholder">
+        <img src="assets/img/deadpool&wolverine.jpg" alt="">
+      </div>
+      <p th:text="title"></p>
+      <p th:text="stock"></p>
+    </a>
     <div class="card-container">
       <div class="card">
         <div class="image-placeholder">

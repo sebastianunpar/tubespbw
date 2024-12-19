@@ -25,8 +25,11 @@ public class FilmController {
     }
 
     @GetMapping("/film/{filmId}")
-    public String showMovieDetail(@PathVariable int id, Model model) throws SQLException {
-        Optional<FilmDetail> filmDetail = service.getFilmDetail(id);
+    public String showMovieDetail(@PathVariable("filmId") int filmId, Model model) throws SQLException {
+        Optional<FilmDetail> filmDetail = service.getFilmDetail(filmId);
+        int sales = service.getFilmSales(filmId);
+        model.addAttribute("filmDetail", filmDetail.orElse(null));
+        model.addAttribute("sales", sales);
         return "movieDetail";
     }
 }
