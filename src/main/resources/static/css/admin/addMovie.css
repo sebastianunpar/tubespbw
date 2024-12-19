@@ -1,168 +1,171 @@
-    /* General Reset */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-  
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #121212;
-        color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-      }
-  
-      .container {
-        background-color: #1f1f1f;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        max-width: 900px;
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-  
-      .header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 20px;
-      }
-  
-      .left-section {
-        flex: 1;
-        max-width: 300px;
-        text-align: center;
-        align-items: center;
-      }
-  
-      .image-preview {
-        width: 280px;
-        height: 400px;
-        background-color: #4a3e17;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-      }
-  
-      .image-preview img {
-        border-radius: 10px;
-        padding: 10px;
-        max-width: 280px;
-        max-height: 400px;
-      }
-  
-      .button {
-        display: inline-block;
-        width: 100%;
-        color: #121212;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        margin-top: 10px;
-        transition: background-color 0.3s ease;
-        color: white;
-      }
-  
-      .right-section {
-        flex: 2;
-      }
-  
-      .form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-      }
-  
-      .form label {
-        font-weight: bold;
-      }
-  
-      .form input,
-      .form textarea {
-        width: 100%;
-        padding: 10px;
-        background-color: #2a2a2a;
-        border: 1px solid #555;
-        border-radius: 5px;
-        color: #fff;
-      }
-  
-      .form textarea {
-        resize: none;
-      }
-  
-      .checkbox-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-  
-      /* Custom checkbox styling */
-      .checkbox-group label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background-color: #2a2a2a;
-        color: #fff;
-        padding: 8px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      }
-  
-      .checkbox-group input {
-        display: none; /* Hide default checkbox */
-      }
-  
-      .checkbox-group label:hover {
-        background-color: #333;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      }
-  
-      .checkbox-group input:checked + label {
-        background-color: #ffc107;
-        color: #121212;
-        font-weight: bold;
-      }
-  
-      .actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-      }
-  
-      .back-btn,
-      .save-btn {
-        background-color: #ffc107;
-        color: #121212;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-  
-      .save-btn:hover {
-        background-color: #ffd54f;
-      }
-  
-      .back-btn {
-        background-color: #555;
-        color: #fff;
-      }
-  
-      .back-btn:hover {
-        background-color: #777;
-      }
-  
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    width: 80%;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h2 {
+    color: #ffc107;
+}
+
+/* Main Content Layout */
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* Movie Form Box */
+.movie-form-box {
+    display: flex;
+    flex: 3;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.poster-section {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.poster-preview {
+    width: 280px;
+    height: 400px;
+    background-color: #4a3e17;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    text-align: center;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 10px;
+}
+
+.movie-details {
+    flex: 2;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    display: block;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #2a2a2a;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #fff;
+}
+
+textarea {
+    resize: none;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    background-color: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.checkbox-group input {
+    display: none;
+}
+
+.checkbox-group input:checked + label {
+    background-color: #ffc107;
+    color: #121212;
+    font-weight: bold;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.save-btn,
+.cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-btn {
+    background-color: #ffc107;
+    color: #121212;
+}
+
+.cancel-btn {
+    background-color: #555;
+    color: #fff;
+}
+
+/* Side Box */
+.side-box {
+    flex: 1;
+    height: fit-content;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.side-box h3,
+.side-box h4 {
+    color: #ffc107;
+    margin-bottom: 10px;
+}
+
+.add-btn {
+    margin-top: 10px;
+    background-color: #ffc107;
+    color: #121212;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
