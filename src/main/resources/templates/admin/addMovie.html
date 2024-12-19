@@ -1,167 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/admin/addMovie.css">
-  <title>Add New Movie</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Film Baru</title>
+    <link rel="stylesheet" href="/css/admin/addMovie.css">
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h2>Add New Movie</h2>
+    <div class="container">
+        <header>
+            <h2>Tambah Film Baru</h2>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Movie Form -->
+            <form class="movie-form-box" action="#" method="POST" enctype="multipart/form-data">
+                <!-- Left Side: Poster Upload -->
+                <div class="poster-section">
+                    <label for="poster">Poster Film</label>
+                    <div class="poster-preview" id="posterPreview">Preview</div>
+                    <input type="file" id="poster" name="poster" accept="image/*" onchange="previewPoster(event)" required>
+                </div>
+
+                <!-- Right Side: Inputs -->
+                <div class="movie-details">
+                    <div class="form-group">
+                        <label for="title">Judul</label>
+                        <input type="text" id="title" name="title" placeholder="Masukkan judul film" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Harga</label>
+                        <input type="number" id="price" name="price" placeholder="Masukkan harga sewa" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">Stok</label>
+                        <input type="number" id="stock" name="stock" placeholder="Masukkan jumlah stok" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Deskripsi</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Masukkan deskripsi film" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Genre</label>
+                        <div class="checkbox-group" id="genreCheckboxes">
+                            <!-- Example genres -->
+                            <input type="checkbox" id="genre-action" name="genres" value="Action">
+                            <label for="genre-action">Action</label>
+
+                            <input type="checkbox" id="genre-comedy" name="genres" value="Comedy">
+                            <label for="genre-comedy">Comedy</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Aktor</label>
+                        <div class="checkbox-group" id="actorCheckboxes">
+                            <!-- Example actors -->
+                            <input type="checkbox" id="actor-actor1" name="actors" value="Actor 1">
+                            <label for="actor-actor1">Actor 1</label>
+
+                            <input type="checkbox" id="actor-actor2" name="actors" value="Actor 2">
+                            <label for="actor-actor2">Actor 2</label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" onclick="history.back()">Batal</button>
+                        <button type="submit" class="save-btn">Simpan</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Add Genre and Actor Form -->
+            <div class="side-box">
+
+                <div class="form-group">
+                    <h4>Tambah Genre Baru</h4>
+                    <form id="addGenreForm" action="/add-genre" method="POST">
+                        <input type="text" id="newGenre" name="newGenre" placeholder="Masukkan nama genre baru" required>
+                        <button type="submit" class="add-btn">Tambah Genre</button>
+                    </form>
+                </div>
+
+                <div class="form-group">
+                    <h4>Tambah Aktor Baru</h4>
+                    <form id="addActorForm" action="/add-actor" method="POST">
+                        <input type="text" id="newActor" name="newActor" placeholder="Masukkan nama aktor baru" required>
+                        <button type="submit" class="add-btn">Tambah Aktor</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="left-section">
-      <div class="image-preview" id="imagePreview">
-        <span style="color: #aaa;">No image</span>
-      </div>
-      <input type="file" id="imageUpload" class="button" accept="image/*" onchange="previewImage(event)">
-    </div>
-
-    <div class="right-section">
-      <form class="form" action="/add-movie" method="POST">
-        <label for="name">Nama Film:</label>
-        <input type="text" id="name" name="name" placeholder="Enter movie name" required>
-
-        <label for="price">Harga:</label>
-        <input type="number" id="price" name="price" placeholder="Enter price" required>
-
-        <label>Genres:</label>
-        <div class="checkbox-group" id="genreCheckboxes">
-          <input type="checkbox" id="action" name="genres" value="Action">
-          <label for="action">Action</label>
-        
-          <input type="checkbox" id="comedy" name="genres" value="Comedy">
-          <label for="comedy">Comedy</label>
-        
-          <input type="checkbox" id="drama" name="genres" value="Drama">
-          <label for="drama">Drama</label>
-        
-          <input type="checkbox" id="horror" name="genres" value="Horror">
-          <label for="horror">Horror</label>
-        
-          <input type="checkbox" id="scifi" name="genres" value="Sci-Fi">
-          <label for="scifi">Sci-Fi</label>
-        </div>
-        <button type="button" class="add-genre-btn" onclick="toggleGenreInput()">Tambah Genre</button>
-        <div id="newGenreInput" style="display: none;">
-          <input type="text" id="newGenre" placeholder="Enter new genre">
-          <button class="add-new" type="button" onclick="addNewGenre()">Add New Genre</button>
-        </div>
-        
-        <label>Aktor:</label>
-        <div class="checkbox-group" id="actorCheckboxes">
-          <input type="checkbox" id="actor1" name="actors" value="Actor 1">
-          <label for="actor1">Actor 1</label>
-        
-          <input type="checkbox" id="actor2" name="actors" value="Actor 2">
-          <label for="actor2">Actor 2</label>
-        
-          <input type="checkbox" id="actor3" name="actors" value="Actor 3">
-          <label for="actor3">Actor 3</label>
-        
-          <input type="checkbox" id="actor4" name="actors" value="Actor 4">
-          <label for="actor4">Actor 4</label>
-        </div>
-        <button type="button" class="add-actor-btn" onclick="toggleActorInput()">Tambah Aktor</button>
-        <div id="newActorInput" style="display: none;">
-          <input type="text" id="newActor" placeholder="Enter new actor">
-          <button class="add-new" type="button" onclick="addNewActor()">Add New Actor</button>
-        </div>
-        
-        <label for="stock">Stock:</label>
-        <input type="number" id="stock" name="stock" placeholder="Enter stock" required>
-
-        <label for="storyline">Storyline:</label>
-        <textarea id="storyline" name="storyline" placeholder="Enter storyline" rows="4" required></textarea>
-
-        <div class="actions">
-          <button type="button" class="back-btn" onclick="history.back()">Cancel</button>
-          <button type="submit" class="save-btn">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    function previewImage(event) {
-      const imagePreview = document.getElementById('imagePreview');
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          imagePreview.innerHTML = `<img src="${e.target.result}" alt="Movie Poster">`;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // Toggle Genre Input Box
-function toggleGenreInput() {
-  const genreInput = document.getElementById('newGenreInput');
-  genreInput.style.display = genreInput.style.display === 'none' ? 'block' : 'none';
-}
-
-// Toggle Actor Input Box
-function toggleActorInput() {
-  const actorInput = document.getElementById('newActorInput');
-  actorInput.style.display = actorInput.style.display === 'none' ? 'block' : 'none';
-}
-
-// Add New Genre to the Genre List and Database
-function addNewGenre() {
-  const newGenre = document.getElementById('newGenre').value.trim();
-  if (newGenre) {
-    // Add new genre checkbox dynamically
-    const genreContainer = document.getElementById('genreCheckboxes');
-    const newCheckbox = document.createElement('div');
-    newCheckbox.innerHTML = `
-      <input type="checkbox" name="genres" value="${newGenre}" id="genre_${newGenre}">
-      <label for="genre_${newGenre}">${newGenre}</label>
-    `;
-    genreContainer.appendChild(newCheckbox);
-    
-    // Optionally, send the new genre to the backend to store in the database (AJAX or form submission)
-    // Example: send to server using AJAX
-    fetch('/add-genre', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ genre: newGenre })
-    });
-
-    // Clear the input box
-    document.getElementById('newGenre').value = '';
-  }
-}
-
-// Add New Actor to the Actor List and Database
-function addNewActor() {
-  const newActor = document.getElementById('newActor').value.trim();
-  if (newActor) {
-    // Add new actor checkbox dynamically
-    const actorContainer = document.getElementById('actorCheckboxes');
-    const newCheckbox = document.createElement('div');
-    newCheckbox.innerHTML = `
-      <input type="checkbox" name="actors" value="${newActor}" id="actor_${newActor}">
-      <label for="actor_${newActor}">${newActor}</label>
-    `;
-    actorContainer.appendChild(newCheckbox);
-    
-    fetch('/add-actor', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ actor: newActor })
-    });
-
-    // Clear the input box
-    document.getElementById('newActor').value = '';
-  }
-}
-  </script>
+    <script>
+        function previewPoster(event) {
+            const file = event.target.files[0];
+            const posterPreview = document.getElementById('posterPreview');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    posterPreview.style.backgroundImage = `url('${e.target.result}')`;
+                    posterPreview.innerHTML = ''; // Clear the text
+                };
+                reader.readAsDataURL(file);
+            } else {
+                posterPreview.style.backgroundImage = '';
+                posterPreview.innerHTML = 'No image';
+            }
+        }
+    </script>
 </body>
 </html>
