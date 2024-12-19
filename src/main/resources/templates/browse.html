@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse UI</title>
-  <link rel="stylesheet" href="/src/main/resources/static/css/browsePage.css">
+  <link rel="stylesheet" href="css/browsePage.css">
   <script src="js/pengguna/browsePage.js" defer></script>
   
   <!-- tambahan style buat link nya -->
@@ -54,7 +54,7 @@
   <header class="navbar">
     <div class="nav-left">
       <div class="nav-item logo">
-        <img src="/src/main/resources/static/assets/img/Logo-Tubes_PBW.png" alt="">
+        <img src="assets/img/Logo-Tubes_PBW.png" alt="">
       </div>
       <div class="nav-item">
         <a href="/">HOME</a>
@@ -70,10 +70,10 @@
     <div class="nav-middle">
       <div class="search-bar">
           <input type="text" placeholder="Search..."/>
-          <img src="/src/main/resources/static/assets/img/search-bar-logo.png" alt="">
+          <img src="assets/img/search-bar-logo.png">
       </div>
       <div class="filter">
-        <button id="open-dialog" class="open-btn"><img src="/src/main/resources/static/assets/svg/filter-logo.svg" alt=""></button>
+        <button id="open-dialog" class="open-btn"><img src="assets/svg/filter-logo.svg"></button>
       </div>
     </div>
 
@@ -86,70 +86,12 @@
 
   <main class="content">
     <div class="card-container">
-      <a href="@{'/film'/} + @{filmId}" class="card" th:each="film : ${films}">
+      <a th:href="@{'/film/'} + ${film.filmId}" class="card" th:each="film : ${films}">
         <div class="image-placeholder">
-          <img src="assets/img/deadpool&wolverine.jpg" alt="">
+          <img th:src="'data:image/jpeg;base64,' + ${film.base64Poster}">
         </div>
-        <p th:text="film.title"></p>
-        <p th:text="film.stock"></p>
+        <p th:text="${film.title}"></p>
       </a>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/deadpool&wolverine.jpg" alt="">
-        </div>
-        <p>Deadpool & Wolverine</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/interstellar.jpg" alt="">
-        </div>
-        <p>Interstellar</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/fightclub.jpg" alt="">
-        </div>
-        <p>Fight Club</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/forrestgump.jpg" alt="">
-        </div>
-        <p>Forrest Gump</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/pulpfiction.jpg" alt="">
-        </div>
-        <p>Pulp Fiction</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/thegodfather.jpg" alt="">
-        </div>
-        <p>The God Father</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/12angrymen.jpg" alt="">
-        </div>
-        <p>12 Angry Men</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img src="assets/img/lordoftherings.jpg" alt="">
-        </div>
-        <p>Lord of The Rings</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <!-- tambah link -->
-            <a href="/movie-detail">
-              <img src="assets/img/venomlastdance.png" alt="">
-            </a>
-        </div>
-        <p>Venom: The Last Dance</p>
-      </div>
     </div>
   </main>
 </body>

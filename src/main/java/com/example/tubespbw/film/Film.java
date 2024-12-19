@@ -11,4 +11,5 @@ public class Film {
     private String title;
     private int stock;
     private byte[] poster;
+    private String base64Poster;
 }
