@@ -1,22 +1,22 @@
-package com.example.tubespbw.user;
+// package com.example.tubespbw.user;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.stereotype.Controller;
+// import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class UserController {
-    @GetMapping({"", "/"})
-    public String showHome() {
-        return "home";
-    }
+// @Controller
+// public class UserController {
+//     @GetMapping({"", "/"})
+//     public String showHome() {
+//         return "home";
+//     }
 
-    @GetMapping("/rentals")
-    public String showRentals() {
-        return "user/rentals";
-    }
+//     @GetMapping("/rentals")
+//     public String showRentals() {
+//         return "user/rentals";
+//     }
 
-    @GetMapping("/history")
-    public String showHistory() {
-        return "user/history";
-    }
-}
+//     @GetMapping("/history")
+//     public String showHistory() {
+//         return "user/history";
+//     }
+// }
