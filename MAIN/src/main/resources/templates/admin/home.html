@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/HomepageAdmin.css">
+    <title>Homepage Admin</title>
+
+    <style>
+        a {
+            all: unset;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="page-container">
+
+        <div class="logo">
+            <p class="morent">MOREnt.</p>
+        </div>
+
+        <!-- Header Section -->
+        <div class="header">
+            <p class="dashboard-header">Homepage</p>
+            <img class="profile" src="/assets/svg/generic-avatar0.svg" />
+        </div>
+
+      <!-- Sidebar Section -->
+        <div class="sidebar">
+            <div class="navigation">
+            <div class="menu-item dashboard">
+                <img class="icon-dashboard" src="/assets/svg/home-20.svg" />
+                <p class="nav-dashboard">
+                    <a href="/admin">Dashboard</a>
+                </p>
+            </div>
+
+            <div class="menu-item daftar-film">
+                <img class="icon-film" src="/assets/svg/film.svg" />
+                <p class="nav-daftar-film">
+                    <a href="/admin/manage-movie">Daftar Film</a>
+                </p>
+            </div>
+
+            <div class="menu-item genre-aktor">
+                <img class="icon-genre-aktor" src="/assets/svg/folder-check0.svg" />
+                <p class="nav-genre-aktor">
+                    <a href="/admin/manage-genres">Genre & Aktor</a>
+                </p>
+                <!-- <span class="badge">13</span> -->
+            </div>
+
+            <div class="menu-item laporan">
+                <img class="icon-laporan" src="/assets/svg/icon-graph0.svg" />
+
+                <!-- tambahan link -->
+                <p class="nav-laporan">
+                    <a href="/admin/report">Laporan</a>
+                </p>
+                <!-- tambahan link -->
+
+            </div>
+
+            <div class="nav-divider">
+                <hr class="solid" />
+            </div>
+
+            <div class="menu-item log-out">
+                <img class="icon-log-out" src="/assets/svg/logout-040.svg" />
+                <p class="nav-log-out">
+                    <a href="/login">Log Out</a>
+                </p>
+            </div>
+
+            <div class="menu-item faq">
+                <img class="icon-faq" src="/assets/svg/help-circle-contained0.svg" />
+                <p class="nav-faq">FAQ</p>
+            </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="title-container">
+                Welcome, admin!
+            </div>
+            <div class="main-content-grid">
+                <div class="main-container banyak-film">
+                        <img src="/assets/svg/movie-recorder.svg" class="icon-main">
+                        <p>Banyak film saat ini</p>
+                        <p><span>30</span> film</p>
+                </div>
+                <div class="main-container total-pemasukan">
+                    <img src="/assets/svg/money-bag.svg" class="icon-main">
+                    <p>Total pemasukan saat ini</p>
+                    <p>Rp.<span>30.000.000</span></p>
+                </div>
+                <div class="main-container banyak-genre">
+                    <img src="/assets/svg/theater-masks.svg" class="icon-main">
+                    <p>Banyak genre saat ini</p>
+                    <p><span>30</span> genre</p>
+                </div>
+                <div class="main-container banyak-aktor">
+                    <img src="/assets/svg/people.svg" class="icon-main">
+                    <p>Banyak aktor saat ini</p>
+                    <p><span>30</span> aktor</p>
+                </div>
+                <div class="main-container film-terlaris">
+                    <span class="title-container-film-terlaris">Film terlaris<p>bulan ini</p></span>
+                    <div class="img-title-terlaris"></div>
+                    <span class="title-terlaris">Titanis(2020)</span>
+                    <p><span>99</span>x disewa</p>
+                </div>
+            </div>   
+        </div> 
+    </div>
+</body>
+</html>

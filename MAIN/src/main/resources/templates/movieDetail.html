@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Details UI</title>
+  <link rel="stylesheet" th:href="@{/css/movieDetail.css}">
+  <script th:src="@{/js/pengguna/movieDetail.js}" defer></script>
+
+</head>
+<body>
+
+ <!-- Payment Dialog -->
+<dialog id="payment-dialog" class="payment-dialog">
+  <div class="dialog-content">
+    <h1 th:text="${filmDetail.title}"></h1>
+    <p class="price" th:text="${filmDetail.price}"></p>
+
+    <div class="payment-methods">
+      <p class="methods-title">Metode Pembayaran</p>
+
+      <button class="method" id="bca-method">
+        <img src="assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
+        <p>BCA Virtual Account</p>
+        <span class="arrow">&rarr;</span>
+      </button>
+
+      <button class="method" id="mandiri-method">
+        <img src="assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
+        <p>Mandiri Virtual Account</p>
+        <span class="arrow">&rarr;</span>
+      </button>
+    </div>
+
+    <!-- Virtual Account Section (Hidden initially) -->
+    <div id="virtual-account-section" class="virtual-account-section">
+      <div class="virtual-account">
+        <div class="bank-logo" id="bank-logo">Mandiri Virtual Account</div>
+        <div class="account-number" id="account-number">-</div>
+        <button class="copy-button" onclick="copyToClipboard()">Salin</button>
+      </div>
+    </div>
+
+  </div>
+  <button id="close-dialog" class="close-btn">&times;</button>
+</dialog>
+
+  
+  <div class="container">
+    <!-- Back Button -->
+    <div class="back-button" onclick="goBack()">
+      <span>&larr; Back</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Movie Poster Section -->
+      <div class="poster-section">
+        <div class="poster">
+          <div class="poster-placeholder">
+            <img src="assets/img/venomlastdance.png" alt="" width="280" height="400">
+          </div>
+        </div>
+        <div class="poster-info">
+          <p th:text="'Disewa ' + ${sales} + ' kali'"></p>
+          <p class="available" th:if="${filmDetail.valid}">Available to lease</p>
+          <p class="available" th:if="${!filmDetail.valid}">Out of stock</p>
+          <p  th:text="'Stock: ' + ${filmDetail.stock}"></p>
+        </div>
+      </div>
+
+      <!-- Movie Details Section -->
+      <div class="details-section">
+        <h1 th:text="${filmDetail.title}"></h1>
+        <div class="rental-info">
+          <p class="label">Sewa</p>
+          <button id="open-dialog" class="open-btn" th:text="${filmDetail.price}"></button>
+        </div>
+        <div class="storyline">
+          <p class="label">Synopsis</p>
+          <p th:text="${filmDetail.synopsis}"></p>
+        </div>
+
+        <!-- Divider Line -->
+        <div class="divider"></div>
+
+        <div class="additional-info">
+          <!-- Genres Section -->
+          <div class="genres">
+            <p class="label">Genres</p>
+            <div class="genre-buttons">
+              <button th:each="genre : ${filmDetail.genres}" th:text="${genre}"></button>
+            </div>
+          </div>
+          <!-- Cast Section -->
+          <div class="casts">
+            <p class="label">Casts</p>
+            <div class="cast-list">
+              <button th:each="actor : ${filmDetail.actors}" th:text="${actor}"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

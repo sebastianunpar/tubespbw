@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Renting Website</title>
+  <link rel="stylesheet" href="css/home.css">
+  <script href="js/home.js" defer></script>
+  
+</head>
+<body>
+
+    <!-- nav bar -->
+    <header class="navbar">
+        <!-- bagian kiri -->
+        <div class="nav-left">
+            <div class="nav-item active">
+                <a href="/">HOME</a>
+            </div>
+            <div class="nav-item" >
+                <a href="/browse">BROWSE</a>
+            </div>
+            <div class="nav-item">
+                <a href="">ABOUT US</a>
+            </div>
+        </div>
+
+        <!-- bagian login -->
+        <div class="nav-right">
+            <!-- <a href="/rentals">
+                <div class="profile-icon"></div>
+            </a> -->
+            <a href="/login"><button>Login</button></a>
+        </div>
+
+    </header>
+    
+
+    <main>
+        <section class="welcome-section">
+            <h1>Welcome to <span>MOREnt.</span></h1>
+            <p>
+                Ayo cari film favorit kamu dan sewa sekarang! Kamu juga dapat mampir mengunjungi toko offline  
+                <strong>MoreEnt. </strong> 
+                di Jl unpar ema ema.
+            </p>
+        </section>
+
+        <section class="popular-films">
+            <h2>Popular Films</h2>
+            <input type="radio" name="slider" id="item-1" checked>
+            <input type="radio" name="slider" id="item-2">
+            <input type="radio" name="slider" id="item-3">
+            <section class="carousel">
+                <label for="item-1" class="card" id="movie-1">
+                    <img src=
+                    "https://wallpapers.com/images/high/arcane-poster-powder-jfjyqs2drcql3ar6.webp"
+                    alt="movie 1">
+                </label>
+                <label for="item-2" class="card" id="movie-2">
+                    <img src=
+                    "https://www.hdwallpapers.in/thumbs/2021/valorant_2021_game_poster_hd_valorant-t2.jpg"
+                    alt="movie 2">
+                </label>
+                <label for="item-3" class="card" id="movie-3">
+                    <img src=
+                        "https://i0.wp.com/stories.briefer.id/wp-content/uploads/2024/05/IMG_8183.jpeg?w=600&ssl=1"                    
+                    alt="movie 3">
+                </label>
+            </section>
+        </section>
+
+  </main>
+</body>
+</html>
