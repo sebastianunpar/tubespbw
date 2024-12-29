@@ -80,4 +80,35 @@ public class FilmJdbcRepo implements FilmRepository{
         String sql = "SELECT COUNT(*) FROM rental WHERE filmId = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{filmId}, Integer.class);
     }
+
+    @Override
+    public boolean insertGenre(String genre) {
+        String sql = "INSERT INTO genre (name, valid) VALUES (?, 'true')";
+        int rowsAffected = jdbcTemplate.update(sql, genre);
+        System.out.println(rowsAffected);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean insertActor(String actor) {
+        String sql = "INSERT INTO actor (name, valid) VALUES (?, 'true')";
+        try {
+            int rowsAffected = jdbcTemplate.update(sql, actor);
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public List<String> getAllGenre() throws SQLException {
+        String sql = "SELECT name FROM genre";
+        return jdbcTemplate.query(sql, this::mapRowToGenre);
+    }
+
+    @Override
+    public List<String> getAllActor() throws SQLException {
+        String sql = "SELECT name FROM actor";
+        return jdbcTemplate.query(sql, this::mapRowToActor);
+    }
 }

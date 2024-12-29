@@ -39,4 +39,20 @@ public class FilmService {
         return repo.getFilmSales(filmId);
     }
 
+    public boolean insertGenre(String genre) {
+        return repo.insertGenre(genre);
+    }
+
+    public boolean insertActor(String actor) {
+        return repo.insertActor(actor);
+    }
+
+    public List<String> getAllGenre() throws SQLException {
+        return repo.getAllGenre();
+    }
+
+    public List<String> getAllActor() throws SQLException {
+        return repo.getAllActor();
+    }
+
 }

@@ -49,11 +49,13 @@
                         <label>Genre</label>
                         <div class="checkbox-group" id="genreCheckboxes">
                             <!-- Example genres -->
-                            <input type="checkbox" id="genre-action" name="genres" value="Action">
-                            <label for="genre-action">Action</label>
+                            <th:block th:each="genre : ${genres}">
+                                <input type="checkbox" th:id="'genre-' + ${genre}" th:name="'genres'" th:value="${genre}">
+                                <label th:for="'genre-' + ${genre}" th:text="${genre}"></label>
+                            </th:block>
 
-                            <input type="checkbox" id="genre-comedy" name="genres" value="Comedy">
-                            <label for="genre-comedy">Comedy</label>
+                            <!-- <input type="checkbox" id="genre-comedy" name="genres" value="Comedy">
+                            <label for="genre-comedy">Comedy</label> -->
                         </div>
                     </div>
 
@@ -61,11 +63,13 @@
                         <label>Aktor</label>
                         <div class="checkbox-group" id="actorCheckboxes">
                             <!-- Example actors -->
-                            <input type="checkbox" id="actor-actor1" name="actors" value="Actor 1">
-                            <label for="actor-actor1">Actor 1</label>
+                            <th:block th:each="actor : ${actors}">
+                                <input type="checkbox" th:id="'actor-' + ${actor}" th:name="'actors'" th:value="${actor}">
+                                <label th:for="'actor-' + ${actor}" th:text="${actor}"></label>
+                            </th:block>
 
-                            <input type="checkbox" id="actor-actor2" name="actors" value="Actor 2">
-                            <label for="actor-actor2">Actor 2</label>
+                            <!-- <input type="checkbox" id="actor-actor2" name="actors" value="Actor 2">
+                            <label for="actor-actor2">Actor 2</label> -->
                         </div>
                     </div>
 
@@ -81,7 +85,7 @@
 
                 <div class="form-group">
                     <h4>Tambah Genre Baru</h4>
-                    <form id="addGenreForm" action="/add-genre" method="POST">
+                    <form id="addGenreForm" action="add-genre" method="POST">
                         <input type="text" id="newGenre" name="newGenre" placeholder="Masukkan nama genre baru" required>
                         <button type="submit" class="add-btn">Tambah Genre</button>
                     </form>
@@ -89,7 +93,7 @@
 
                 <div class="form-group">
                     <h4>Tambah Aktor Baru</h4>
-                    <form id="addActorForm" action="/add-actor" method="POST">
+                    <form id="addActorForm" action="add-actor" method="POST">
                         <input type="text" id="newActor" name="newActor" placeholder="Masukkan nama aktor baru" required>
                         <button type="submit" class="add-btn">Tambah Aktor</button>
                     </form>

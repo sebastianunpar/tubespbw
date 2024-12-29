@@ -10,4 +10,8 @@ public interface FilmRepository {
     List<String> getFilmActors(int filmId) throws SQLException;
     Optional<FilmDetail> getFilmDetail(int filmId) throws SQLException;
     int getFilmSales(int filmId) throws SQLException;
+    boolean insertActor(String actor);
+    boolean insertGenre(String genre);
+    List<String> getAllGenre() throws SQLException;
+    List<String> getAllActor() throws SQLException;
 }
