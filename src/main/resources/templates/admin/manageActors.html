@@ -25,23 +25,23 @@
             <div class="navigation">
             <div class="menu-item dashboard">
                 <img class="icon-dashboard" src="/assets/svg/home-20.svg" />
-                <p class="nav-dashboard">
-                    <a href="/admin">Dashboard</a>
-                </p>
+                <a href="/admin">
+                    <p class="nav-dashboard">Dashboard</p>
+                </a>
             </div>
 
             <div class="menu-item daftar-film">
                 <img class="icon-film" src="/assets/svg/film.svg" />
-                <p class="nav-daftar-film">
-                    <a href="/admin/add-movie">Daftar Film</a>
-                </p>
+                <a href="/admin/add-movie">
+                    <p class="nav-daftar-film">Daftar Film</p>
+                </a>
             </div>
 
             <div class="menu-item genre-aktor">
                 <img class="icon-genre-aktor" src="/assets/svg/folder-check0.svg" />
-                <p class="nav-genre-aktor">
-                    <a href="/admin/manage-genres">Genre & Aktor</a>
-                </p>
+                <a href="/admin/manage-genres">
+                    <p class="nav-genre-aktor">Genre & Aktor</p>
+                </a>
                 <!-- <span class="badge">13</span> -->
             </div>
 
@@ -49,9 +49,9 @@
                 <img class="icon-laporan" src="/assets/svg/icon-graph0.svg" />
 
                 <!-- tambahan link -->
-                <p class="nav-laporan">
-                    <a href="/admin/report">Laporan</a>
-                </p>
+                <a href="/admin/report">
+                    <p class="nav-laporan">Laporan</p>
+                </a>
                 <!-- tambahan link -->
 
             </div>
@@ -62,14 +62,16 @@
 
             <div class="menu-item log-out">
                 <img class="icon-log-out" src="/assets/svg/logout-040.svg" />
-                <p class="nav-log-out">
-                    <a href="/login">Log Out</a>
-                </p>
+                <a href="/login">
+                    <p class="nav-log-out">Log Out</p>
+                </a>
             </div>
 
             <div class="menu-item faq">
                 <img class="icon-faq" src="/assets/svg/help-circle-contained0.svg" />
-                <p class="nav-faq">FAQ</p>
+                <a href="#">
+                    <p class="nav-faq">FAQ</p>
+                </a>
             </div>
             </div>
         </div>
@@ -105,15 +107,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td>1</td>
                             <td>Jason Statham</td>
                             <td class="actions">
                                 <button>Edit</button>
                                 <button>Delete</button>
                             </td>
-                        </tr>
+                        </tr> -->
                         <!-- Add more actor rows here -->
+
+                        <tr th:each="actor : ${actors}">
+                            <td th:text="${actor.actorId}"></td>
+                            <td th:text="${actor.name}"></td>
+                            <td class="actions">
+                                <form th:action="@{/admin/edit-actor}" method="GET">
+                                    <!-- <input type="hidden" name="actorId" th:value="${actor.actorId}"> -->
+                                    <button type="submit">Edit</button>
+                                </form>
+                                <form th:action="@{/admin/delete-actor}" method="POST">
+                                    <!-- <input type="hidden" name="actorId" th:value="${actor.actorId}"> -->
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

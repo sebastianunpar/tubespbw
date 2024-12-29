@@ -1,11 +1,16 @@
 package com.example.tubespbw.film;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Optional;
 
 
@@ -17,8 +22,8 @@ public class FilmService {
     public List<Film> getAllFilmUser() throws SQLException{
         List<Film> films = repo.getAll();
         for (Film film : films) {
-            String base64Poseter = generateBase64Poster(film.getPoster());
-            film.setBase64Poster(base64Poseter);
+            String base64Poster = generateBase64Poster(film.getPoster());
+            film.setBase64Poster(base64Poster);
         }
         return films;
     }
@@ -30,8 +35,10 @@ public class FilmService {
         return null;
     }
 
-    public Optional<FilmDetail> getFilmDetail(int filmId) throws SQLException {
-        Optional<FilmDetail> filmDetail = repo.getFilmDetail(filmId);
+    public FilmDetail getFilmDetail(int filmId) throws SQLException {
+        FilmDetail filmDetail = repo.getFilmDetail(filmId).get();
+        String base64Poster = generateBase64Poster(filmDetail.getPoster());
+        filmDetail.setBase64Poster(base64Poster);
         return filmDetail;
     }
 
@@ -47,12 +54,30 @@ public class FilmService {
         return repo.insertActor(actor);
     }
 
-    public List<String> getAllGenre() throws SQLException {
+    public List<Genre> getAllGenre() throws SQLException {
         return repo.getAllGenre();
     }
 
-    public List<String> getAllActor() throws SQLException {
+    public List<Actor> getAllActor() throws SQLException {
         return repo.getAllActor();
+    }
+
+    public boolean insertFilm(MultipartFile poster, String title, int price, int stock, String description, List<Integer> genres, List<Integer> actors) {
+        try {
+            byte[] posterBytes = poster.getBytes();
+            repo.insertFilm(title, description, posterBytes, stock, price);
+            int filmId = repo.getLatestFilmId().get();
+            for (Integer genre : genres) {
+                repo.insertFilmGenre(filmId, genre);
+            }
+            for (Integer actor : actors) {
+                repo.insertFilmActor(filmId, actor);
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
 }

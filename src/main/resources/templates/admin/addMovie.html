@@ -15,12 +15,12 @@
         <!-- Main Content -->
         <div class="main-content">
             <!-- Movie Form -->
-            <form class="movie-form-box" action="#" method="POST" enctype="multipart/form-data">
+            <form class="movie-form-box" action="addFilm" method="POST" enctype="multipart/form-data">
                 <!-- Left Side: Poster Upload -->
                 <div class="poster-section">
                     <label for="poster">Poster Film</label>
                     <div class="poster-preview" id="posterPreview">Preview</div>
-                    <input type="file" id="poster" name="poster" accept="image/*" onchange="previewPoster(event)" required>
+                    <input type="file" id="poster" name="poster" accept="image/jpeg" onchange="previewPoster(event)" required>
                 </div>
 
                 <!-- Right Side: Inputs -->
@@ -50,8 +50,8 @@
                         <div class="checkbox-group" id="genreCheckboxes">
                             <!-- Example genres -->
                             <th:block th:each="genre : ${genres}">
-                                <input type="checkbox" th:id="'genre-' + ${genre}" th:name="'genres'" th:value="${genre}">
-                                <label th:for="'genre-' + ${genre}" th:text="${genre}"></label>
+                                <input type="checkbox" th:id="'genre-' + ${genre.genreId}" th:name="genres" th:value="${genre.genreId}">
+                                <label th:for="'genre-' + ${genre.genreId}" th:text="${genre.name}"></label>
                             </th:block>
 
                             <!-- <input type="checkbox" id="genre-comedy" name="genres" value="Comedy">
@@ -64,8 +64,8 @@
                         <div class="checkbox-group" id="actorCheckboxes">
                             <!-- Example actors -->
                             <th:block th:each="actor : ${actors}">
-                                <input type="checkbox" th:id="'actor-' + ${actor}" th:name="'actors'" th:value="${actor}">
-                                <label th:for="'actor-' + ${actor}" th:text="${actor}"></label>
+                                <input type="checkbox" th:id="'actor-' + ${actor.actorId}" th:name="actors" th:value="${actor.actorId}">
+                                <label th:for="'actor-' + ${actor.actorId}" th:text="${actor.name}"></label>
                             </th:block>
 
                             <!-- <input type="checkbox" id="actor-actor2" name="actors" value="Actor 2">

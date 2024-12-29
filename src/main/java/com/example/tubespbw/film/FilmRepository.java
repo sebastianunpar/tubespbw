@@ -12,6 +12,10 @@ public interface FilmRepository {
     int getFilmSales(int filmId) throws SQLException;
     boolean insertActor(String actor);
     boolean insertGenre(String genre);
-    List<String> getAllGenre() throws SQLException;
-    List<String> getAllActor() throws SQLException;
+    List<Genre> getAllGenre() throws SQLException;
+    List<Actor> getAllActor() throws SQLException;
+    boolean insertFilm(String title, String description, byte[] poster, int stock, int price);
+    boolean insertFilmGenre(int filmId, int genreId);
+    boolean insertFilmActor(int filmId, int actorId);
+    Optional<Integer> getLatestFilmId();
 }

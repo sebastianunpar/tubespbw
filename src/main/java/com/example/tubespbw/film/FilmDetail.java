@@ -18,4 +18,5 @@ public class FilmDetail {
     private boolean valid;
     private List<String> genres;
     private List<String> actors;
+    private String base64Poster;
 }
