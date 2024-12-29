@@ -15,12 +15,12 @@
         <!-- Main Content -->
         <div class="main-content">
             <!-- Movie Form -->
-            <form class="movie-form-box" action="#" method="POST" enctype="multipart/form-data">
+            <form class="movie-form-box" action="addFilm" method="POST" enctype="multipart/form-data">
                 <!-- Left Side: Poster Upload -->
                 <div class="poster-section">
                     <label for="poster">Poster Film</label>
                     <div class="poster-preview" id="posterPreview">Preview</div>
-                    <input type="file" id="poster" name="poster" accept="image/*" onchange="previewPoster(event)" required>
+                    <input type="file" id="poster" name="poster" accept="image/jpeg" onchange="previewPoster(event)" required>
                 </div>
 
                 <!-- Right Side: Inputs -->
@@ -49,11 +49,13 @@
                         <label>Genre</label>
                         <div class="checkbox-group" id="genreCheckboxes">
                             <!-- Example genres -->
-                            <input type="checkbox" id="genre-action" name="genres" value="Action">
-                            <label for="genre-action">Action</label>
+                            <th:block th:each="genre : ${genres}">
+                                <input type="checkbox" th:id="'genre-' + ${genre.genreId}" th:name="genres" th:value="${genre.genreId}">
+                                <label th:for="'genre-' + ${genre.genreId}" th:text="${genre.name}"></label>
+                            </th:block>
 
-                            <input type="checkbox" id="genre-comedy" name="genres" value="Comedy">
-                            <label for="genre-comedy">Comedy</label>
+                            <!-- <input type="checkbox" id="genre-comedy" name="genres" value="Comedy">
+                            <label for="genre-comedy">Comedy</label> -->
                         </div>
                     </div>
 
@@ -61,11 +63,13 @@
                         <label>Aktor</label>
                         <div class="checkbox-group" id="actorCheckboxes">
                             <!-- Example actors -->
-                            <input type="checkbox" id="actor-actor1" name="actors" value="Actor 1">
-                            <label for="actor-actor1">Actor 1</label>
+                            <th:block th:each="actor : ${actors}">
+                                <input type="checkbox" th:id="'actor-' + ${actor.actorId}" th:name="actors" th:value="${actor.actorId}">
+                                <label th:for="'actor-' + ${actor.actorId}" th:text="${actor.name}"></label>
+                            </th:block>
 
-                            <input type="checkbox" id="actor-actor2" name="actors" value="Actor 2">
-                            <label for="actor-actor2">Actor 2</label>
+                            <!-- <input type="checkbox" id="actor-actor2" name="actors" value="Actor 2">
+                            <label for="actor-actor2">Actor 2</label> -->
                         </div>
                     </div>
 
@@ -81,7 +85,7 @@
 
                 <div class="form-group">
                     <h4>Tambah Genre Baru</h4>
-                    <form id="addGenreForm" action="/add-genre" method="POST">
+                    <form id="addGenreForm" action="add-genre" method="POST">
                         <input type="text" id="newGenre" name="newGenre" placeholder="Masukkan nama genre baru" required>
                         <button type="submit" class="add-btn">Tambah Genre</button>
                     </form>
@@ -89,7 +93,7 @@
 
                 <div class="form-group">
                     <h4>Tambah Aktor Baru</h4>
-                    <form id="addActorForm" action="/add-actor" method="POST">
+                    <form id="addActorForm" action="add-actor" method="POST">
                         <input type="text" id="newActor" name="newActor" placeholder="Masukkan nama aktor baru" required>
                         <button type="submit" class="add-btn">Tambah Aktor</button>
                     </form>

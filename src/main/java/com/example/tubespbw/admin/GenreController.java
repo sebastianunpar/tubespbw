@@ -10,6 +10,18 @@
 
 // import java.util.List;
 
+
+
+
+// UDAH ADA DI ADMIN CONTROLLER -> @GetMapping("/manage-genres")
+
+// boleh dipindahin ke sini
+
+// -seba
+
+
+
+
 // @Controller
 // public class GenreController {
 
