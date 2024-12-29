@@ -104,23 +104,29 @@
                     </thead>
                     <tbody>
                         <!-- Repeat this for each genre -->
-                        <tr>
+                        <!-- <tr>
                             <td>1</td>
                             <td>Action</td>
                             <td class="actions">
                                 <button>Edit</button>
                                 <button>Delete</button>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Comedy</td>
+                        </tr> -->
+                        <!-- More rows here... -->
+                        <tr th:each="genre : {genres}">
+                            <td th:text="${genre.genreId}"></td>
+                            <td th:text="${genre.name}"></td>
                             <td class="actions">
-                                <button>Edit</button>
-                                <button>Delete</button>
+                                <form th:action="@{/admin/edit-genre}" method="GET">
+                                    <!-- <input type="hidden" name="genreId" th:value="${genre.genreId}"> -->
+                                    <button type="submit">Edit</button>
+                                </form>
+                                <form th:action="@{/admin/delete-genre}" method="POST">
+                                    <!-- <input type="hidden" name="genreId" th:value="${genre.genreId}"> -->
+                                    <button type="submit">Delete</button>
+                                </form>
                             </td>
                         </tr>
-                        <!-- More rows here... -->
                     </tbody>
                 </table>
             </div>

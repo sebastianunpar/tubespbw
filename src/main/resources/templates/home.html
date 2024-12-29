@@ -27,10 +27,15 @@
 
         <!-- bagian login -->
         <div class="nav-right">
-            <!-- <a href="/rentals">
-                <div class="profile-icon"></div>
-            </a> -->
-            <a href="/login"><button>Login</button></a>
+            <th:block th:if="${user != null}">
+                <!-- If the user is logged in -->
+                <span>Welcome, <strong th:text="${user.name}"></strong>!</span>
+                <a href="/logout"><button>Logout</button></a>
+            </th:block>
+            <th:block th:if="${user == null}">
+                <!-- If the user is not logged in -->
+                <a href="/login"><button>Login</button></a>
+            </th:block>
         </div>
 
     </header>
