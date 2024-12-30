@@ -9,8 +9,9 @@ DROP TABLE IF EXISTS rental CASCADE;
 CREATE TABLE users (
     userId SERIAL PRIMARY KEY,
     name VARCHAR(50),
-    email VARCHAR(70),
-    password VARCHAR(50),
+    email VARCHAR(70) UNIQUE,
+    -- password VARCHAR(50),
+    password VARCHAR(255),
     role VARCHAR(10) CHECK (role IN ('user', 'admin'))
 );
 
@@ -61,12 +62,12 @@ CREATE TABLE rental (
 );
 
 INSERT INTO users (name, email, password, role) VALUES
-('Seba Stian', 'sebastian@gmail.com', 'seba', 'admin'),
-('angie gie','angie@gmail.com', 'angie', 'user'),
-('rozan ramzy', 'rozan@gmail.com', 'rozan', 'user'),
-('hayya vv', 'hayya@gmail.com', 'hayya', 'user'),
-('iger tanks', 'iger@gmail.com', 'iger', 'user'),
-('john doe', 'john@gmail.com', 'john', 'user');
+('Seba Stian', 'sebastian@gmail.com', '$2a$10$eqkeu1M9IGSqvbU1M0LRsek35ouMeh146sSdm1SK8B1Fvdmgne3bu', 'admin'),
+('angie gie','angie@gmail.com', '$2a$10$ZyeJIHau/QoaGKx3YzbEpe5N3m/u0FB4rCCIIeFoJgTD8MHjL4LPO', 'user'),
+('rozan ramzy', 'rozan@gmail.com', '$2a$10$eeuCL6jWYRqV4SQZvrk9EeEC1sMYVmeeyt5uJH1yYXwz/BW96UhnK', 'user'),
+('hayya vv', 'hayya@gmail.com', '$2a$10$1ZQU/PTPhtcNhCGLW2g2Ze3ilMI8pE1pdH2CNI3iZOk35zfy7VEL.', 'user'),
+('iger tanks', 'iger@gmail.com', '$2a$10$G0h8VT9Y.GrxHhAkFjx/Ce2/0BuniDcFKQ9sDNzLtF1UokuAtmuTi', 'user'),
+('john doe', 'john@gmail.com', '$2a$10$8ZSoXXloIJ78bRllM2ckOuzpbv1IfjOH4T0a9u43ks.4dN7qQGhLe', 'user');
 
 INSERT INTO film (title, synopsis, poster, stock, price, valid)
 VALUES

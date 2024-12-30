@@ -26,9 +26,9 @@ public class FilmController {
 
     @GetMapping("/film/{filmId}")
     public String showMovieDetail(@PathVariable("filmId") int filmId, Model model) throws SQLException {
-        Optional<FilmDetail> filmDetail = service.getFilmDetail(filmId);
+        FilmDetail filmDetail = service.getFilmDetail(filmId);
         int sales = service.getFilmSales(filmId);
-        model.addAttribute("filmDetail", filmDetail.orElse(null));
+        model.addAttribute("filmDetail", filmDetail);
         model.addAttribute("sales", sales);
         return "movieDetail";
     }
