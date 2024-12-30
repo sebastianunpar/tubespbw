@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/admin/HomepageAdmin.css">
+    <link rel="stylesheet" href="/css/general.css">
     <title>Homepage Admin</title>
 
     <style>
@@ -17,70 +18,36 @@
     <div class="page-container">
 
         <div class="logo">
-            <p class="morent">MOREnt.</p>
+          <img src="/assets/img/logo.png" class="morent">
         </div>
 
-        <!-- Header Section -->
-        <div class="header">
-            <p class="dashboard-header">Homepage</p>
-            <img class="profile" src="/assets/svg/generic-avatar0.svg" />
-        </div>
+        <header class="navbar">
+          <div class="nav-left">
+            <!-- nambah link -->
+            <div class="nav-item active">
+              <a href="/admin">HOME</a>
+            </div>
+            <div class="nav-item" >
+              <a href="/admin/manage-movie">MANAGE FILM</a>
+            </div>
+            <div class="nav-item">
+              <a href="/admin/manage-genres">GENRE & ACTOR</a>
+            </div>
+            <div class="nav-item" >
+              <a href="/admin/report">GRAPH & REPORT</a>
+            </div>
+          </div>
+          <div class="nav-right">
+            <img src ="/assets/svg/user-avatar.svg" class="avatar">
+            <a href="/">
+              <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+            </a>
+          </div>
+          <!-- nambah link -->
+        </header>
 
-      <!-- Sidebar Section -->
-        <div class="sidebar">
-            <div class="navigation">
-            <div class="menu-item dashboard">
-                <img class="icon-dashboard" src="/assets/svg/home-20.svg" />
-                <a href="/admin">
-                    <p class="nav-dashboard">Dashboard</p>
-                </a>
-            </div>
-
-            <div class="menu-item daftar-film">
-                <img class="icon-film" src="/assets/svg/film.svg" />
-                <a href="/admin/add-movie">
-                    <p class="nav-daftar-film">Daftar Film</p>
-                </a>
-            </div>
-
-            <div class="menu-item genre-aktor">
-                <img class="icon-genre-aktor" src="/assets/svg/folder-check0.svg" />
-                <a href="/admin/manage-genres">
-                    <p class="nav-genre-aktor">Genre & Aktor</p>
-                </a>
-                <!-- <span class="badge">13</span> -->
-            </div>
-
-            <div class="menu-item laporan">
-                <img class="icon-laporan" src="/assets/svg/icon-graph0.svg" />
-                <a href="/admin/report">
-                    <p class="nav-laporan">Laporan</p>
-                </a>
-            </div>
-
-            <div class="nav-divider">
-                <hr class="solid" />
-            </div>
-
-            <div class="menu-item log-out">
-                <img class="icon-log-out" src="/assets/svg/logout-040.svg" />
-                <a href="/login">
-                    <p class="nav-log-out">Log Out</p>
-                </a>
-            </div>
-
-            <div class="menu-item faq">
-                <img class="icon-faq" src="/assets/svg/help-circle-contained0.svg" />
-                <a href="#">
-                    <p class="nav-faq">FAQ</p>
-                </a>
-            </div>
-            </div>
-        </div>
         <div class="main-content">
-            <div class="title-container">
-                Welcome, admin!
-            </div>
+
             <div class="main-content-grid">
                 <div class="main-container banyak-film">
                         <img src="/assets/svg/movie-recorder.svg" class="icon-main">
@@ -103,7 +70,7 @@
                     <p><span>30</span> aktor</p>
                 </div>
                 <div class="main-container film-terlaris">
-                    <span class="title-container-film-terlaris">Film terlaris<p>bulan ini</p></span>
+                    <span class="title-container-film-terlaris">Film terlaris<p class="bulan-ini">bulan ini</p></span>
                     <div class="img-title-terlaris"></div>
                     <span class="title-terlaris">Titanis(2020)</span>
                     <p><span>99</span>x disewa</p>

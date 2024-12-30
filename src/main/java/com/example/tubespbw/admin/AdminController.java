@@ -16,10 +16,10 @@ import com.example.tubespbw.film.Actor;
 import com.example.tubespbw.film.FilmService;
 import com.example.tubespbw.film.Genre;
 
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     FilmService filmService;
 
@@ -42,6 +42,11 @@ public class AdminController {
     @GetMapping("/film-graph")
     public String showFilmGraph() {
         return "admin/filmGraph";
+    }
+
+    @GetMapping("/manage-movie")
+    public String showManageMovie() {
+        return "admin/browseAdmin";
     }
 
     @GetMapping("/add-movie")
