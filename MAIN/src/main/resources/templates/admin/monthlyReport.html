@@ -9,61 +9,39 @@
 </head>
 <body>
     <div class="page-container">
-
         <div class="logo">
-            <p class="morent">MOREnt.</p>
+            <img src="/assets/img/logo.png" class="morent">
         </div>
-
-        <!-- Header Section -->
-        <div class="header">
-            <p class="dashboard-header">Grafik & Laporan > Laporan Bulanan</p>
-            <img class="profile" src="/assets/svg/header-nav/generic-avatar0.svg" />
-        </div>
-
-      <!-- Sidebar Section -->
-        <div class="sidebar">
-            <div class="navigation">
-            <div class="menu-item dashboard">
-                <img class="icon-dashboard" src="/assets/svg/header-nav/home-20.svg" />
-                <p class="nav-dashboard">Dashboard</p>
+        <header class="navbar">
+            <div class="nav-left">
+            <!-- nambah link -->
+            <div class="nav-item">
+                <a href="/admin">HOME</a>
             </div>
-
-            <div class="menu-item daftar-film">
-                <img class="icon-film" src="/assets/svg/header-nav/film.svg" />
-                <p class="nav-daftar-film">Daftar Film</p>
+            <div class="nav-item" >
+                <a href="/admin/manage-movie">MANAGE FILM</a>
             </div>
-
-            <div class="menu-item genre-aktor">
-                <img class="icon-genre-aktor" src="/assets/svg/header-nav/folder-check0.svg" />
-                <p class="nav-genre-aktor">Genre & Aktor</p>
-                <!-- <span class="badge">13</span> -->
+            <div class="nav-item">
+                <a href="/admin/manage-genres">GENRE & ACTOR</a>
             </div>
-
-            <div class="menu-item laporan">
-                <img class="icon-laporan" src="/assets/svg/header-nav/icon-graph0.svg" />
-                <p class="nav-laporan">Laporan</p>
-            </div>
-
-            <div class="nav-divider">
-                <hr class="solid" />
-            </div>
-
-            <div class="menu-item log-out">
-                <img class="icon-log-out" src="/assets/svg/header-nav/logout-040.svg" />
-                <p class="nav-log-out">Log Out</p>
-            </div>
-
-            <div class="menu-item faq">
-                <img class="icon-faq" src="/assets/svg/header-nav/help-circle-contained0.svg" />
-                <p class="nav-faq">FAQ</p>
+            <div class="nav-item active" >
+                <a href="/admin/report">GRAPH & REPORT</a>
             </div>
             </div>
-        </div>
+            <div class="nav-right">
+            <img src ="/assets/svg/user-avatar.svg" class="avatar">
+            <a href="/">
+                <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+            </a>
+            </div>
+            <!-- nambah link -->
+        </header>
+        
         <div class="main-content">
             <div class="upper-content">
                 <div class="saldo-saldo-container">
                     <div class="container-saldo">
-                        <img src="/assets/svg/moneybag.svg" class="logo-saldo">
+                        <img src="/assets/svg/money-bag.svg" class="logo-saldo">
                         <div class="saldo-title">
                         Total pemasukan saat ini
                         </div>
@@ -72,7 +50,7 @@
                         </div>
                     </div>
                     <div class="container-saldo">
-                        <img src="/assets/img/coin.png" class="logo-saldo">
+                        <img src="/assets/svg/money-bag2.svg" class="logo-saldo">
                         <div class="saldo-title">
                             Pemasukan anda bulan ini
                         </div>
