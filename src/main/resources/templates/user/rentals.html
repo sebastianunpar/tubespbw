@@ -17,13 +17,15 @@
 
 </head>
 <body>
-  <div class="back-btn"><img src="/assets/svg/back.svg">Back</div>
+  <a href="javascript:history.back()">
+    <div class="back-btn"><img src="/assets/svg/back.svg">Back</div>
+  </a>
   <div class="container">
     <div class="left-panel">
       <div class="profile">
         <img src="/assets/svg/user-avatar.svg" class="profile-pic">
         <h2>Nama</h2>
-        <p>Sedang dipinjam: <span>30</span> film</p>
+        <p>Sedang dipinjam: film</p>
       </div>
 
       <!-- tambah link -->
@@ -50,81 +52,15 @@
       </nav>
       <div class="rental-info">
         <table>
-          <tr>
+          <tr th:each="rental : ${rentals}">
             <td>
-              <h2>Venom: The Last Dance</h2>
-              <p><strong>ID:</strong> 6182201078</p>
-              <p><strong>Tanggal mulai sewa:</strong> 28 Nov 2024</p>
-              <p><strong>Tanggal akhir sewa:</strong> 28 Nov 2024</p>
+              <h2 th:text="${rental.title}"></h2>
+              <p><strong>ID: </strong><span th:text="${rental.rentalId}"></span></p>
+              <p><strong>Tanggal mulai sewa:</strong> <span th:text="${rental.formattedRentalDate}"></span></p>
+              <p><strong>Tanggal akhir sewa:</strong> <span th:text="${rental.formattedDueDate}"></span></p>
             </td>
             <td>
-              <p class="overdue">SISA WAKTU: <span class="red">OVERDUE!!</span></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2>Venom: The Last Dance</h2>
-              <p><strong>ID:</strong> 6182201078</p>
-              <p><strong>Tanggal mulai sewa:</strong> 28 Nov 2024</p>
-              <p><strong>Tanggal akhir sewa:</strong> 28 Nov 2024</p>
-            </td>
-            <td>
-              <p class="overdue">SISA WAKTU: <span class="red">OVERDUE!!</span></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2>Venom: The Last Dance</h2>
-              <p><strong>ID:</strong> 6182201078</p>
-              <p><strong>Tanggal mulai sewa:</strong> 28 Nov 2024</p>
-              <p><strong>Tanggal akhir sewa:</strong> 28 Nov 2024</p>
-            </td>
-            <td>
-              <p class="overdue">SISA WAKTU: <span class="red">OVERDUE!!</span></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2>Venom: The Last Dance</h2>
-              <p><strong>ID:</strong> 6182201078</p>
-              <p><strong>Tanggal mulai sewa:</strong> 28 Nov 2024</p>
-              <p><strong>Tanggal akhir sewa:</strong> 28 Nov 2024</p>
-            </td>
-            <td>
-              <p class="overdue">SISA WAKTU: <span class="red">OVERDUE!!</span></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2>Venom: The Last Dance</h2>
-              <p><strong>ID:</strong> 6182201078</p>
-              <p><strong>Tanggal mulai sewa:</strong> 28 Nov 2024</p>
-              <p><strong>Tanggal akhir sewa:</strong> 28 Nov 2024</p>
-            </td>
-            <td>
-              <p class="overdue">SISA WAKTU: <span class="red">OVERDUE!!</span></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2>Venom: The Last Dance</h2>
-              <p><strong>ID:</strong> 6182201078</p>
-              <p><strong>Tanggal mulai sewa:</strong> 28 Nov 2024</p>
-              <p><strong>Tanggal akhir sewa:</strong> 28 Nov 2024</p>
-            </td>
-            <td>
-              <p class="overdue">SISA WAKTU: <span class="red">OVERDUE!!</span></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2>Venom: The Last Dance</h2>
-              <p><strong>ID:</strong> 6182201078</p>
-              <p><strong>Tanggal mulai sewa:</strong> 28 Nov 2024</p>
-              <p><strong>Tanggal akhir sewa:</strong> 28 Nov 2024</p>
-            </td>
-            <td>
-              <p class="overdue">SISA WAKTU: <span class="red">OVERDUE!!</span></p>
+              <p class="overdue">SISA WAKTU: <span class="red" th:text="${rental.remainingDays}"></span> hari</p>
             </td>
           </tr>
         </table>

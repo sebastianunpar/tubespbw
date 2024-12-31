@@ -35,4 +35,13 @@ public class UserService {
         }
         return null;
     }
+
+    public int getUserIdFromEmail(String email) {
+        Optional<Integer> userIdO = userRepository.getUserIdFromEmail(email);
+        if (!userIdO.isEmpty()) {
+            int userId = userIdO.get();
+            return userId;
+        }
+        return 0;
+    }
 }
