@@ -146,12 +146,6 @@ body {
     margin-right: 10px;
   }
   
-  .genre-buttons button:hover {
-    background-color: #ffcc00;
-    color: black;
-  }
-  
-    
   .cast-list button {
     background-color: transparent;
     border: 1px solid #ffcc00;
@@ -160,11 +154,6 @@ body {
     border-radius: 20px;
     cursor: pointer;
     margin-right: 10px;
-  }
-  
-  .cast-list button:hover {
-    background-color: #ffcc00;
-    color: black;
   }
   
   .casts {

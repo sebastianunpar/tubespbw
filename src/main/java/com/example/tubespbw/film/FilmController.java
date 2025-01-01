@@ -20,7 +20,13 @@ public class FilmController {
     @GetMapping("/browse")
     public String showBrowse(Model model) throws SQLException{
         List<Film> films = service.getAllFilmUser();
+        List<Actor> actors = service.getAllActor();
+        List<Genre> genres = service.getAllGenre(); 
+
         model.addAttribute("films", films);
+        model.addAttribute("actors", actors);
+        model.addAttribute("genres", genres);
+        
         return "browse";
     }
 
