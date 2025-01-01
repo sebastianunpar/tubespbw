@@ -15,9 +15,8 @@ public class FilmDetail {
     private byte[] poster;
     private int stock;
     private double price;
-    private double finePerDay;
     private boolean valid;
     private List<String> genres;
     private List<String> actors;
-    
+    private String base64Poster;
 }

@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie Details UI</title>
-  <link rel="stylesheet" href="/src/main/resources/static/css/movieDetail.css">
-  <script src="/src/main/resources/static/js/pengguna/movieDetail.js" defer></script>
+  <link rel="stylesheet" th:href="@{/css/movieDetail.css}">
+  <script th:src="@{/js/pengguna/movieDetail.js}" defer></script>
 
 </head>
 <body>
@@ -13,20 +13,20 @@
  <!-- Payment Dialog -->
 <dialog id="payment-dialog" class="payment-dialog">
   <div class="dialog-content">
-    <h1>Venom: The Last Dance</h1>
-    <p class="price">Rp 96.000</p>
+    <h1 th:text="${filmDetail.title}"></h1>
+    <p class="price" th:text="${filmDetail.price}"></p>
 
     <div class="payment-methods">
       <p class="methods-title">Metode Pembayaran</p>
 
       <button class="method" id="bca-method">
-        <img src="assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
+        <img src="/assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
         <p>BCA Virtual Account</p>
         <span class="arrow">&rarr;</span>
       </button>
 
       <button class="method" id="mandiri-method">
-        <img src="assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
+        <img src="/assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
         <p>Mandiri Virtual Account</p>
         <span class="arrow">&rarr;</span>
       </button>
@@ -48,7 +48,7 @@
   
   <div class="container">
     <!-- Back Button -->
-    <div class="back-button">
+    <div class="back-button" onclick="goBack()">
       <span>&larr; Back</span>
     </div>
 
@@ -58,26 +58,27 @@
       <div class="poster-section">
         <div class="poster">
           <div class="poster-placeholder">
-            <img src="assets/img/venomlastdance.png" alt="" width="280" height="400">
+            <img th:src="'data:image/jpeg;base64,' + ${filmDetail.base64Poster}" alt="" width="280" height="400">
           </div>
         </div>
         <div class="poster-info">
-          <p>Tersewa 96 kali</p>
-          <p class="available">Available to lease</p>
-          <p>Stock: 1</p>
+          <p th:text="'Disewa ' + ${sales} + ' kali'"></p>
+          <p class="available" th:if="${filmDetail.valid}">Available to rent</p>
+          <p class="available" th:if="${!filmDetail.valid}">Out of stock</p>
+          <p  th:text="'Stock: ' + ${filmDetail.stock}"></p>
         </div>
       </div>
 
       <!-- Movie Details Section -->
       <div class="details-section">
-        <h1>Venom: The Last Dance</h1>
+        <h1 th:text="${filmDetail.title}"></h1>
         <div class="rental-info">
           <p class="label">Sewa</p>
-          <button id="open-dialog" class="open-btn">Rp. 96.000</button>
+          <button id="open-dialog" class="open-btn" th:text="${filmDetail.price}"></button>
         </div>
         <div class="storyline">
-          <p class="label">Storyline</p>
-          <p>Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.</p>
+          <p class="label">Synopsis</p>
+          <p th:text="${filmDetail.synopsis}"></p>
         </div>
 
         <!-- Divider Line -->
@@ -88,20 +89,14 @@
           <div class="genres">
             <p class="label">Genres</p>
             <div class="genre-buttons">
-              <button>Action</button>
-              <button>Sci-Fi</button>
-              <button>Adventure</button>
+              <button th:each="genre : ${filmDetail.genres}" th:text="${genre}"></button>
             </div>
           </div>
           <!-- Cast Section -->
           <div class="casts">
             <p class="label">Casts</p>
             <div class="cast-list">
-              <button>Chiwetel Ejiofor</button>
-              <button>Peggy Lu</button>
-              <button>Alanna Ubach</button>
-              <button>Rhys Ifans</button>
-              <button>tephen Graham</button>
+              <button th:each="actor : ${filmDetail.actors}" th:text="${actor}"></button>
             </div>
           </div>
         </div>

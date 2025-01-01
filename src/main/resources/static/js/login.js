@@ -30,3 +30,7 @@ toLogin.addEventListener("click", (event) => {
 
 
 
+const formState = document.body.getAttribute('data-form-state');
+if (formState === 'register') {
+    document.getElementById("switchToReg").click();
+}

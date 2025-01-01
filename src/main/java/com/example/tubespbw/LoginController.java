@@ -1,41 +1,52 @@
-// package com.example.tubespbw;
+package com.example.tubespbw;
 
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-// import com.example.tubespbw.user.User;
+import com.example.tubespbw.user.User;
 
-// import main.java.com.example.tubespbw.user.UserService;
+import com.example.tubespbw.user.UserService;
 
-// @Controller
-// public class LoginController {
+import jakarta.servlet.http.HttpSession;
 
-//     @Autowired
-//     private UserService userService;
+@Controller
+public class LoginController {
 
-//     @GetMapping("/login")
-//     public String showLogin() {
-//         return "login";
-//     }
+    @Autowired
+    private UserService userService;
 
-//     @PostMapping("login")
-//     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-//         User user = userService.login(email, password);
-//         if (User != null ) {
-//             if (user.getRole() == "admin") {
-//                 return "redirect:/admin";
-//             }
-//             else if (user.getRole() == "user")
-//             return "home";
-//         }
-//         return "redirect:";
-//     }
+    @GetMapping("/login")
+    public String showLogin(User user) {
+        return "login";
+    }
 
-//     @PostMapping("register")
-//     public String register() {
-//         return "redirect:/admin";
-//     }
-// }
+    @PostMapping("/login")
+    public String login(
+        @RequestParam String email,
+        @RequestParam String password,
+        HttpSession session,
+        Model model
+    ) {
+        User user = userService.login(email, password);
+        if (user != null) {
+            session.setAttribute("user", user);
+            
+            if (user.getRole().equals("admin")) {
+                return "admin/home";
+            }
+            return "redirect:/";
+        }
+        model.addAttribute("status", "failed");
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }    
+}
