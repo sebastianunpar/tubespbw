@@ -14,8 +14,6 @@ import com.example.tubespbw.rental.RentalService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserController {
@@ -70,12 +68,6 @@ public class UserController {
         // return "redirect:/admin";
         return "login";
     }
-// @Controller
-// public class UserController {
-//     @GetMapping({"", "/"})
-//     public String showHome() {
-//         return "home";
-//     }
 
     @GetMapping("/rentals")
     public String showRentals(HttpSession session, Model model) {
