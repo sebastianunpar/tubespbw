@@ -18,4 +18,6 @@ public interface FilmRepository {
     boolean insertFilmGenre(int filmId, int genreId);
     boolean insertFilmActor(int filmId, int actorId);
     Optional<Integer> getLatestFilmId();
+    List<Film> searchFilms(String movieName);
+    List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames) throws SQLException;
 }
