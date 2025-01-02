@@ -80,4 +80,24 @@ public class FilmService {
         }
     }
 
+    public List<Film> searchFilms(String query) throws SQLException {
+        List<Film> films = repo.searchFilms(query);
+        for (Film film : films) {
+            String base64Poster = generateBase64Poster(film.getPoster());
+            film.setBase64Poster(base64Poster);
+        }
+        return films;
+    }
+
+    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames) throws SQLException {
+        List<Film> films = repo.filterFilmsByActorAndGenre(actorNames, genreNames);
+        for (Film film : films) {
+            String base64Poster = generateBase64Poster(film.getPoster());
+            film.setBase64Poster(base64Poster);
+        }
+        return films;
+    }
+    
+    
+
 }
