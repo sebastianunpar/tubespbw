@@ -5,34 +5,36 @@ const closeBtn = document.getElementById('close-dialog');
 
 // Elemen popup Virtual Account
 const dialog2 = document.getElementById('virtual-account-section');
-const closeBtn2 = document.getElementById('close-dialog-2');
-const bcaMethod = document.getElementById('bca-method');
-const mandiriMethod = document.getElementById('mandiri-method');
 const accountNumber = document.getElementById('account-number');
 const bankLogo = document.getElementById('bank-logo');
+const paymentMethods = document.getElementsByName('payment-method');
 
 // Tampilkan dialog pembayaran
-openBtn.addEventListener('click', () => {
-  dialog.showModal();
-});
+if (openBtn) {
+  openBtn.addEventListener('click', () => {
+    dialog.showModal();
+  });
+}
 
 // Tutup dialog pembayaran
-closeBtn.addEventListener('click', () => {
-  dialog.close();
-});
+if (closeBtn) {
+  closeBtn.addEventListener('click', () => {
+    dialog.close();
+  });
+}
 
-// Klik metode pembayaran BCA
-bcaMethod.addEventListener('click', () => {
-  accountNumber.innerText = '1234 5678 9012 3456'; // Ganti dengan nomor BCA
-  bankLogo.innerText = 'BCA Virtual Account';
-  dialog2.style.display = 'block';  // Show virtual account section
-});
-
-// Klik metode pembayaran Mandiri
-mandiriMethod.addEventListener('click', () => {
-  accountNumber.innerText = '8077 7000 1414 8659'; // Ganti dengan nomor Mandiri
-  bankLogo.innerText = 'Mandiri Virtual Account';
-  dialog2.style.display = 'block';  // Show virtual account section
+// Event Listener untuk metode pembayaran
+paymentMethods.forEach((method) => {
+  method.addEventListener('change', () => {
+    if (method.value === 'bca') {
+      accountNumber.innerText = '1234 5678 9012 3456'; // Ganti dengan nomor BCA
+      bankLogo.innerText = 'BCA Virtual Account';
+    } else if (method.value === 'mandiri') {
+      accountNumber.innerText = '8077 7000 1414 8659'; // Ganti dengan nomor Mandiri
+      bankLogo.innerText = 'Mandiri Virtual Account';
+    }
+    dialog2.style.display = 'block'; // Tampilkan bagian Virtual Account
+  });
 });
 
 // Salin nomor ke clipboard
@@ -43,6 +45,7 @@ function copyToClipboard() {
     .catch(() => alert('Gagal menyalin nomor Virtual Account.'));
 }
 
+// Fungsi kembali ke halaman sebelumnya
 function goBack() {
   window.history.back();
 }
