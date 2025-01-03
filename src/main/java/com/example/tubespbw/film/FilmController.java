@@ -26,17 +26,17 @@ public class FilmController {
                             @RequestParam(value = "genreName", required = false) List<String> genreName) throws SQLException {
         
         if (actorName == null) {
-        actorName = new ArrayList<>();
+            actorName = new ArrayList<>();
         }
         if (genreName == null) {
             genreName = new ArrayList<>();
         }
 
         List<Film> films;
-        if (movieName != null && !movieName.isEmpty()) {
-            films = service.searchFilms(movieName);
-        } else if ((actorName != null && !actorName.isEmpty()) || (genreName != null && !genreName.isEmpty())) {
-            films = service.filterFilmsByActorAndGenre(actorName, genreName);
+        if ((movieName != null && !movieName.isEmpty()) || 
+            (actorName != null && !actorName.isEmpty()) || 
+            (genreName != null && !genreName.isEmpty())) {
+            films = service.filterFilmsByActorAndGenre(actorName, genreName, movieName);
         } else {
             films = service.getAllFilmUser();
         }
@@ -46,12 +46,10 @@ public class FilmController {
         model.addAttribute("films", films);
         model.addAttribute("actors", service.getAllActor());
         model.addAttribute("genres", service.getAllGenre());
-        model.addAttribute("movieName", movieName); 
+        model.addAttribute("movieName", movieName);
 
         return "browse";
     }
-
-
 
 
     @GetMapping("/film/{filmId}")

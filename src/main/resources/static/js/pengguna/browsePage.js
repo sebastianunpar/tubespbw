@@ -44,11 +44,10 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   }
 
-  //search bar browse page
   const searchInput = document.getElementById("search-input");
   const searchIcon = document.getElementById("search-icon");
 
-  // Fungsi untuk menangani pencarian
+  // Fungsi untuk melakukan pencarian
   function performSearch() {
       const query = searchInput.value.trim();
       if (query) {
@@ -56,43 +55,15 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   }
 
-  // Fungsi untuk menangani reset pencarian
-  function resetSearch() {
-      searchInput.value = "";  // Kosongkan input
-      searchIcon.src = "assets/img/search-bar-logo.png";  // Kembali ke ikon pencarian
-      searchIcon.classList.remove("reset");  // Hapus class reset
-  }
-
-  // Event listener untuk klik ikon
-  searchIcon.addEventListener("click", () => {
+  // Event listener untuk klik ikon pencarian
+  searchIcon.addEventListener("click", function() {
       const query = searchInput.value.trim();
       if (query) {
-          // Ganti ikon menjadi "X"
           searchIcon.src = "assets/img/close-icon.png";
-          searchIcon.classList.add("reset"); // Tambahkan class reset
+          searchIcon.classList.add("reset");
           performSearch();  // Lakukan pencarian
-      } else {
-          // Jika input kosong, reset pencarian
-          resetSearch();  // Reset pencarian
-      }
-  });
-
-  // Event listener untuk tekan tombol Enter
-  searchInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-          event.preventDefault();  // Mencegah form submit
-          performSearch();  // Lakukan pencarian
-      }
-  });
-
-  // Menangani klik pada ikon "X" untuk mereset pencarian
-  document.getElementById("search-icon").addEventListener("click", function () {
-      if (searchInput.value.trim() === "") {
-          resetSearch();  // Reset pencarian jika input kosong
-      }
+      } 
   });
 
 
-
-  
 });
