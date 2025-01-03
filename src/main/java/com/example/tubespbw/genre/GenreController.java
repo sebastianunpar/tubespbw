@@ -44,6 +44,13 @@ public class GenreController {
         return "admin/manageGenres";
     }
 
+    @GetMapping("/search-genres")
+    public String searchActors(@RequestParam("genre_name") String genreName, Model model) {
+        List<Genre> genre = filmService.searchGenresByName(genreName);
+        model.addAttribute("genres", genre);
+        return "admin/manageGenres";
+    }
+
     @PostMapping("add-genre")
     public String addGenre(@RequestParam String newGenre) {
         filmService.insertGenre(newGenre);

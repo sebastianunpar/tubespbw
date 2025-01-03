@@ -131,6 +131,11 @@ public class FilmJdbcRepo implements FilmRepository{
         String sql = "UPDATE genre SET name = ?, valid = ? WHERE genreId = ?";
         jdbcTemplate.update(sql, genreName, genreValid, genreId);
     }   
+    @Override
+    public List<Genre> searchGenresByName(String genreName) {
+        String sql = "SELECT * FROM genre WHERE LOWER(name) LIKE ?";
+        return jdbcTemplate.query(sql, this::mapRowToGenreObj, "%"+genreName.toLowerCase()+"%");
+    }
 
     // Aktor
     @Override

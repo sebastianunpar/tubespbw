@@ -19,6 +19,7 @@ public interface FilmRepository {
     // Genre
     Genre getGenreById(int id) throws SQLException;
     void updateGenre(int genreId, String genreName, boolean genreValid) throws SQLException;
+    List<Genre> searchGenresByName(String name);
     // Aktor
     Actor getActorById(int id) throws SQLException;
     void updateActor(int actorId, String actorName, boolean actorValid) throws SQLException;

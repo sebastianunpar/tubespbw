@@ -68,6 +68,9 @@ public class FilmService {
     public void updateGenre(int genreId, String genreName, boolean genreValid) throws SQLException {
         repo.updateGenre(genreId, genreName, genreValid); // Call repository to update genre
     }    
+    public List<Genre> searchGenresByName(String genreName) {
+        return repo.searchGenresByName(genreName);
+    }
 
     // Aktor
     public Actor getActorById(int id) throws SQLException {
