@@ -137,6 +137,12 @@ public class FilmJdbcRepo implements FilmRepository{
         return jdbcTemplate.query(sql, this::mapRowToGenreObj, "%"+genreName.toLowerCase()+"%");
     }
 
+    @Override
+    public void deleteById(int genreId) {
+        String sql = "UPDATE genre SET valid = false WHERE genreId = ?";
+        jdbcTemplate.update(sql, genreId);
+    }
+
     // Aktor
     @Override
     public Actor getActorById(int actorId) throws SQLException {

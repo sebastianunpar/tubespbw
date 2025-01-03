@@ -68,6 +68,7 @@
                         <tr>
                             <th>ID Actor</th>
                             <th>Actor Name</th>
+                            <th>Valid</th>
                             <th class="action-head">Actions</th>
                         </tr>
                     </thead>
@@ -85,6 +86,7 @@
                         <tr th:each="actor : ${actors}">
                             <td th:text="${actor.actorId}"></td>
                             <td th:text="${actor.name}"></td>
+                            <td th:text="${actor.valid ? 'Yes' : 'No'}"></td>
                             <td class="actions">
                                 <a th:href="@{/admin/actor/{actorId}(actorId=${actor.actorId})}">
                                     <button>Edit</button>

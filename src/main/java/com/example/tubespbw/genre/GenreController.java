@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.tubespbw.actor.Actor;
 import com.example.tubespbw.film.FilmService;
@@ -75,4 +76,11 @@ public class GenreController {
         filmService.updateGenre(genreId, genreName, genreValid); // Update the genre
         return "redirect:/admin/manage-genres"; // Redirect back to manage genres
     }    
+
+    @PostMapping("/change-valid-genre")
+    public String deleteGenre(@RequestParam("genreId") int genreId, RedirectAttributes redirectAttributes) {
+            filmService.deleteGenreById(genreId);
+            redirectAttributes.addFlashAttribute("successMessage", "Genre deleted successfully.");
+        return "redirect:/admin/manage-genres";
+    }
 }

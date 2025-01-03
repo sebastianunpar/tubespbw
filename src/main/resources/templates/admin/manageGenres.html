@@ -66,6 +66,7 @@
                         <tr>
                             <th>ID Genre</th>
                             <th>Genre Name</th>
+                            <th>Valid</th>
                             <th class="action-head">Actions</th>
                         </tr>
                     </thead>
@@ -84,16 +85,17 @@
                         <tr th:each="genre : ${genres}">
                             <td th:text="${genre.genreId}"></td>
                             <td th:text="${genre.name}"></td>
+                            <td th:text="${genre.valid ? 'Yes' : 'No'}"></td>
                             <td class="actions">
                                 <!-- <form th:action="@{/admin/edit-genre}" method="GET"> -->
                                     <!-- <input type="hidden" name="genreId" th:value="${genre.genreId}"> -->
                                 <!-- </form> -->
                                 <a th:href="@{/admin/genre/{genreId}(genreId=${genre.genreId})}">
                                     <button>Edit</button>
-                                 </a>
-                                <form th:action="@{/admin/delete-genre}" method="POST">
-                                    <!-- <input type="hidden" name="genreId" th:value="${genre.genreId}"> -->
-                                    <button>Delete</button>
+                                </a>
+                                <form th:action="@{/admin/change-valid-genre}" method="POST">
+                                    <input type="hidden" name="genreId" th:value="${genre.genreId}">
+                                    <button type="submit" th:text="${genre.valid ? 'Disable' : 'Enable'}"></button>
                                 </form>
                             </td>
                         </tr>

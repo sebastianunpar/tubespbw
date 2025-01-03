@@ -72,6 +72,10 @@ public class FilmService {
         return repo.searchGenresByName(genreName);
     }
 
+    public void deleteGenreById(int genreId) {
+        repo.deleteById(genreId);
+    }
+
     // Aktor
     public Actor getActorById(int id) throws SQLException {
         return repo.getActorById(id);
