@@ -1,4 +1,4 @@
-package com.example.tubespbw.film;
+package com.example.tubespbw.actor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

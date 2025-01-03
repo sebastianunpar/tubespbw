@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
+import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.actor.Actor;
 
 @Service
 public class FilmService {
@@ -56,6 +58,23 @@ public class FilmService {
 
     public List<Genre> getAllGenre() throws SQLException {
         return repo.getAllGenre();
+    }
+
+    // Genre
+    public Genre getGenreById(int id) throws SQLException {
+        return repo.getGenreById(id);
+    }
+
+    public void updateGenre(int genreId, String genreName, boolean genreValid) throws SQLException {
+        repo.updateGenre(genreId, genreName, genreValid); // Call repository to update genre
+    }    
+
+    // Aktor
+    public Actor getActorById(int id) throws SQLException {
+        return repo.getActorById(id);
+    }
+    public void updateActor(int actorId, String actorName, boolean actorValid) throws SQLException {
+        repo.updateActor(actorId, actorName, actorValid); // Call repository to update genre
     }
 
     public List<Actor> getAllActor() throws SQLException {

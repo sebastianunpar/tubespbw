@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.SQLException;
 
+import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.actor.Actor;
  
 @Controller
 public class FilmController {
