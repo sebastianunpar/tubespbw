@@ -2,6 +2,7 @@ package com.example.tubespbw.rental;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,12 @@ public class RentalRepoJdbc implements RentalRepository {
     public List<Rental> getUserRentalHistory(int userId) {
         String sql = "SELECT rentalId, rentalDate, dueDate, returnDate, rental.filmId, film.title, userId, metodePembayaran, noPembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NOT NULL";
         return jdbcTemplate.query(sql, this::mapRowToRental, userId);
+    }
+
+    @Override
+    public boolean insertRental(LocalDate rentalDate, LocalDate dueDate, int filmId, int userId, String metodePembayaran, String noPembayaran) {
+        String sql = "INSERT INTO rental (rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran) VALUES (?, ?, ?, ?, ?, ?)";
+        int rowAffected = jdbcTemplate.update(sql, rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran);
+        return rowAffected > 0;
     }
 }
