@@ -78,8 +78,15 @@ public class UserController {
         int userId = userService.getUserIdFromEmail(user.getEmail());
         if (userId != 0) {
             List<Rental> rentals = rentalService.getUserRentals(userId);
-            System.out.println(rentals);
+            List<Rental> rentalHisotry = rentalService.getUserRentalHistory(userId);
+            boolean emptyRental = rentals.isEmpty();
+            boolean emptyHistory = rentalHisotry.isEmpty();
+            model.addAttribute("rentalHistory", rentalHisotry);
             model.addAttribute("rentals", rentals);
+            model.addAttribute("nama", user.getName());
+            model.addAttribute("rentalCount", rentals.size());
+            model.addAttribute("emptyRental", emptyRental);
+            model.addAttribute("emptyHistory", emptyHistory);
         }
         return "user/rentals";
     }

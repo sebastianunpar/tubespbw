@@ -21,9 +21,9 @@ public class RentalRepoJdbc implements RentalRepository {
     private Rental mapRowToRental(ResultSet resultSet, int rowNum) throws SQLException {
         return new Rental(
             resultSet.getInt("rentalId"),
-            resultSet.getDate("rentalDate").toLocalDate(),
-            resultSet.getDate("dueDate").toLocalDate(),
-            resultSet.getDate("returnDate").toLocalDate(),
+            resultSet.getDate("rentalDate") != null ? resultSet.getDate("rentalDate").toLocalDate() : null,
+            resultSet.getDate("dueDate") != null ? resultSet.getDate("rentalDate").toLocalDate() : null,
+            resultSet.getDate("returnDate") != null ? resultSet.getDate("rentalDate").toLocalDate() : null,
             resultSet.getInt("filmId"),
             resultSet.getString("title"),
             resultSet.getInt("userId"),

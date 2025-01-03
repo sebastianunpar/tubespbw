@@ -464,6 +464,11 @@
     object-fit: cover; 
     border-radius: 5px; 
   }
+
+  nav#filmPagination {
+    padding: 2em;
+    text-align: center;
+  }
   
 
 

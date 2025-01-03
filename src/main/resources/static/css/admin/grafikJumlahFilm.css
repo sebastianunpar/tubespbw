@@ -164,10 +164,12 @@ body{
 
 /* Chart Container */
 .chart-container {
+    text-align: center;
     background-color: #2a2a2a;
     padding: 10px; /* Lebih kecil */
     border-radius: 8px;
     font-size: 12px;
+    width: 95%;
 }
 .chart-header {
     display: flex;

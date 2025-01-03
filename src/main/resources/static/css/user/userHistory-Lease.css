@@ -18,7 +18,7 @@
   
   .container {
     display: flex;
-    background-color: #1B0A0A;
+    background-color: #000000;
     border-radius: 10px;
     overflow: hidden;
     width: 90%;
@@ -146,7 +146,7 @@ table td:nth-of-type(1){
     text-shadow: 0 0 20px rgba(255, 193, 7, 1);
     border: 0.5px solid #FEC600;
     border-bottom: 3px solid #FEC600;
-    
+    color: #FEC600;
   }
   
   .rental-info h2 {
@@ -170,4 +170,17 @@ table td:nth-of-type(1){
   
 .profile p{
     font-size: 15px;
+}
+
+.hidden {
+  display: none;
+}
+
+div.emptyMessage {
+  height: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #808080;
 }

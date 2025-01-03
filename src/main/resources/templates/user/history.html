@@ -54,7 +54,7 @@
           <tr th:each="rental : ${rentalHistory}">
             <td>
               <h2 th:text="${rental.title}"></h2>
-              <p><strong>ID: </strong><span th:text="${rental.rentalId}"></span></p>
+              <p><strong>Rental ID: </strong><span th:text="${rental.rentalId}"></span></p>
               <p><strong>Tanggal sewa:</strong> <span th:text="${rental.formattedRentalDate}"></span></p>
               <p><strong>Tanggal dikembalikan:</strong> <span th:text="${rental.formattedReturnDate}"></span></p>
             </td>

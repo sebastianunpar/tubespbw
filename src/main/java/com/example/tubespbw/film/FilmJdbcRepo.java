@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
- 
+
 @Repository
 public class FilmJdbcRepo implements FilmRepository{
     
@@ -204,5 +203,51 @@ public class FilmJdbcRepo implements FilmRepository{
         return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
     }
 
+    @Override
+    public int getFilmCount() {
+        String sql = "SELECT COUNT(*) FROM film";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
 
+    @Override
+    public int getFilmCountByName(String movieName) {
+        String sql = "SELECT COUNT(*) FROM film WHERE title ILIKE ?";
+        String likeQuery = "%" + movieName + "%";
+        return jdbcTemplate.queryForObject(sql, Integer.class, likeQuery);
+    }
+
+    @Override
+    public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames) {
+        String sql = """
+            SELECT COUNT(DISTINCT film.filmId)
+            FROM film
+            LEFT JOIN filmActor ON filmActor.filmId = film.filmId
+            LEFT JOIN filmGenre ON filmGenre.filmId = film.filmId
+            LEFT JOIN actor ON actor.actorId = filmActor.actorId
+            LEFT JOIN genre ON genre.genreId = filmGenre.genreId
+        """;
+
+        StringBuilder whereClause = new StringBuilder();
+        Map<String, Object> parameters = new HashMap<>();
+
+        if (actorNames != null && !actorNames.isEmpty()) {
+            whereClause.append("actor.name IN (:actorNames) ");
+            parameters.put("actorNames", actorNames);
+        }
+
+        if (genreNames != null && !genreNames.isEmpty()) {
+            if (whereClause.length() > 0) {
+                whereClause.append("AND ");
+            }
+            whereClause.append("genre.name IN (:genreNames) ");
+            parameters.put("genreNames", genreNames);
+        }
+
+        if (whereClause.length() > 0) {
+            sql += "WHERE " + whereClause.toString();
+        }
+
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+        return namedParameterJdbcTemplate.queryForObject(sql, parameters, Integer.class);
+    }
 }
