@@ -18,13 +18,13 @@
         <header class="navbar">
             <div class="nav-left">
               <!-- nambah link -->
-                <div class="nav-item active">
+                <div class="nav-item">
                     <a href="/admin">HOME</a>
                 </div>
                 <div class="nav-item" >
                     <a href="/admin/manage-movie">MANAGE FILM</a>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item active">
                     <a href="/admin/manage-genres">GENRE & ACTOR</a>
                 </div>
                 <div class="nav-item" >
@@ -55,8 +55,9 @@
                 
                 <!-- Search Bar -->
                 <div class="search-bar">
-                    <form action="" method="GET">
-                        <input type="text" name="actor_name" placeholder="Search Actor by Name" value="">
+                    <form action="/admin/search-actors" method="GET">
+                        <input type="text" name="actor_name" placeholder="Search Actor by Name" 
+                        th:value="${param.actor_name}" >
                         <button type="submit">Search</button>
                     </form>
                 </div>

@@ -137,13 +137,18 @@ public class FilmJdbcRepo implements FilmRepository{
     public Actor getActorById(int actorId) throws SQLException {
         String sql = "SELECT * FROM actor WHERE actorId = ?";
         return jdbcTemplate.queryForObject(sql, this::mapRowToActorObj, actorId);
-        // return genre;
     }
 
     @Override
     public void updateActor(int actorId, String actorName, boolean actorValid) throws SQLException {
         String sql = "UPDATE actor SET name = ?, valid = ? WHERE actorId = ?";
         jdbcTemplate.update(sql, actorName, actorValid, actorId);
+    }
+
+    @Override
+    public List<Actor> searchActorsByName(String actorName) {
+        String sql = "SELECT * FROM actor WHERE LOWER(name) LIKE ?";
+        return jdbcTemplate.query(sql, this::mapRowToActorObj, "%"+actorName.toLowerCase()+"%");
     }
     // 
     @Override

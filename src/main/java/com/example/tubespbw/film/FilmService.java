@@ -77,6 +77,10 @@ public class FilmService {
         repo.updateActor(actorId, actorName, actorValid); // Call repository to update genre
     }
 
+    public List<Actor> searchActorsByName(String actorName) {
+        return repo.searchActorsByName(actorName);
+    }
+    // 
     public List<Actor> getAllActor() throws SQLException {
         return repo.getAllActor();
     }

@@ -269,6 +269,7 @@ header {
     color: #ffffff;
     font-size: 1rem;
     transition: color 0.3s;
+    cursor: pointer;
 }
 
 .nav-links li a.active {

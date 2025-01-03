@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.example.tubespbw.actor.Actor;
 import com.example.tubespbw.film.FilmService;
-import com.example.tubespbw.genre.Genre;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,10 +21,20 @@ public class ActorController {
     @Autowired
     FilmService filmService;
 
+    @Autowired
+    FilmService actorService;
+
     @GetMapping("/manage-actors")
     public String showManageActors(Model model) throws SQLException {
         List<Actor> actors = filmService.getAllActor();
         System.out.println("Actors: " + actors); // Debug log
+        model.addAttribute("actors", actors);
+        return "admin/manageActors";
+    }
+
+    @GetMapping("/search-actors")
+    public String searchActors(@RequestParam("actor_name") String actorName, Model model) {
+        List<Actor> actors = actorService.searchActorsByName(actorName);
         model.addAttribute("actors", actors);
         return "admin/manageActors";
     }

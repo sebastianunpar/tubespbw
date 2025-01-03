@@ -22,6 +22,7 @@ public interface FilmRepository {
     // Aktor
     Actor getActorById(int id) throws SQLException;
     void updateActor(int actorId, String actorName, boolean actorValid) throws SQLException;
+    List<Actor> searchActorsByName(String name);
 
     List<Actor> getAllActor() throws SQLException;
     boolean insertFilm(String title, String description, byte[] poster, int stock, int price);
