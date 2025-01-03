@@ -10,40 +10,71 @@
 </head>
 <body>
 
- <!-- Payment Dialog -->
-<dialog id="payment-dialog" class="payment-dialog">
-  <div class="dialog-content">
-    <h1 th:text="${filmDetail.title}"></h1>
-    <p class="price" th:text="${filmDetail.price}"></p>
-
-    <div class="payment-methods">
-      <p class="methods-title">Metode Pembayaran</p>
-
-      <button class="method" id="bca-method">
-        <img src="/assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
-        <p>BCA Virtual Account</p>
-        <span class="arrow">&rarr;</span>
-      </button>
-
-      <button class="method" id="mandiri-method">
-        <img src="/assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
-        <p>Mandiri Virtual Account</p>
-        <span class="arrow">&rarr;</span>
-      </button>
-    </div>
-
-    <!-- Virtual Account Section (Hidden initially) -->
-    <div id="virtual-account-section" class="virtual-account-section">
-      <div class="virtual-account">
-        <div class="bank-logo" id="bank-logo">Mandiri Virtual Account</div>
-        <div class="account-number" id="account-number">-</div>
-        <button class="copy-button" onclick="copyToClipboard()">Salin</button>
+  <dialog id="payment-dialog" class="payment-dialog">
+    <form method="dialog" class="dialog-content">
+      <h1 th:text="${filmDetail.title}">Rental Summary</h1>
+      <p class="price" th:text="${filmDetail.price}">USD 1,850.00</p>
+  
+      <div class="rental-summary">
+        <div class="rental-detail">
+          <table class="summary-table">
+            <tr>
+              <td>Pickup Location</td>
+              <td>Jl. Raya Ponorogo - Trenggalek, Bancangan</td>
+            </tr>
+            <tr>
+              <td>Pickup Date</td>
+              <td>Mon, 4 Feb 2024 - 10:00</td>
+            </tr>
+            <tr>
+              <td>Return Date</td>
+              <td>Thu, 8 Feb 2024 - 10:00</td>
+            </tr>
+            <tr>
+              <td>Duration</td>
+              <td>4 Days</td>
+            </tr>
+            <tr class="total-row">
+              <td>Total</td>
+              <td class="total-price">Rp 18.99</td>
+            </tr>
+          </table>
+        </div>
+  
+        <div class="payment-methods">
+          <p class="methods-title">Metode Pembayaran</p>
+          <label>
+            <input type="radio" name="payment-method" value="bca" required>
+            <span class="method">
+              <img src="/assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
+              BCA Virtual Account
+            </span>
+          </label>
+          <label>
+            <input type="radio" name="payment-method" value="mandiri">
+            <span class="method">
+              <img src="/assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
+              Mandiri Virtual Account
+            </span>
+          </label>
+        </div>
+  
+        <div id="virtual-account-section" class="virtual-account-section">
+          <div class="virtual-account">
+            <div class="bank-logo" id="bank-logo">Mandiri Virtual Account</div>
+            <div class="account-number" id="account-number">-</div>
+            <button type="button" class="copy-button" onclick="copyToClipboard()">Salin</button>
+          </div>
+        </div>
       </div>
-    </div>
-
-  </div>
-  <button id="close-dialog" class="close-btn">&times;</button>
-</dialog>
+  
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">Confirm Payment</button>
+        <button type="button" id="close-dialog" class="close-btn">&times;</button>
+      </div>
+    </form>
+  </dialog>
+  
 
   
   <div class="container">
