@@ -2,7 +2,6 @@ package com.example.tubespbw.film;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
-
  
 @Controller
 public class FilmController {
@@ -28,7 +26,7 @@ public class FilmController {
                             @RequestParam(name = "page", defaultValue = "1") int page) throws SQLException {
 
         if (actorName == null) {
-        actorName = new ArrayList<>();
+            actorName = new ArrayList<>();
         }
         if (genreName == null) {
             genreName = new ArrayList<>();
@@ -36,12 +34,11 @@ public class FilmController {
         
         int filmCount = 0;
         List<Film> films;
-        if (movieName != null && !movieName.isEmpty()) {
-            films = service.searchFilms(movieName);
-            filmCount = service.getFilmCountByName(movieName);
-        } else if ((actorName != null && !actorName.isEmpty()) || (genreName != null && !genreName.isEmpty())) {
-            films = service.filterFilmsByActorAndGenre(actorName, genreName);
-            filmCount = service.getFilmCountByActorAndGenre(actorName, genreName);
+        if ((movieName != null && !movieName.isEmpty()) || 
+            (actorName != null && !actorName.isEmpty()) || 
+            (genreName != null && !genreName.isEmpty())) {
+            films = service.filterFilmsByActorAndGenre(actorName, genreName, movieName);
+            filmCount = service.getFilmCountByActorAndGenre(actorName, genreName, movieName);
         } else {
             films = service.getAllFilmUser();
             filmCount = service.getFilmCount();

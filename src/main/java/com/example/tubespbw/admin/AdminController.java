@@ -40,7 +40,11 @@ public class AdminController {
     }
 
     @GetMapping("/film-graph")
-    public String showFilmGraph() {
+    public String showFilmGraph(Model model) {
+        List<Integer> data = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+
+        model.addAttribute("data", data);
+
         return "admin/filmGraph";
     }
 

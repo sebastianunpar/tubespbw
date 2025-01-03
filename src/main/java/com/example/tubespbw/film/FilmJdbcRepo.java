@@ -167,40 +167,49 @@ public class FilmJdbcRepo implements FilmRepository{
         return jdbcTemplate.query(sql, this::mapRowToFilm, likeQuery);
     }
     @Override
-    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames) throws SQLException {
-        String sql = """
-            SELECT DISTINCT film.filmId, film.title, film.stock, film.poster 
-            FROM film
-            LEFT JOIN filmActor ON filmActor.filmId = film.filmId
-            LEFT JOIN filmGenre ON filmGenre.filmId = film.filmId
-            LEFT JOIN actor ON actor.actorId = filmActor.actorId
-            LEFT JOIN genre ON genre.genreId = filmGenre.genreId
-        """;
-
-        // Kondisi filter
-        StringBuilder whereClause = new StringBuilder();
-        Map<String, Object> parameters = new HashMap<>();
-
-        if (actorNames != null && !actorNames.isEmpty()) {
-            whereClause.append("actor.name IN (:actorNames) ");
-            parameters.put("actorNames", actorNames);
-        }
-
-        if (genreNames != null && !genreNames.isEmpty()) {
-            if (whereClause.length() > 0) {
-                whereClause.append("AND ");
-            }
-            whereClause.append("genre.name IN (:genreNames) ");
-            parameters.put("genreNames", genreNames);
-        }
-
-        if (whereClause.length() > 0) {
-            sql += "WHERE " + whereClause.toString();
-        }
-
-        // Gunakan NamedParameterJdbcTemplate untuk parameter binding
-        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-        return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
+    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
+            throws SQLException {
+                String sql = """
+                    SELECT DISTINCT film.filmId, film.title, film.stock, film.poster 
+                    FROM film
+                    LEFT JOIN filmActor ON filmActor.filmId = film.filmId
+                    LEFT JOIN filmGenre ON filmGenre.filmId = film.filmId
+                    LEFT JOIN actor ON actor.actorId = filmActor.actorId
+                    LEFT JOIN genre ON genre.genreId = filmGenre.genreId
+                """;
+        
+                // Kondisi filter
+                StringBuilder whereClause = new StringBuilder();
+                Map<String, Object> parameters = new HashMap<>();
+        
+                if (actorNames != null && !actorNames.isEmpty()) {
+                    whereClause.append("actor.name IN (:actorNames) ");
+                    parameters.put("actorNames", actorNames);
+                }
+        
+                if (genreNames != null && !genreNames.isEmpty()) {
+                    if (whereClause.length() > 0) {
+                        whereClause.append("AND ");
+                    }
+                    whereClause.append("genre.name IN (:genreNames) ");
+                    parameters.put("genreNames", genreNames);
+                }
+        
+                if (movieName != null && !movieName.isEmpty()) {
+                    if (whereClause.length() > 0) {
+                        whereClause.append("AND ");
+                    }
+                    whereClause.append("film.title ILIKE :movieName ");
+                    parameters.put("movieName", "%" + movieName + "%");
+                }
+        
+                if (whereClause.length() > 0) {
+                    sql += "WHERE " + whereClause.toString();
+                }
+        
+                // Gunakan NamedParameterJdbcTemplate untuk parameter binding
+                NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+                return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
     }
 
     @Override
@@ -217,7 +226,7 @@ public class FilmJdbcRepo implements FilmRepository{
     }
 
     @Override
-    public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames) {
+    public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
         String sql = """
             SELECT COUNT(DISTINCT film.filmId)
             FROM film
@@ -241,6 +250,14 @@ public class FilmJdbcRepo implements FilmRepository{
             }
             whereClause.append("genre.name IN (:genreNames) ");
             parameters.put("genreNames", genreNames);
+        }
+
+        if (movieName != null && !movieName.isEmpty()) {
+            if (whereClause.length() > 0) {
+                whereClause.append("AND ");
+            }
+            whereClause.append("film.title ILIKE :movieName ");
+            parameters.put("movieName", "%" + movieName + "%");
         }
 
         if (whereClause.length() > 0) {
