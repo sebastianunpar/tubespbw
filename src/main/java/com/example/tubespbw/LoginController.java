@@ -11,6 +11,8 @@ import com.example.tubespbw.user.User;
 
 import com.example.tubespbw.user.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class LoginController {
 
@@ -18,25 +20,32 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String showLogin() {
+    public String showLogin(User user) {
         return "login";
     }
 
-    // @PostMapping("login")
-    // public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-    //     User user = userService.login(email, password);
-    //     if (User != null ) {
-    //         if (user.getRole() == "admin") {
-    //             return "redirect:/admin";
-    //         }
-    //         else if (user.getRole() == "user")
-    //         return "home";
-    //     }
-    //     return "redirect:";
-    // }
+    @PostMapping("/login")
+    public String login(
+            @RequestParam String email,
+            @RequestParam String password,
+            HttpSession session,
+            Model model) {
+        User user = userService.login(email, password);
+        if (user != null) {
+            session.setAttribute("user", user);
 
-    @PostMapping("register")
-    public String register() {
-        return "redirect:/admin";
+            if (user.getRole().equals("admin")) {
+                return "admin/home";
+            }
+            return "redirect:/";
+        }
+        model.addAttribute("status", "failed");
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }

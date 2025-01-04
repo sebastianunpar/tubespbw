@@ -20,13 +20,13 @@
       <p class="methods-title">Metode Pembayaran</p>
 
       <button class="method" id="bca-method">
-        <img src="assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
+        <img src="/assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
         <p>BCA Virtual Account</p>
         <span class="arrow">&rarr;</span>
       </button>
 
       <button class="method" id="mandiri-method">
-        <img src="assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
+        <img src="/assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
         <p>Mandiri Virtual Account</p>
         <span class="arrow">&rarr;</span>
       </button>
@@ -58,12 +58,12 @@
       <div class="poster-section">
         <div class="poster">
           <div class="poster-placeholder">
-            <img src="assets/img/venomlastdance.png" alt="" width="280" height="400">
+            <img th:src="'data:image/jpeg;base64,' + ${filmDetail.base64Poster}" alt="" width="280" height="400">
           </div>
         </div>
         <div class="poster-info">
           <p th:text="'Disewa ' + ${sales} + ' kali'"></p>
-          <p class="available" th:if="${filmDetail.valid}">Available to lease</p>
+          <p class="available" th:if="${filmDetail.valid}">Available to rent</p>
           <p class="available" th:if="${!filmDetail.valid}">Out of stock</p>
           <p  th:text="'Stock: ' + ${filmDetail.stock}"></p>
         </div>
