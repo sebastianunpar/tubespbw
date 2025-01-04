@@ -26,14 +26,15 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(
-            @RequestParam String email,
-            @RequestParam String password,
-            HttpSession session,
-            Model model) {
+        @RequestParam String email,
+        @RequestParam String password,
+        HttpSession session,
+        Model model
+    ) {
         User user = userService.login(email, password);
         if (user != null) {
             session.setAttribute("user", user);
-
+            
             if (user.getRole().equals("admin")) {
                 return "admin/home";
             }
@@ -47,5 +48,5 @@ public class LoginController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
-    }
+    }    
 }

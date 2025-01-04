@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping({ "", "/" })
+    @GetMapping({"", "/"})
     public String showHome(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
@@ -26,9 +26,10 @@ public class UserController {
 
     @PostMapping("register")
     public String register(
-            @Valid User user,
-            BindingResult bindingResult,
-            Model model) {
+        @Valid User user,
+        BindingResult bindingResult,
+        Model model
+        ) {
         user.setRole("user");
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
@@ -37,9 +38,10 @@ public class UserController {
         }
         if (!user.getPassword().equals(user.getConfirmpassword())) {
             bindingResult.rejectValue(
-                    "confirmpassword",
-                    "PasswordMissmatch",
-                    "Password do not match");
+                "confirmpassword", 
+                "PasswordMissmatch",
+                "Password do not match"
+                );
             model.addAttribute("user", user);
             model.addAttribute("formState", "register");
             return "login";
@@ -48,7 +50,8 @@ public class UserController {
         if (success) {
             model.addAttribute("user", user);
             return "home";
-        } else {
+        }
+        else {
             bindingResult.rejectValue("email", "error.username", "email is already taken");
         }
         model.addAttribute("error", "Registration failed. Please try again.");
@@ -66,10 +69,5 @@ public class UserController {
     @GetMapping("/history")
     public String showHistory() {
         return "user/history";
-    }
-
-    @GetMapping("/about-us")
-    public String showAboutUs() {
-        return "aboutus";
     }
 }
