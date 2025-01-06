@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.tubespbw.film.FilmService;
 
@@ -64,4 +65,10 @@ public class ActorController {
         return "redirect:/admin/manage-actors"; // Redirect back to manage genres
     }    
 
+    @PostMapping("/change-valid-actor")
+    public String changeValidActor(@RequestParam("actorId") int actorId, RedirectAttributes redirectAttributes) {
+            filmService.changeValidActor(actorId);
+            redirectAttributes.addFlashAttribute("successMessage", "Actor validity changed successfully.");
+        return "redirect:/admin/manage-actors";
+    }
 }

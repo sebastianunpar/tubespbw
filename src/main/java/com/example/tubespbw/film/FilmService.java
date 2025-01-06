@@ -72,8 +72,8 @@ public class FilmService {
         return repo.searchGenresByName(genreName);
     }
 
-    public void deleteGenreById(int genreId) {
-        repo.deleteById(genreId);
+    public void changeValidGenre(int genreId) {
+        repo.changeValidGenre(genreId);
     }
 
     // Aktor
@@ -86,6 +86,9 @@ public class FilmService {
 
     public List<Actor> searchActorsByName(String actorName) {
         return repo.searchActorsByName(actorName);
+    }
+    public void changeValidActor(int actorId) {
+        repo.changeValidGenre(actorId);
     }
     // 
     public List<Actor> getAllActor() throws SQLException {

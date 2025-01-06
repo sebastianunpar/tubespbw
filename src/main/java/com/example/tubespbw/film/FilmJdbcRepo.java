@@ -138,9 +138,14 @@ public class FilmJdbcRepo implements FilmRepository{
     }
 
     @Override
-    public void deleteById(int genreId) {
-        String sql = "UPDATE genre SET valid = false WHERE genreId = ?";
-        jdbcTemplate.update(sql, genreId);
+    public void changeValidGenre(int genreId) {
+        String sql = "SELECT valid FROM genre WHERE genreId = ?";
+        boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, genreId);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(valid);
+        boolean newValid = !valid;
+        sql = "UPDATE genre SET valid = ? WHERE genreId = ?";
+        jdbcTemplate.update(sql, newValid, genreId);
     }
 
     // Aktor
@@ -160,6 +165,17 @@ public class FilmJdbcRepo implements FilmRepository{
     public List<Actor> searchActorsByName(String actorName) {
         String sql = "SELECT * FROM actor WHERE LOWER(name) LIKE ?";
         return jdbcTemplate.query(sql, this::mapRowToActorObj, "%"+actorName.toLowerCase()+"%");
+    }
+
+    @Override
+    public void changeValidActor(int actorId) {
+        String sql = "SELECT valid FROM actor WHERE actorId = ?";
+        boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, actorId);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(valid);
+        boolean newValid = !valid;
+        sql = "UPDATE actor SET valid = ? WHERE genreId = ?";
+        jdbcTemplate.update(sql, newValid, actorId);
     }
     // 
     @Override

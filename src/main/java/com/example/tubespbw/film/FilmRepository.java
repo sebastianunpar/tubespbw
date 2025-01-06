@@ -20,11 +20,12 @@ public interface FilmRepository {
     Genre getGenreById(int id) throws SQLException;
     void updateGenre(int genreId, String genreName, boolean genreValid) throws SQLException;
     List<Genre> searchGenresByName(String name);
-    void deleteById(int genreId);
+    void changeValidGenre(int genreId);
     // Aktor
     Actor getActorById(int id) throws SQLException;
     void updateActor(int actorId, String actorName, boolean actorValid) throws SQLException;
     List<Actor> searchActorsByName(String name);
+    void changeValidActor(int actorId);
 
     List<Actor> getAllActor() throws SQLException;
     boolean insertFilm(String title, String description, byte[] poster, int stock, int price);

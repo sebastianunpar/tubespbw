@@ -91,9 +91,9 @@
                                 <a th:href="@{/admin/actor/{actorId}(actorId=${actor.actorId})}">
                                     <button>Edit</button>
                                 </a>
-                                <form th:action="@{/admin/delete-actor}" method="POST">
-                                    <!-- <input type="hidden" name="actorId" th:value="${actor.actorId}"> -->
-                                    <button type="submit">Delete</button>
+                                <form th:action="@{/admin/change-valid-actor}" method="POST">
+                                    <input type="hidden" name="actorId" th:value="${actor.actorId}">
+                                    <button type="submit" th:text="${actor.valid ? 'Disable' : 'Enable'}"></button>
                                 </form>
                             </td>
                         </tr>

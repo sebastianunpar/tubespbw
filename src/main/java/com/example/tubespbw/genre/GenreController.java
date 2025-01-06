@@ -78,8 +78,8 @@ public class GenreController {
     }    
 
     @PostMapping("/change-valid-genre")
-    public String deleteGenre(@RequestParam("genreId") int genreId, RedirectAttributes redirectAttributes) {
-            filmService.deleteGenreById(genreId);
+    public String changeValidGenre(@RequestParam("genreId") int genreId, RedirectAttributes redirectAttributes) {
+            filmService.changeValidGenre(genreId);
             redirectAttributes.addFlashAttribute("successMessage", "Genre deleted successfully.");
         return "redirect:/admin/manage-genres";
     }
