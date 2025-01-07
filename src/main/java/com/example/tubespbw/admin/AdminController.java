@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.tubespbw.RequiresRole;
 import com.example.tubespbw.actor.Actor;
 import com.example.tubespbw.film.FilmService;
 import com.example.tubespbw.genre.Genre;
@@ -24,32 +25,38 @@ public class AdminController {
     FilmService filmService;
 
     @GetMapping({"", "/"})
+    @RequiresRole("admin")
     public String showHome() {
         
         return "admin/home";
     }
 
     @GetMapping("/monthly-report")
+    @RequiresRole("admin")
     public String showMonthlyReport() {
         return "admin/monthlyReport";
     }
 
     @GetMapping("/income")
+    @RequiresRole("admin")
     public String showIncome() {
         return "admin/incomeGraph";
     }
 
     @GetMapping("/film-graph")
+    @RequiresRole("admin")
     public String showFilmGraph() {
         return "admin/filmGraph";
     }
 
     @GetMapping("/manage-movie")
+    @RequiresRole("admin")
     public String showManageMovie() {
         return "admin/browseAdmin";
     }
 
     @GetMapping("/add-movie")
+    @RequiresRole("admin")
     public String showAddMovie(Model model) throws SQLException  {
         List<Genre> genres = filmService.getAllGenre();
         List<Actor> actors = filmService.getAllActor();
@@ -59,6 +66,7 @@ public class AdminController {
     }
 
     @PostMapping("addFilm")
+    @RequiresRole("admin")
     public String addFilm(@RequestParam MultipartFile poster, @RequestParam String title, @RequestParam int price, @RequestParam int stock, @RequestParam String description, @RequestParam("genres") List<Integer> genres,
     @RequestParam("actors") List<Integer> actors) {
         // System.out.println(title);
@@ -72,6 +80,7 @@ public class AdminController {
     }
     
     @GetMapping("/report")
+    @RequiresRole("admin")
     public String showReport() {
         return "admin/report";
     }

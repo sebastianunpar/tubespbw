@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.tubespbw.RequiresRole;
 import com.example.tubespbw.film.FilmService;
 
 @Controller
@@ -26,6 +27,7 @@ public class ActorController {
     FilmService actorService;
 
     @GetMapping("/manage-actors")
+    @RequiresRole("admin")
     public String showManageActors(Model model) throws SQLException {
         List<Actor> actors = filmService.getAllActor();
         System.out.println("Actors: " + actors); // Debug log
@@ -34,6 +36,7 @@ public class ActorController {
     }
 
     @GetMapping("/search-actors")
+    @RequiresRole("admin")
     public String searchActors(@RequestParam("actor_name") String actorName, Model model) {
         List<Actor> actors = actorService.searchActorsByName(actorName);
         model.addAttribute("actors", actors);
@@ -41,12 +44,14 @@ public class ActorController {
     }
 
     @PostMapping("add-actor")
+    @RequiresRole("admin")
     public String addActor(@RequestParam String newActor) {
         filmService.insertActor(newActor);
         return "redirect:/admin/add-movie";
     }
 
     @GetMapping("/actor/{actorId}")
+    @RequiresRole("admin")
     public String showGenreEdit(@PathVariable("actorId") int actorId, Model model) throws SQLException {
         System.out.println("Fetching actor with ID: " + actorId);
         Actor actor = filmService.getActorById(actorId);
@@ -58,6 +63,7 @@ public class ActorController {
     }
 
     @PostMapping("/actor/update")
+    @RequiresRole("admin")
     public String updateActor(@RequestParam("actorId") int genreId,
                               @RequestParam("actorName") String genreName,
                               @RequestParam("actorValid") boolean genreValid) throws SQLException {
@@ -66,6 +72,7 @@ public class ActorController {
     }    
 
     @PostMapping("/change-valid-actor")
+    @RequiresRole("admin")
     public String changeValidActor(@RequestParam("actorId") int actorId, RedirectAttributes redirectAttributes) {
             filmService.changeValidActor(actorId);
             redirectAttributes.addFlashAttribute("successMessage", "Actor validity changed successfully.");
