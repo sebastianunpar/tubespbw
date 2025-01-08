@@ -262,3 +262,26 @@ header {
 .nav-links li a:hover {
     color: #f1c40f;
 }
+
+.add-new {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.add-button {
+    padding: 10px 15px;
+    background-color: #FFDC52;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #b19525;
+    color: white;
+}

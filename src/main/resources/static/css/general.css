@@ -132,3 +132,7 @@ body {
 a {
     all: unset;
 }
+
+.nav-right a {
+    cursor: pointer;
+}
