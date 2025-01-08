@@ -16,4 +16,6 @@ public interface AdminRepository {
     List<ReportData> getReportByDateRange(String startDate, String endDate);
 
     List<ReportData> getMonthlyReport();
+
+    List<ReportData> getOngoingRentals();
 }

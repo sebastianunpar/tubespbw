@@ -95,10 +95,17 @@
     </div>
 
     <div class="nav-right">
-      <a th:href="@{/rentals}"><img  src ="/assets/svg/user-avatar.svg" class="avatar profile-icon"></a>
-      <a th:href="@{/}">
-        <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
-      </a>
+      <th:block th:if="${user != null}">
+        <a th:href="@{/rentals}"><img  src ="/assets/svg/user-avatar.svg" class="avatar profile-icon"></a>
+        <a th:href="@{/}">
+          <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+        </a>
+      </th:block>
+      <th:block th:if="${user == null}">
+          <!-- If the user is not logged in -->
+          <a href="/login" ><button class="login-btn">Login</button></a>
+      </th:block>
+      
     </div>
   </header>
 <div class="main-content">

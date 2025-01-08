@@ -34,7 +34,7 @@
               </div>
             </div>
             <div class="nav-right">
-              <img src ="/assets/svg/user-avatar.svg" class="avatar">
+              
               <a th:href="@{/}">
                 <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
               </a>
@@ -55,26 +55,35 @@
             </div>
 
             <div class="table-container">
-                <table>
-                  <tr>
-                    <th>No</th>
-                    <th>Judul Film</th>
-                    <th>Tanggal Peminjaman</th>
-                    <th>Batas Pengembalian</th>
-                    <th>Pemasukan</th>
-                    <th>Change Status</th>
-                  </tr>
-                  <tr>
-                    <td>No HP</td>
-                    <td>Nama UMK</td>
-                    <td>Pemilik UMK</td>
-                    <td>Tanggal Pengajuan</td>
-                    <td>Detail UMK</td>
-                    <td><button type="button" class="done-btn">Done</button></td>
-                  </tr>
-                </table>
+              <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Email Penyewa</th>
+                        <th>Judul Film</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Pemasukan</th>
+                        <th>Status Sewa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="report, iterStat : ${reports}">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td th:text="${report.emailPenyewa}"></td>
+                        <td th:text="${report.judulFilm}"></td>
+                        <td th:text="${report.tanggalPeminjaman}"></td>
+                        <td th:text="${report.formattedPemasukan}"></td>
+                        <td>
+                          <form th:action="@{/admin/current-rentals/mark-done}" method="post">
+                              <input type="hidden" name="rentalId" th:value="${report.rentalId}">
+                              <button type="submit" class="done-btn">Done</button>
+                          </form>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
                 
-              </div>
+            </div>
         </div>
     </div>
 </body>

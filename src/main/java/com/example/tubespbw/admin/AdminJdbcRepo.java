@@ -118,10 +118,28 @@ public class AdminJdbcRepo implements AdminRepository {
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> rs.getBytes("poster"), year, month);
     }
 
+    public List<ReportData> getOngoingRentals() {
+        String sql = """
+                    SELECT
+                        r.rentalId, -- Add this field
+                        u.email AS email_penyewa,
+                        f.title AS judul_film,
+                        r.rentalDate AS tanggal_peminjaman,
+                        r.returnDate AS tanggal_pengembalian,
+                        f.price AS pemasukan
+                    FROM rental r
+                    JOIN users u ON r.userId = u.userId
+                    JOIN film f ON r.filmId = f.filmId
+                    WHERE r.returnDate IS NULL
+                """;
+        return formatReportData(mapReportDatas(sql));
+    }
+
     @Override
     public List<ReportData> getMonthlyReport() {
         String sql = """
                     SELECT
+                        r.rentalId,
                         u.email AS email_penyewa,
                         f.title AS judul_film,
                         r.rentalDate AS tanggal_peminjaman,
@@ -139,6 +157,7 @@ public class AdminJdbcRepo implements AdminRepository {
     public List<ReportData> getReportByDateRange(String startDate, String endDate) {
         String sql = """
                     SELECT
+                        r.rentalId,
                         u.email AS email_penyewa,
                         f.title AS judul_film,
                         r.rentalDate AS tanggal_peminjaman,
@@ -154,6 +173,7 @@ public class AdminJdbcRepo implements AdminRepository {
                 sql,
                 new Object[] { startDate, endDate },
                 (rs, rowNum) -> new ReportData(
+                        rs.getInt("rentalId"),
                         rs.getString("email_penyewa"),
                         rs.getString("judul_film"),
                         rs.getDate("tanggal_peminjaman"),
@@ -172,9 +192,20 @@ public class AdminJdbcRepo implements AdminRepository {
         return reports;
     }
 
+    public void updateReturnDate(int rentalId, LocalDate returnDate) {
+        String sql = "UPDATE rental SET returnDate = ? WHERE rentalId = ?";
+        int rowsUpdated = jdbcTemplate.update(sql, returnDate, rentalId);
+
+        if (rowsUpdated == 0) {
+            throw new IllegalArgumentException(
+                    "Rental with ID " + rentalId + " does not exist or is already completed.");
+        }
+    }
+
     private List<ReportData> mapReportDatas(String sql) {
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             ReportData row = new ReportData(
+                    rs.getInt("rentalId"),
                     rs.getString("email_penyewa"),
                     rs.getString("judul_film"),
                     rs.getDate("tanggal_peminjaman"),
