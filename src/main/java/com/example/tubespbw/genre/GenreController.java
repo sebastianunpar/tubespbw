@@ -55,6 +55,19 @@ public class GenreController {
         return "admin/manageGenres";
     }
 
+    @GetMapping("/add-genre-page")
+    @RequiresRole("admin")
+    public String showAddGenrePage() {
+        return "/admin/addGenre";
+    }
+
+    @PostMapping("/add-genre-page")
+    @RequiresRole("admin")
+    public String addGenreManage(@RequestParam String newGenre) {
+        filmService.insertGenre(newGenre);
+        return "redirect:/admin/manage-genres";
+    }
+
     @PostMapping("add-genre")
     @RequiresRole("admin")
     public String addGenre(@RequestParam String newGenre) {

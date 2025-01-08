@@ -43,6 +43,19 @@ public class ActorController {
         return "admin/manageActors";
     }
 
+    @GetMapping("/add-actor-page")
+    @RequiresRole("admin")
+    public String showAddActorPage() {
+        return "/admin/addActor";
+    }
+
+    @PostMapping("/add-actor-page")
+    @RequiresRole("admin")
+    public String addGenreManage(@RequestParam String newActor) {
+        filmService.insertActor(newActor);
+        return "redirect:/admin/manage-actors";
+    }
+
     @PostMapping("add-actor")
     @RequiresRole("admin")
     public String addActor(@RequestParam String newActor) {
