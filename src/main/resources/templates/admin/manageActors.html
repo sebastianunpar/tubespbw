@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/admin/manageActors.css">
+    <link rel="stylesheet" href="/css/general.css">
     <title>Manage Actors</title>
 
 </head>
@@ -11,78 +12,41 @@
     <div class="page-container">
 
         <div class="logo">
-            <p class="morent">MOREnt.</p>
+            <img src="/assets/img/logo.png" class="morent">
         </div>
-
-        <!-- Header Section -->
-        <div class="header">
-            <p class="dashboard-header">Homepage</p>
-            <img class="profile" src="/assets/svg/generic-avatar0.svg" />
-        </div>
-
-      <!-- Sidebar Section -->
-        <div class="sidebar">
-            <div class="navigation">
-            <div class="menu-item dashboard">
-                <img class="icon-dashboard" src="/assets/svg/home-20.svg" />
-                <a href="/admin">
-                    <p class="nav-dashboard">Dashboard</p>
+  
+        <header class="navbar">
+            <div class="nav-left">
+              <!-- nambah link -->
+                <div class="nav-item">
+                    <a href="/admin">HOME</a>
+                </div>
+                <div class="nav-item" >
+                    <a href="/admin/manage-movie">MANAGE FILM</a>
+                </div>
+                <div class="nav-item active">
+                    <a href="/admin/manage-genres">GENRE & ACTOR</a>
+                </div>
+                <div class="nav-item" >
+                    <a href="/admin/report">GRAPH & REPORT</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <img src ="/assets/svg/user-avatar.svg" class="avatar">
+                <a href="/logout">
+                    <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
                 </a>
             </div>
-
-            <div class="menu-item daftar-film">
-                <img class="icon-film" src="/assets/svg/film.svg" />
-                <a href="/admin/add-movie">
-                    <p class="nav-daftar-film">Daftar Film</p>
-                </a>
-            </div>
-
-            <div class="menu-item genre-aktor">
-                <img class="icon-genre-aktor" src="/assets/svg/folder-check0.svg" />
-                <a href="/admin/manage-genres">
-                    <p class="nav-genre-aktor">Genre & Aktor</p>
-                </a>
-                <!-- <span class="badge">13</span> -->
-            </div>
-
-            <div class="menu-item laporan">
-                <img class="icon-laporan" src="/assets/svg/icon-graph0.svg" />
-
-                <!-- tambahan link -->
-                <a href="/admin/report">
-                    <p class="nav-laporan">Laporan</p>
-                </a>
-                <!-- tambahan link -->
-
-            </div>
-
-            <div class="nav-divider">
-                <hr class="solid" />
-            </div>
-
-            <div class="menu-item log-out">
-                <img class="icon-log-out" src="/assets/svg/logout-040.svg" />
-                <a href="/login">
-                    <p class="nav-log-out">Log Out</p>
-                </a>
-            </div>
-
-            <div class="menu-item faq">
-                <img class="icon-faq" src="/assets/svg/help-circle-contained0.svg" />
-                <a href="#">
-                    <p class="nav-faq">FAQ</p>
-                </a>
-            </div>
-            </div>
-        </div>
-
+            <!-- nambah link -->
+        </header>
+  
         <!-- main contents -->
         <div class="main-content">
             <header>
                 <nav>
                     <ul class="nav-links">
-                        <li><a href="/admin/manage-actors" class="active">Aktor</a></li>
                         <li><a href="/admin/manage-genres">Genre</a></li>
+                        <li><a href="/admin/manage-actors" class="active">Aktor</a></li>
                     </ul>
                 </nav>
             </header>
@@ -91,8 +55,9 @@
                 
                 <!-- Search Bar -->
                 <div class="search-bar">
-                    <form action="" method="GET">
-                        <input type="text" name="actor_name" placeholder="Search Actor by Name" value="">
+                    <form action="/admin/search-actors" method="GET">
+                        <input type="text" name="actor_name" placeholder="Search Actor by Name" 
+                        th:value="${param.actor_name}" >
                         <button type="submit">Search</button>
                     </form>
                 </div>
@@ -103,6 +68,7 @@
                         <tr>
                             <th>ID Actor</th>
                             <th>Actor Name</th>
+                            <th>Valid</th>
                             <th class="action-head">Actions</th>
                         </tr>
                     </thead>
@@ -120,14 +86,14 @@
                         <tr th:each="actor : ${actors}">
                             <td th:text="${actor.actorId}"></td>
                             <td th:text="${actor.name}"></td>
+                            <td th:text="${actor.valid ? 'Yes' : 'No'}"></td>
                             <td class="actions">
-                                <form th:action="@{/admin/edit-actor}" method="GET">
-                                    <!-- <input type="hidden" name="actorId" th:value="${actor.actorId}"> -->
-                                    <button type="submit">Edit</button>
-                                </form>
-                                <form th:action="@{/admin/delete-actor}" method="POST">
-                                    <!-- <input type="hidden" name="actorId" th:value="${actor.actorId}"> -->
-                                    <button type="submit">Delete</button>
+                                <a th:href="@{/admin/actor/{actorId}(actorId=${actor.actorId})}">
+                                    <button>Edit</button>
+                                </a>
+                                <form th:action="@{/admin/change-valid-actor}" method="POST">
+                                    <input type="hidden" name="actorId" th:value="${actor.actorId}">
+                                    <button type="submit" th:text="${actor.valid ? 'Disable' : 'Enable'}"></button>
                                 </form>
                             </td>
                         </tr>
