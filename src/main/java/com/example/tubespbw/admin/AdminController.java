@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.tubespbw.RequiresRole;
 import com.example.tubespbw.actor.Actor;
@@ -74,8 +75,25 @@ public class AdminController {
     }
 
     @GetMapping("/current-rentals")
-    public String showCurrentRentals() {
-        return "admin/lease";
+    public String showCurrentRentals(Model model) {
+        List<ReportData> reports;
+        reports = adminRepo.getOngoingRentals();
+
+        model.addAttribute("reports", reports);
+        return "admin/rentals";
+    }
+
+    @PostMapping("/current-rentals/mark-done")
+    public String markRentalDone(@RequestParam("rentalId") int rentalId, RedirectAttributes redirectAttributes) {
+        try {
+            adminRepo.updateReturnDate(rentalId, LocalDate.now());
+            redirectAttributes.addFlashAttribute("message", "Rental marked as done successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Failed to mark rental as done.");
+        }
+        return "redirect:/rentals";
+
     }
 
     @GetMapping("/monthly-report")

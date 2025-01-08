@@ -511,3 +511,18 @@
  a {
    all: unset;
  }
+
+ button.login-btn {
+   color: #ffc107;
+   border: 2px solid #ffc107;
+   background: none;
+   padding: 5px 15px;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 20px;
+ }
+
+ button.login-btn:hover {
+   background-color: #ffc107;
+   color: #121212;
+ }
