@@ -50,7 +50,7 @@ header h2 {
 .poster-preview {
     width: 280px;
     height: 400px;
-    background-color: #4a3e17;
+    background-color: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,6 +191,29 @@ textarea {
     cursor: pointer;
 }
 
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    background-color: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.checkbox-group input {
+    display: none;
+}
+
+.checkbox-group input:checked+label {
+    background-color: #ffc107;
+    color: #121212;
+    font-weight: bold;
+}
 
 .checkbox-group {
     display: flex;

@@ -1,11 +1,16 @@
 package com.example.tubespbw.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.tubespbw.rental.Rental;
+import com.example.tubespbw.rental.RentalService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -14,6 +19,9 @@ import jakarta.validation.Valid;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RentalService rentalService;
 
     @GetMapping({ "", "/" })
     public String showHome(HttpSession session, Model model) {
@@ -59,17 +67,33 @@ public class UserController {
     }
 
     @GetMapping("/rentals")
-    public String showRentals() {
+    public String showRentals(HttpSession session, Model model) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
+        User user = (User) session.getAttribute("user");
+        int userId = userService.getUserIdFromEmail(user.getEmail());
+        if (userId != 0) {
+            List<Rental> rentals = rentalService.getUserRentals(userId);
+            System.out.println(rentals);
+            model.addAttribute("rentals", rentals);
+        }
         return "user/rentals";
     }
 
     @GetMapping("/history")
-    public String showHistory() {
+    public String showHistory(HttpSession session, Model model) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
+        User user = (User) session.getAttribute("user");
+        int userId = userService.getUserIdFromEmail(user.getEmail());
+        if (userId != 0) {
+            List<Rental> rentalHisotry = rentalService.getUserRentalHistory(userId);
+            System.out.println(rentalHisotry);
+            model.addAttribute("rentalHistory", rentalHisotry);
+        }
         return "user/history";
     }
 
-    @GetMapping("/about-us")
-    public String showAboutUs() {
-        return "aboutus";
-    }
 }

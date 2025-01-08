@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
+import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.actor.Actor;
 
 @Service
 public class FilmService {
@@ -58,6 +60,37 @@ public class FilmService {
         return repo.getAllGenre();
     }
 
+    // Genre
+    public Genre getGenreById(int id) throws SQLException {
+        return repo.getGenreById(id);
+    }
+
+    public void updateGenre(int genreId, String genreName, boolean genreValid) throws SQLException {
+        repo.updateGenre(genreId, genreName, genreValid); // Call repository to update genre
+    }    
+    public List<Genre> searchGenresByName(String genreName) {
+        return repo.searchGenresByName(genreName);
+    }
+
+    public void changeValidGenre(int genreId) {
+        repo.changeValidGenre(genreId);
+    }
+
+    // Aktor
+    public Actor getActorById(int id) throws SQLException {
+        return repo.getActorById(id);
+    }
+    public void updateActor(int actorId, String actorName, boolean actorValid) throws SQLException {
+        repo.updateActor(actorId, actorName, actorValid); // Call repository to update genre
+    }
+
+    public List<Actor> searchActorsByName(String actorName) {
+        return repo.searchActorsByName(actorName);
+    }
+    public void changeValidActor(int actorId) {
+        repo.changeValidGenre(actorId);
+    }
+    // 
     public List<Actor> getAllActor() throws SQLException {
         return repo.getAllActor();
     }
@@ -79,5 +112,25 @@ public class FilmService {
             return false;
         }
     }
+
+    public List<Film> searchFilms(String query) throws SQLException {
+        List<Film> films = repo.searchFilms(query);
+        for (Film film : films) {
+            String base64Poster = generateBase64Poster(film.getPoster());
+            film.setBase64Poster(base64Poster);
+        }
+        return films;
+    }
+
+    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException {
+        List<Film> films = repo.filterFilmsByActorAndGenre(actorNames, genreNames, movieName);
+        for (Film film : films) {
+            String base64Poster = generateBase64Poster(film.getPoster());
+            film.setBase64Poster(base64Poster);
+        }
+        return films;
+    }
+    
+    
 
 }

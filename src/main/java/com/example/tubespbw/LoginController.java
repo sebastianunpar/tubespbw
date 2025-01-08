@@ -35,8 +35,10 @@ public class LoginController {
             session.setAttribute("user", user);
 
             if (user.getRole().equals("admin")) {
-                return "admin/home";
+                session.setAttribute("role", "admin");
+                return "redirect:/admin";
             }
+            session.setAttribute("role", "user");
             return "redirect:/";
         }
         model.addAttribute("status", "failed");

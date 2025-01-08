@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/editAktor.css">
+    <title>Edit Aktor</title>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Logo Section -->
+        <div class="logo">
+            <img src="/assets/img/logo.png" class="morent">
+        </div>
+        <header class="navbar">
+          <div class="nav-left">
+            <!-- nambah link -->
+            <div class="nav-item">
+              <a th:href="@{/admin}">HOME</a>
+            </div>
+            <div class="nav-item">
+              <a th:href="@{/admin/current-rentals}">RENTALS</a>
+            </div>
+            <div class="nav-item" >
+              <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+            </div>
+            <div class="nav-item active">
+              <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+            </div>
+            <div class="nav-item" >
+              <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+            </div>
+          </div>
+          <div class="nav-right">
+            <img src ="/assets/svg/user-avatar.svg" class="avatar">
+            <a th:href="@{/}">
+              <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+            </a>
+          </div>
+          <!-- nambah link -->
+        </header>
+        <!-- Main Content Section -->
+        <main class="main-content">
+            <div class="form-container">
+                <h1>Edit Aktor</h1>
+                <form th:action="@{/admin/actor/update}" method="POST">
+                    <input type="hidden" name="actorId" th:value="${actor.actorId}">
+
+                    <!-- Genre Name -->
+                    <label for="actorName">Nama Aktor</label>
+                    <input type="text" id="actorName" name="actorName" placeholder="Enter actor name" th:value="${actor.name}" required>
+
+                    <!-- Genre Validity -->
+                    <label for="actorValid">Valid</label>
+                    <select id="actorValid" name="actorValid" required>
+                        <option th:value="true" th:selected="${actor.valid} == true">Yes</option>
+                        <option th:value="false" th:selected="${actor.valid} == false">No</option>
+                    </select>
+
+                    <!-- Buttons -->
+                    <div class="button-group">
+                        <button type="submit" class="save-button">Save</button>
+                        <a href="/admin/manage-actor"><button type="button" class="cancel-button">Cancel</button></a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

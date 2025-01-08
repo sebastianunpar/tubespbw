@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse UI</title>
+  <link rel="stylesheet" href="css/general.css">
   <link rel="stylesheet" href="css/browsePage.css">
   <script src="js/pengguna/browsePage.js" defer></script>
   
@@ -18,81 +19,103 @@
 
 </head>
 <body>
-
+  <div class="page-container">
   <dialog id="filter-dialog">
-    <div class="filter-container">
-      <div class="filter-section">
-        <div class="filter-header">
-          <input type="text" placeholder="Actor..." class="filter-input">
+    <form th:action="@{/browse}" method="get">
+      <div class="filter-container">
+        <!-- Actor Filter -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <input type="text" id="actor-search" placeholder="Search Actor..." class="filter-input" />
+          </div>
+          <div class="filter-options" id="actor-options">
+            <!-- Loop untuk actors -->
+            <th:block th:each="actor : ${actors}">
+                <label>
+                    <input type="checkbox" name="actorName" th:value="${actor.name}" 
+                          th:checked="${#lists.contains(actorName ?: {}, actor.name)}" />
+                    <span th:text="${actor.name}"></span>
+                </label>
+            </th:block>
+          </div>
         </div>
-        <div class="filter-options">
-          <label><input type="checkbox"> Theo James</label>
-          <label><input type="checkbox"> Dian Sastro</label>
-          <label><input type="checkbox"> Cillian Murphy</label>
-          <label><input type="checkbox"> Nicolas Saputra</label>
+  
+        <!-- Genre Filter -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <input type="text" id="genre-search" placeholder="Search Genre..." class="filter-input" />
+          </div>
+          <div class="filter-options" id="genre-options">
+            <!-- Loop untuk genres -->
+            <th:block th:each="genre : ${genres}">
+                <label>
+                    <input type="checkbox" name="genreName" th:value="${genre.name}" 
+                          th:checked="${#lists.contains(genreName ?: {}, genre.name)}" />
+                    <span th:text="${genre.name}"></span>
+                </label>
+            </th:block>
+          </div>
         </div>
       </div>
-      <div class="filter-section">
-        <div class="filter-header">
-          <input type="text" placeholder="Genre..." class="filter-input">
-        </div>
-        <div class="filter-options">
-          <label><input type="checkbox"> Action</label>
-          <label><input type="checkbox"> Sci-Fi</label>
-          <label><input type="checkbox"> Horror</label>
-          <label><input type="checkbox"> Romance</label>
-          <label><input type="checkbox"> Drama</label>
-          <label><input type="checkbox"> Comedy</label>
-        </div>
+  
+      <div class="dialog-footer">
+        <button id="apply-filters" class="apply-btn" type="submit">Apply</button>
       </div>
-    </div>
-
-    <button id="close-dialog" class="close-btn">&times;</button>
-
+      <button id="close-dialog" class="close-btn" type="button">&times;</button>
+    </form>
   </dialog>
+  
+  <div class="logo">
+    <img src="/assets/img/logo.png" class="morent">
+</div>
 
   <header class="navbar">
+    
     <div class="nav-left">
-      <div class="nav-item logo">
-        <img src="assets/img/Logo-Tubes_PBW.png" alt="">
-      </div>
       <div class="nav-item">
-        <a href="/">HOME</a>
+        <a th:href="@{/}">HOME</a>
       </div>
       <div class="nav-item active" >
-        <a href="/browse">BROWSE</a>
-      </div>
-      <div class="nav-item" >
-        <a href="/">ABOUT US</a>
+          <a  th:href="@{/browse}">BROWSE</a>
       </div>
     </div>
 
     <div class="nav-middle">
       <div class="search-bar">
-          <input type="text" placeholder="Search..."/>
-          <img src="assets/img/search-bar-logo.png">
-      </div>
+        <form method="get" th:action="@{/browse}">
+          <input type="text"  name="movieName"  id="search-input" placeholder="Search movie name..." value=""  th:value="${movieName}"/>
+          <button type="submit" class="search-button">
+            <img id="search-icon" src="assets/img/search-bar-logo.png" alt="Search Icon" />
+          </button>
+        </form>
+      </div>    
       <div class="filter">
         <button id="open-dialog" class="open-btn"><img src="assets/svg/filter-logo.svg"></button>
       </div>
     </div>
 
     <div class="nav-right">
-      <a href="/rentals">
-        <div class="profile-icon"></div>
+      <a th:href="@{/rentals}"><img  src ="/assets/svg/user-avatar.svg" class="avatar profile-icon"></a>
+      <a th:href="@{/}">
+        <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
       </a>
     </div>
   </header>
-
+<div class="main-content">
   <main class="content">
     <div class="card-container">
       <a th:href="@{'/film/'} + ${film.filmId}" class="card" th:each="film : ${films}">
         <div class="image-placeholder">
-          <img th:src="'data:image/jpeg;base64,' + ${film.base64Poster}">
+          <img class="poster" th:src="'data:image/jpeg;base64,' + ${film.base64Poster}" alt="Poster">
         </div>
-        <p th:text="${film.title}"></p>
+        <p th:utext="${film.title}">Film Title</p>
       </a>
-    </div>
+      <th:block th:if="${#lists.isEmpty(films)}">
+        <p>No films found. Please try a different search!</p>
+      </th:block>
+    </div>    
   </main>
+</div>
+</div>
 </body>
 </html>
