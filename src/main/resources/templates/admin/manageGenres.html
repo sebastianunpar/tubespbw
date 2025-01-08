@@ -33,7 +33,7 @@
             </div>
             <div class="nav-right">
                 <img src ="/assets/svg/user-avatar.svg" class="avatar">
-                <a href="/">
+                <a href="/logout">
                     <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
                 </a>
             </div>
@@ -52,6 +52,11 @@
             </header>
             <div class="container">
                 <h1>Manage Movie Genres</h1>
+
+                <!-- Add New Genre Button -->
+                <div class="add-new">
+                    <a href="/admin/add-genre-page" class="add-button">+ Add New Genre</a>
+                </div>
                 
                 <div class="search-bar">
                     <form action="/admin/search-genres" method="GET">
