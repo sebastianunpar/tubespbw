@@ -1,470 +1,513 @@
-  /* General body styling */
-  body {
-    margin: 10px;
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: white;
-  }
-  
-  /* Navbar styling */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; 
-  padding: 10px 60px;
-}
+ .search-bar input {
+   padding: 8px 40px 8px 10px;
+   width: 400px;
+   padding: 8px 35px 8px 15px;
+   /* Tambah ruang untuk ikon di kanan */
+   border-radius: 20px;
+   border: none;
+   outline: none;
+   background-color: #333;
+   /* Warna awal search bar */
+   color: white;
+   font-size: 14px;
+   transition: all 0.3s ease;
+   /* Menambahkan transisi untuk perubahan ukuran dan warna */
+ }
 
-/* Navbar styling */
-.logo img {
-  height: 40px; 
-  object-fit: contain; 
-  display: block; 
-}
+ .search-bar select {
+   padding: 5px 10px;
+   border-radius: 20px;
+   border: none;
+   outline: none;
+   background-color: #333;
+   color: white;
+ }
 
-  .nav-item {
-    font-size: 16px;
-    cursor: pointer;
-    color: white;
-    position: relative; 
-    transition: color 0.3s ease;
-  }
-  
-  .nav-left, .nav-middle, .nav-right {
-    display: flex;
-    align-items: center; /* Menjaga elemen dalam grup sejajar secara vertikal */
-    gap: 20px;
-  }
-  
-  .nav-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: -8px; /* Posisikan sedikit lebih jauh agar tidak terlalu dekat */
-    left: 0;
-    width: 100%;
-    height: 3px; /* Lebih tipis agar tidak terlalu tebal */
-    background-color: #FEC600; /* Warna kuning */
-    border-radius: 2px; /* Membuat garis lebih halus */
-    box-shadow: 0 0 5px 0px #FEC600; /* Efek cahaya halus */
-    transition: all 0.3s ease; /* Animasi halus */
-  }
-  
-  .nav-item:hover {
-    color: #FEC600; /* Warna berubah saat hover */
-  }
-  
-  .nav-left {
-    display: flex; /* Gunakan flexbox */
-    align-items: center; /* Vertikal sejajar */
-    gap: 20px; /* Beri jarak antar elemen */
-  }
-  
-  .nav-left .logo {
-    display: flex; /* Gunakan flexbox pada logo */
-    align-items: center; /* Pusatkan vertikal */
-  }
+ .search-bar {
+   position: relative;
+   display: flex;
+   align-items: center;
+   gap: 20px;
+ }
 
-  .nav-left .logo img {
-    height: 40px; /* Sesuaikan tinggi logo */
-    width: auto; /* Jaga proporsi logo */
-    margin-right: 10px; /* Jarak antara logo dan teks berikutnya (jika ada) */
-  }
-  
-  .nav-item {
-    font-size: 16px;
-    cursor: pointer;
-    color: white;
-  }
-  
-  .nav-item.active {
-    color: #FEC600; /* Warna kuning untuk elemen aktif */
-    position: relative; /* Dibutuhkan untuk pseudo-element */
-    text-shadow: 0 0 8px #FEC600, 0 0 12px #FEC600; /* Efek glow pada teks */
-    transition: all 0.3s ease;
-  }
-
-  .nav-middle{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .search-bar input {
-    padding: 8px 40px 8px 10px;
-    width: 400px;
-    padding: 8px 35px 8px 15px; /* Tambah ruang untuk ikon di kanan */
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    background-color: #333; /* Warna awal search bar */
-    color: white;
-    font-size: 14px;
-    transition: all 0.3s ease; /* Menambahkan transisi untuk perubahan ukuran dan warna */
-}
-  
-  .search-bar select {
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    background-color: #333;
-    color: white;
-  }
-
-  .search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .search-bar button {
-    background: none; /* Menghapus background default */
-    border: none; /* Menghapus border default */
-    padding: 0; /* Menghapus padding default */
-    cursor: pointer; /* Menambahkan pointer pada hover */
-  }
-  
-
-/* Untuk ikon pencarian */
-.search-bar img {
-    position: absolute;
-    right: 15px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease; /* Menambahkan transisi saat hover */
-}
-
-  .filter button {
-    padding: 10px 20px; /* Perbesar ukuran tombol */
-    font-size: 16px; /* Perbesar teks tombol */
-    border-radius: 20px;
-    border: none;
-    background-color: gray;
-    color: black;
-    cursor: pointer;
-    align-self: center; /* Untuk menyelaraskan dengan search bar */
-    transition: background-color 0.3s;
-}
-
-.filter button:hover {
-    background-color: #FEC600; /* Efek hover */
-    transform: scale(1.05);
-}
-
-/*filter*/
-.filter button {
-  background-color: transparent; /* Menghilangkan background */
-  border: none; /* Menghilangkan border */
-  cursor: pointer;
-  display: flex;
-  align-items: center; /* Menyelaraskan logo secara vertikal */
-  justify-content: center; /* Menyelaraskan logo secara horizontal */
-}
-
-.filter button img {
-  width: 25px; /* Ukuran logo sesuai dengan input */
-  height: 25px;
-  transition: filter 0.3s ease; /* Transisi halus saat hover */
-  filter: brightness(0.8); /* Warna kuning agak lebih gelap */
-}
-
-.filter button:hover img {
-  filter: brightness(1.2); /* Membuat logo lebih terang saat hover */
-}
-
-.filter-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.filter-section {
-  display: flex;
-  flex-direction: column;
-}
-
-.filter-header {
-  display: flex;
-  align-items: center;
-  width: 90%;
-  gap: 10px;
-}
-
-.filter-input {
-  flex: 1;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.filter-options label {
-  display: block;
-  margin: 5px 0;
-}
-
-/* Apply Button Styling */
-.apply-btn {
-  padding: 10px 20px;
-  background-color: #FEC600;
-  color: #121212;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Hover Effect for Apply Button */
-.apply-btn:hover {
-  transform: scale(1.1);
-}
-  
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .profile-icon {
-    width: 50px;
-    height: 50px;
-    background-color: gray;
-    border-radius: 50%;
-    border: 2px solid #FEC600;
-  }
-
-  .input-container {
-    position: relative;
-    width: 100%; 
-  }
-  
-  /* Search Icon */
-#search-icon {
-  position: absolute;
-  right: 15px;
-  top: 5px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#search-icon:hover{
-  padding: 3px;
-  border-radius: 15px;
-  background-color: #FEC600; /* Efek hover */
-  transform: scale(1.05);
-}
-
-/* Search Bar Reset */
-#search-icon.reset:hover {
-  background-color: #FEC600;
-}
-  
-  
-    .open-btn {
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    dialog {
-      border: none;
-      border-radius: 10px;
-      padding: 20px;
-      width: 300px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    .filter-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .filter-section {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .filter-header {
-      display: flex;
-      align-items: center;
-      width: 90%;
-      gap: 10px;
-    }
-    
-    .filter-input {
-      flex: 1;
-      padding: 5px 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    
-    .search-btn {
-      background: none;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    
-    .filter-options label {
-      display: block;
-      margin: 5px 0;
-    }
-  
-    img {
-      width: 135px;
-      height: 200px; 
-      object-fit: cover; 
-      border-radius: 5px; 
-    }
-  
-    .logo img{
-      width: 70px;
-      height: 40px;
-    }
-    
-    .filter {
-      display: flex;
-      align-items: center;
-    }
-    
-    .filter .open-btn {
-      padding: 8px; 
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-    }
-    
-    .filter .filter-icon {
-      width: 18px; 
-      height: 18px;
-      filter: invert(100%);
-    }
-  
-      /* Close Button */
-      .close-btn {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: none;
-        border: none;
-        font-size: 20px;
-        color: #121212;
-        cursor: pointer;
-      }
-      
-      .close-btn:hover {
-        color: #ffcc00;
-      }
-  
-      .dialog-footer {
-        text-align: right;
-        margin-top: 20px;
-      }
-  
-  /* Main content */
-  .content {
-    padding: 20px;
-    display: grid;
-    justify-content: center;
-  }
-  
-  .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    width: 100%;
-  }
-  
-  /* Card styling */
-  .card {
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    text-align: center;
-    padding: 10px;
-    transition: transform 0.3s;
-  }
-  
-  .card:hover {
-    transform: scale(1.05);
-  }
-  
-  .image-placeholder {
-    width: 100%;
-    height: 200px;
-    background-color: #333;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .card p {
-    font-size: 16px;
-    margin: 0;
-  }
-  
+ .search-bar button {
+   background: none;
+   /* Menghapus background default */
+   border: none;
+   /* Menghapus border default */
+   padding: 0;
+   /* Menghapus padding default */
+   cursor: pointer;
+   /* Menambahkan pointer pada hover */
+ }
 
 
-  .open-btn {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  dialog {
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+ /* Untuk ikon pencarian */
+ .search-bar img {
+   position: absolute;
+   right: 15px;
+   width: 20px;
+   height: 20px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   /* Menambahkan transisi saat hover */
+ }
 
-  
-  .dialog-footer {
-    text-align: right;
-    margin-top: 20px;
-  }
+ .filter button {
+   padding: 10px 20px;
+   /* Perbesar ukuran tombol */
+   font-size: 16px;
+   /* Perbesar teks tombol */
+   border-radius: 20px;
+   border: none;
+   background-color: gray;
+   color: black;
+   cursor: pointer;
+   align-self: center;
+   /* Untuk menyelaraskan dengan search bar */
+   transition: background-color 0.3s;
+ }
 
-   /* Close Button */
-   .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #121212;
-    cursor: pointer;
-  }
-  
-  .close-btn:hover {
-    color: #ffcc00;
-  }
+ .filter button:hover {
+   background-color: #FEC600;
+   /* Efek hover */
+   transform: scale(1.05);
+ }
 
-  img {
-    width: 135px;
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 5px; 
-  }
-  
+ /*filter*/
+ .filter button {
+   background-color: transparent;
+   /* Menghilangkan background */
+   border: none;
+   /* Menghilangkan border */
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   /* Menyelaraskan logo secara vertikal */
+   justify-content: center;
+   /* Menyelaraskan logo secara horizontal */
+ }
+
+ .filter button img {
+   width: 25px;
+   /* Ukuran logo sesuai dengan input */
+   height: 25px;
+   transition: filter 0.3s ease;
+   /* Transisi halus saat hover */
+   filter: brightness(0.8);
+   /* Warna kuning agak lebih gelap */
+ }
+
+ .filter button:hover img {
+   filter: brightness(1.2);
+   /* Membuat logo lebih terang saat hover */
+ }
+
+ .filter-container {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+ }
+
+ .filter-section {
+   display: flex;
+   flex-direction: column;
+ }
+
+ .filter-header {
+   display: flex;
+   align-items: center;
+   width: 90%;
+   gap: 10px;
+ }
+
+ .filter-input {
+   flex: 1;
+   padding: 5px 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+ }
+
+ .filter-options label {
+   display: block;
+   margin: 5px 0;
+ }
+
+ /* Apply Button Styling */
+ .apply-btn {
+   padding: 10px 20px;
+   background-color: #FEC600;
+   color: #121212;
+   border: none;
+   border-radius: 5px;
+   font-size: 16px;
+   font-weight: bold;
+   cursor: pointer;
+   transition: all 0.3s ease;
+ }
+
+ /* Hover Effect for Apply Button */
+ .apply-btn:hover {
+   transform: scale(1.1);
+ }
+
+ .input-container {
+   position: relative;
+   width: 100%;
+ }
+
+ /* Search Icon */
+ #search-icon {
+   position: absolute;
+   right: 15px;
+   top: 10px;
+   width: 20px;
+   height: 20px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+ }
+
+ #search-icon:hover {
+   padding: 3px;
+   border-radius: 15px;
+   background-color: #FEC600;
+   /* Efek hover */
+   transform: scale(1.05);
+ }
+
+ /* Search Bar Reset */
+ #search-icon.reset:hover {
+   background-color: #FEC600;
+ }
 
 
-  
+ .open-btn {
+   padding: 10px 20px;
+   background-color: #007BFF;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ dialog {
+   border: none;
+   border-radius: 10px;
+   padding: 20px;
+   width: 300px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+ }
+
+ .filter-container {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+ }
+
+ .filter-section {
+   display: flex;
+   flex-direction: column;
+ }
+
+ .filter-header {
+   display: flex;
+   align-items: center;
+   width: 90%;
+   gap: 10px;
+ }
+
+ .filter-input {
+   flex: 1;
+   padding: 5px 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+ }
+
+ .search-btn {
+   background: none;
+   border: none;
+   font-size: 16px;
+   cursor: pointer;
+ }
+
+ .filter-options label {
+   display: block;
+   margin: 5px 0;
+ }
+
+ img.poster {
+   width: 135px;
+   height: 200px;
+   object-fit: cover;
+   border-radius: 5px;
+ }
+
+
+ .filter {
+   display: flex;
+   align-items: center;
+ }
+
+ .filter .open-btn {
+   padding: 8px;
+   border: none;
+   background-color: transparent;
+   cursor: pointer;
+ }
+
+ .filter .filter-icon {
+   width: 18px;
+   height: 18px;
+   filter: invert(100%);
+ }
+
+ /* Close Button */
+ .close-btn {
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   background: none;
+   border: none;
+   font-size: 20px;
+   color: #121212;
+   cursor: pointer;
+ }
+
+ .close-btn:hover {
+   color: #ffcc00;
+ }
+
+ .dialog-footer {
+   text-align: right;
+   margin-top: 20px;
+ }
+
+ /* Main content */
+ .content {
+   padding: 20px;
+   display: grid;
+   justify-content: flex-start;
+   margin: 2% 5%;
+ }
+
+ .card-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+   gap: 20px;
+   max-width: 1200px;
+   width: 100%;
+ }
+
+ /* Card styling */
+ .card {
+   background-color: #1e1e1e;
+   border-radius: 10px;
+   text-align: center;
+   padding: 10px;
+   transition: transform 0.3s;
+ }
+
+ .card:hover {
+   transform: scale(1.05);
+ }
+
+ .image-placeholder {
+   width: 100%;
+   height: 200px;
+   background-color: #333;
+   border-radius: 10px;
+   margin-bottom: 10px;
+ }
+
+ .card p {
+   font-size: 16px;
+   margin: 0;
+ }
+
+
+
+ .open-btn {
+   padding: 10px 20px;
+   background-color: #007BFF;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ dialog {
+   border: none;
+   border-radius: 10px;
+   padding: 20px;
+   width: 300px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+ }
+
+
+
+ .dialog-footer {
+   text-align: right;
+   margin-top: 20px;
+ }
+
+ /* Close Button */
+ .close-btn {
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   background: none;
+   border: none;
+   font-size: 20px;
+   color: #121212;
+   cursor: pointer;
+ }
+
+ .close-btn:hover {
+   color: #ffcc00;
+ }
+
+ img.poster {
+   width: 135px;
+   height: 200px;
+   object-fit: cover;
+   border-radius: 5px;
+ }
+
+ .nav-middle {
+   display: flex;
+ }
+
+ .morent {
+   padding-top: 20px;
+ }
+
+ .icon-logout {
+   height: 40px;
+   margin-left: 10px;
+   width: 30px;
+   vertical-align: middle;
+ }
+
+ .page-container {
+   display: grid;
+   grid-template-areas:
+     "logo nav"
+     " main main";
+   grid-template-columns: 220px 1fr;
+   grid-template-rows: 110px 1fr;
+   min-height: 100vh;
+   background: linear-gradient(145deg, #121212, #1E1E1E);
+   color: #ccc;
+ }
+
+ p {
+   font-family: "Inter-SemiBold", sans-serif;
+   line-height: 100%;
+   letter-spacing: -0.01em;
+ }
+
+ img.morent {
+   width: 220px;
+   grid-area: logo;
+ }
+
+ /* Navbar styling */
+ .navbar {
+   display: flex;
+   justify-content: space-between;
+   gap: 50px;
+   align-items: center;
+   padding: 10px 60px;
+   padding-top: 25px;
+   padding-left: 0;
+   grid-area: nav;
+   /*background-color: #1e1e1e;*/
+ }
+
+ /* Navbar styling */
+ .nav-item {
+   font-size: 20px;
+   cursor: pointer;
+   color: white;
+   position: relative;
+   /* Dibutuhkan untuk pseudo-element */
+   transition: color 0.3s ease;
+ }
+
+ .nav-item.active {
+   color: #FEC600;
+   text-shadow: 0 0 8px #FEC600, 0 0 15px #FEC600, 0 0 30px #FEC600;
+   /* Efek cahaya halus ke tulisan */
+ }
+
+ .nav-right {
+   margin-right: 10px;
+ }
+
+ .nav-item.active::after {
+   content: '';
+   position: absolute;
+   bottom: -8px;
+   /* Posisikan sedikit lebih jauh agar tidak terlalu dekat */
+   left: 0;
+   width: 100%;
+   height: 3px;
+   /* Lebih tipis agar tidak terlalu tebal */
+   background-color: #FEC600;
+   /* Warna kuning */
+   border-radius: 2px;
+   /* Membuat garis lebih halus */
+   box-shadow: 0 0 5px 0px #FEC600;
+   /* Efek cahaya halus */
+   transition: all 0.3s ease;
+   /* Animasi halus */
+ }
+
+ .nav-item:hover {
+   color: #FEC600;
+   /* Warna berubah saat hover */
+ }
+
+
+ .nav-left {
+   display: flex;
+   gap: 50px;
+ }
+
+ .nav-item.active {
+   color: #FEC600;
+ }
+
+ .nav-right {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+ }
+
+ .nav-right {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+ }
+
+ .profile-icon {
+   width: 50px;
+   height: 50px;
+   background-color: gray;
+   border-radius: 50%;
+   border: 2px solid gold;
+   cursor: pointer;
+ }
+
+ .main-content {
+   grid-area: main;
+ }
+
+ .icon-logout {
+   width: 35px;
+   cursor: pointer;
+ }
+
+ a {
+   all: unset;
+ }

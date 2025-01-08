@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/laporanBulanan.css">
+    <link rel="stylesheet" href="/css/admin/lease.css">
+    <title>Current Rentals</title>
+</head>
+<body>
+    <div class="page-container">
+        <div class="logo">
+            <img src="/assets/img/logo.png" class="morent">
+        </div>
+
+        <header class="navbar">
+            <div class="nav-left">
+              <!-- nambah link -->
+              <div class="nav-item">
+                <a th:href="@{/admin}">HOME</a>
+              </div>
+              <div class="nav-item active">
+                <a th:href="@{/admin/current-rentals}">RENTALS</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+              </div>
+            </div>
+            <div class="nav-right">
+              <img src ="/assets/svg/user-avatar.svg" class="avatar">
+              <a th:href="@{/}">
+                <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+              </a>
+            </div>
+            <!-- nambah link -->
+          </header>
+        
+        <div class="main-content">
+            <div class="upper-content">
+                <div class="left-upper">
+                    <div class="page-title">Ongoing Rentals</div>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search..."/>
+                        <img src="/assets/img/search-bar-logo.png">
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="table-container">
+                <table>
+                  <tr>
+                    <th>No</th>
+                    <th>Judul Film</th>
+                    <th>Tanggal Peminjaman</th>
+                    <th>Batas Pengembalian</th>
+                    <th>Pemasukan</th>
+                    <th>Change Status</th>
+                  </tr>
+                  <tr>
+                    <td>No HP</td>
+                    <td>Nama UMK</td>
+                    <td>Pemilik UMK</td>
+                    <td>Tanggal Pengajuan</td>
+                    <td>Detail UMK</td>
+                    <td><button type="button" class="done-btn">Done</button></td>
+                  </tr>
+                </table>
+                
+              </div>
+        </div>
+    </div>
+</body>
+</html>

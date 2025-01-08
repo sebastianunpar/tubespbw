@@ -22,32 +22,35 @@
 
         <header class="navbar">
             <div class="nav-left">
-                <!-- nambah link -->
-                <div class="nav-item">
-                <a href="/admin">HOME</a>
-                </div>
-                <div class="nav-item" >
-                <a href="/admin/manage-movie">MANAGE FILM</a>
-                </div>
-                <div class="nav-item">
-                <a href="/admin/manage-genres">GENRE & ACTOR</a>
-                </div>
-                <div class="nav-item active" >
-                <a href="/admin/report">GRAPH & REPORT</a>
-                </div>
+              <!-- nambah link -->
+              <div class="nav-item ">
+                <a th:href="@{/admin}">HOME</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/current-rentals}">RENTALS</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+              </div>
+              <div class="nav-item active" >
+                <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+              </div>
             </div>
             <div class="nav-right">
-                <img src ="/assets/svg/user-avatar.svg" class="avatar">
-                <a href="/logout">
+              <img src ="/assets/svg/user-avatar.svg" class="avatar">
+              <a th:href="@{/}">
                 <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
-                </a>
+              </a>
             </div>
             <!-- nambah link -->
-        </header>
+          </header>
         <div class="main-content">
             <div class="main-left-section menu">
                 <!-- tambahan link -->
-                <a href="/admin/film-graph">
+                <a th:href="@{/admin/film-graph}">
                     <img src="/assets/svg/graph-main.svg" class="grafik-img">
                     <h2 class="left-section-title">Grafik Penyewaan</h2>
                 </a>
@@ -56,7 +59,7 @@
             </div>
             <div class="main-right-section menu">
                 <!-- tambahan link -->
-                <a href="/admin/monthly-report">
+                <a th:href="@{/admin/monthly-report}">
                     <img src="/assets/svg/laporan-main.svg" class="laporan-img">
                     <h2 class="right-section-title">Laporan Bulanan</h2>
                 </a>

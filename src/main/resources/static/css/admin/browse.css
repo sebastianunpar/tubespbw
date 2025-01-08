@@ -112,3 +112,8 @@ body {
   box-shadow: 0 0 30px rgba(255, 206, 0, 1);
   /* More intense glowing on hover */
 }
+
+.icon-logout {
+  height: 22px;
+  width: 10px;
+}
