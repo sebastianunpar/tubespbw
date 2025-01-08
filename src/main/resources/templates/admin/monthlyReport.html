@@ -15,29 +15,31 @@
 
         <header class="navbar">
             <div class="nav-left">
-            <!-- nambah link -->
-            <div class="nav-item">
-                <a href="/admin">HOME</a>
-            </div>
-            <div class="nav-item" >
-                <a href="/admin/manage-movie">MANAGE FILM</a>
-            </div>
-            <div class="nav-item">
-                <a href="/admin/manage-genres">GENRE & ACTOR</a>
-            </div>
-            <div class="nav-item active" >
-                <a href="/admin/report">GRAPH & REPORT</a>
-            </div>
-
+              <!-- nambah link -->
+              <div class="nav-item">
+                <a th:href="@{/admin}">HOME</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/current-rentals}">RENTALS</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+              </div>
+              <div class="nav-item active" >
+                <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+              </div>
             </div>
             <div class="nav-right">
-            <img src ="/assets/svg/user-avatar.svg" class="avatar">
-            <a href="/">
+              <img src ="/assets/svg/user-avatar.svg" class="avatar">
+              <a th:href="@{/}">
                 <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
-            </a>
+              </a>
             </div>
             <!-- nambah link -->
-        </header>
+          </header>
         
         <div class="main-content">
             <div class="upper-content">
@@ -48,7 +50,7 @@
                         Total pemasukan saat ini
                         </div>
                         <div class="nominal-saldo">
-                            Rp.xxxx.xxx
+                            <span th:text="${totalIncome}"></span>
                         </div>
                     </div>
                     <div class="container-saldo">
@@ -57,43 +59,92 @@
                             Pemasukan anda bulan ini
                         </div>
                         <div class="nominal-saldo">
-                            Rp.xxxx.xxx
+                            <span th:text="${monthlyIncome}"></span>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="date-picker-container">
-                    <div class="date-picker">
-                        <label for="start-date">Tanggal Mulai:</label>
-                        <input type="date" id="start-date" value="2024-10-20">
-                    </div>
-                    
-                    <div class="date-picker">
-                        <label for="end-date">Tanggal Akhir:</label>
-                        <input type="date" id="end-date" value="2024-10-20">
-                    </div>
+                    <form method="get" action="/admin/monthly-report">
+                        <div class="date-picker">
+                            <label for="start-date">Tanggal Mulai:</label>
+                            <input 
+                                type="date" 
+                                id="start-date" 
+                                name="start-date" 
+                                th:value="${startDate}" 
+                            />
+                        </div>
+                
+                        <div class="date-picker">
+                            <label for="end-date">Tanggal Akhir:</label>
+                            <input 
+                                type="date" 
+                                id="end-date" 
+                                name="end-date" 
+                                th:value="${endDate}" 
+                            />
+                        </div>
+                
+                        <div>
+                            <button type="submit">Show Reports</button>
+                        </div>
+                    </form>
                 </div>
+                    
             </div>
-
+            <div class ="buttons">
+                <button class="download-btn" type="button">Download Report</button>
+            </div>
+            
             <div class="table-container">
                 <table>
-                  <tr>
-                    <th>No</th>
-                    <th>Judul Film</th>
-                    <th>Tanggal Peminjaman</th>
-                    <th>Tanggal Pengembalian</th>
-                    <th>Pemasukan</th>
-                  </tr>
-                  <tr>
-                    <td>No HP</td>
-                    <td>Nama UMK</td>
-                    <td>Pemilik UMK</td>
-                    <td>Tanggal Pengajuan</td>
-                    <td>Detail UMK</td>
-                  </tr>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Email Penyewa</th>
+                            <th>Judul Film</th>
+                            <th>Tanggal Peminjaman</th>
+                            <th>Tanggal Pengembalian</th>
+                            <th>Pemasukan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="report, iterStat : ${reports}">
+                            <td th:text="${iterStat.index + 1}"></td>
+                            <td th:text="${report.emailPenyewa}"></td>
+                            <td th:text="${report.judulFilm}"></td>
+                            <td th:text="${report.tanggalPeminjaman}"></td>
+                            <td th:text="${report.tanggalPengembalian ?: 'belum dikembalikan'}"></td>
+                            <td th:text="${report.formattedPemasukan}"></td>
+                        </tr>
+                    </tbody>
                 </table>
-                
-              </div>
+            </div>            
         </div>
     </div>
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const startDateInput = document.getElementById('start-date');
+            const endDateInput = document.getElementById('end-date');
+    
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth(); // Get the current month (0 for January, 1 for February, etc.)
+    
+            // Set the start date to the first day of the current month
+            const startOfMonth = new Date(year, month, 1); // Start date: 1st day of this month
+            const startMonthFormatted = startOfMonth.toLocaleDateString('en-CA'); // Format: YYYY-MM-DD
+    
+            // Set the end date to the last day of the current month
+            const endOfMonth = new Date(year, month + 1, 0); // End date: Last day of this month
+            const endMonthFormatted = endOfMonth.toLocaleDateString('en-CA'); // Format: YYYY-MM-DD
+    
+            // Set the values for the date inputs
+            startDateInput.value = startMonthFormatted;
+            endDateInput.value = endMonthFormatted;
+        });
+    </script> -->
+    
 </body>
 </html>

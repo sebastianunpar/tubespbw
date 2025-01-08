@@ -26,7 +26,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 120px;
+    margin-left: 100px;
 }
 
 .morent {
@@ -125,6 +125,7 @@ body {
 
 .icon-logout {
     width: 35px;
+    cursor: pointer;
 }
 
 a {

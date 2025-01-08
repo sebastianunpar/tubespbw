@@ -4,32 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie Renting Website</title>
+  <link rel="shortcut icon" type="png" href="/assets/img/tabLogo.png">
+  <link rel="stylesheet" href="css/general.css">
   <link rel="stylesheet" href="css/home.css">
   <script href="js/home.js" defer></script>
   
 </head>
 <body>
-
-    <!-- nav bar -->
+<div class="page-container">
+    <div class="logo">
+        <img src="/assets/img/logo.png" class="morent">
+    </div>
     <header class="navbar">
-        <!-- bagian kiri -->
         <div class="nav-left">
+            <!-- nambah link -->
             <div class="nav-item active">
                 <a href="/">HOME</a>
-            </div>
-            <div class="nav-item" >
+              </div>
+              <div class="nav-item" >
                 <a href="/browse">BROWSE</a>
-            </div>
-            <div class="nav-item">
-                <a href="">ABOUT US</a>
-            </div>
+              </div>
+              <div class="nav-item" >
+                <a href="/about-us">ABOUT US</a>
+              </div>
         </div>
-
-        <!-- bagian login -->
         <div class="nav-right">
             <th:block th:if="${user != null}">
                 <!-- If the user is logged in -->
-                <span>Welcome, <strong th:text="${user.name}"></strong>!</span>
+                <span class="nav-greeting">Welcome, <strong th:text="${user.name}"></strong>!</span>
                 <a href="/logout"><button>Logout</button></a>
             </th:block>
             <th:block th:if="${user == null}">
@@ -41,13 +43,13 @@
     </header>
     
 
-    <main>
+    <main class="main-content">
         <section class="welcome-section">
             <h1>Welcome to <span>MOREnt.</span></h1>
             <p>
                 Ayo cari film favorit kamu dan sewa sekarang! Kamu juga dapat mampir mengunjungi toko offline  
                 <strong>MoreEnt. </strong> 
-                di Jl unpar ema ema.
+                <b>di Jl unpar ema ema.</b>
             </p>
         </section>
 
@@ -74,7 +76,7 @@
                 </label>
             </section>
         </section>
-
   </main>
+</div>
 </body>
 </html>
