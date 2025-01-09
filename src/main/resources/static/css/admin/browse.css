@@ -120,7 +120,7 @@ body {
 
 .search-bar input {
   padding: 8px 40px 8px 10px;
-  width: 250px;
+  width: 200px;
   padding: 8px 35px 8px 15px; /* Tambah ruang untuk ikon di kanan */
   border-radius: 20px;
   border: none;
@@ -166,7 +166,7 @@ body {
 }
 
 .filter button {
-  padding: 10px 20px; /* Perbesar ukuran tombol */
+  padding: 5px 10px; /* Perbesar ukuran tombol */
   font-size: 16px; /* Perbesar teks tombol */
   border-radius: 20px;
   border: none;
@@ -262,3 +262,52 @@ transform: scale(1.05);
 background-color: #FEC600;
 }
 
+/* Apply Button Styling */
+.apply-btn {
+  padding: 10px 20px;
+  background-color: #FEC600;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover Effect for Apply Button */
+.apply-btn:hover {
+  transform: scale(1.1);
+}
+
+ /* Close Button */
+ .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #121212;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ffcc00;
+}
+
+.dialog-footer {
+  text-align: right;
+  margin-top: 20px;
+}
+
+dialog {
+  top: 50%; /* Centers vertically */
+  left: 50%; /* Centers horizontally */
+  transform: translate(-50%, -50%); /* Moves the dialog back by 50% of its width/height */
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
