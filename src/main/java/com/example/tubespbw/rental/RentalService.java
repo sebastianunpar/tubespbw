@@ -25,4 +25,9 @@ public class RentalService {
 
         return rentalRepo.insertRental(rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran);
     }
+
+    public List<Integer> getRentalsPerMonth() {
+        int year = LocalDate.now().getYear();
+        return rentalRepo.getRentalsPerMonth(year);
+    }
 }

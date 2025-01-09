@@ -8,4 +8,5 @@ public interface RentalRepository {
 
     List<Rental> getUserRentalHistory(int userId);
     boolean insertRental(LocalDate rentalDate, LocalDate dueDate, int filmId, int userId, String metodePembayaran, String noPembayaran);
+    List<Integer> getRentalsPerMonth(int year);
 }

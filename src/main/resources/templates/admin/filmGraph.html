@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/admin/grafikJumlahFilm.css">
     <title>Penjualan</title>
     <script src="/js/admin/grafikJumlahFilm.js" defer></script>
+    <!-- <script src="/js/admin/graph.js" defer></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -46,8 +47,8 @@
         <div class="main-content">
             <div class="center-container">
                 <div class="tabs">
-                    <button class="tab active">By Jumlah Film</button>
-                    <button class="tab">By Pemasukan</button>
+                    <button class="tab active" id="filmCountButton" onclick="window.location.href='/admin/film-graph';">By Jumlah Film</button>
+                    <button class="tab" id="incomeButton" onclick="window.location.href='/admin/income-graph';">By Pemasukan</button>
                     <!-- <button class="download">Download PDF</button> -->
                 </div>
                 <div class="chart-container">

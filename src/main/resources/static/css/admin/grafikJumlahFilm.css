@@ -219,3 +219,7 @@ span#filmSewa {
     display: inline-block;
     width: 75%;
 }
+
+.hidden {
+    display: none;
+}

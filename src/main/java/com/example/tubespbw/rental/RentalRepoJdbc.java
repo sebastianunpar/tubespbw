@@ -45,4 +45,13 @@ public class RentalRepoJdbc implements RentalRepository {
         int rowAffected = jdbcTemplate.update(sql, rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran);
         return rowAffected > 0;
     }
+
+    @Override
+    public List<Integer> getRentalsPerMonth(int year) {
+        String sql = "WITH months AS (SELECT generate_series(1, 12) AS month) SELECT COALESCE(COUNT(r.rentalId), 0) AS rentalCount FROM months m LEFT JOIN rental r ON EXTRACT(MONTH FROM r.rentalDate) = m.month AND EXTRACT(YEAR FROM r.rentalDate) = ? GROUP BY m.month ORDER BY m.month;";
+        return jdbcTemplate.query(sql, this::mapRowToRentalCount, year);
+    }
+    private Integer mapRowToRentalCount(ResultSet resultSet, int rowNum) throws SQLException {
+        return resultSet.getInt("rentalCount");
+    }
 }
