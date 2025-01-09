@@ -5,9 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/admin/browse.css">
+    <script src="/js/admin/browse.js" defer></script>
     <title>Browser Admin</title>
 </head>
 <body>
+  <dialog id="filter-dialog">
+    <form th:action="@{/admin/manage-movie}" method="get">
+      <div class="filter-container">
+        <!-- Actor Filter -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <input type="text" id="actor-search" placeholder="Search Actor..." class="filter-input" />
+          </div>
+          <div class="filter-options" id="actor-options">
+            <!-- Loop untuk actors -->
+            <th:block th:each="actor : ${actors}">
+                <label>
+                    <input type="checkbox" name="actorName" th:value="${actor.name}" 
+                          th:checked="${#lists.contains(actorName ?: {}, actor.name)}" />
+                    <span th:text="${actor.name}"></span>
+                </label>
+            </th:block>
+          </div>
+        </div>
+  
+        <!-- Genre Filter -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <input type="text" id="genre-search" placeholder="Search Genre..." class="filter-input" />
+          </div>
+          <div class="filter-options" id="genre-options">
+            <!-- Loop untuk genres -->
+            <th:block th:each="genre : ${genres}">
+                <label>
+                    <input type="checkbox" name="genreName" th:value="${genre.name}" 
+                          th:checked="${#lists.contains(genreName ?: {}, genre.name)}" />
+                    <span th:text="${genre.name}"></span>
+                </label>
+            </th:block>
+          </div>
+        </div>
+      </div>
+  
+      <div class="dialog-footer">
+        <button id="apply-filters" class="apply-btn" type="submit">Apply</button>
+      </div>
+      <button id="close-dialog" class="close-btn" type="button">&times;</button>
+    </form>
+  </dialog>
+  
     <div class="page-container">
       <div class="logo">
         <img src="/assets/img/logo.png" class="morent">
@@ -31,6 +77,19 @@
             <a th:href="@{/admin/report}">GRAPH & REPORT</a>
           </div>
         </div>
+        <div class="nav-middle">
+          <div class="search-bar">
+            <form method="get" th:action="@{/admin/manage-movie}">
+              <input type="text"  name="movieName"  id="search-input" placeholder="Search movie name..." value=""  th:value="${movieName}"/>
+              <button type="submit" class="search-button">
+                <img id="search-icon" src="/assets/img/search-bar-logo.png" alt="Search Icon" />
+              </button>
+            </form>
+          </div>    
+          <div class="filter">
+            <button id="open-dialog" class="open-btn"><img src="/assets/svg/filter-logo.svg"></button>
+          </div>
+        </div>
         <div class="nav-right">
           
           <a th:href="@{/}">
@@ -40,78 +99,18 @@
         <!-- nambah link -->
       </header>
         
-      <main class="main-content">
+      <main class="content">
         <div class="card-container">
-          <div class="card">
+          <a th:href="@{'/film/'} + ${film.filmId}" class="card" th:each="film : ${films}">
             <div class="image-placeholder">
-                <img src="/src/main/" alt="">
+              <img th:src="'data:image/jpeg;base64,' + ${film.base64Poster}" alt="Poster">
             </div>
-            <p>Deadpool & Wolverine</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <img src="assets/img/interstellar.jpg" alt="">
-            </div>
-            <p>Interstellar</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <img src="assets/img/fightclub.jpg" alt="">
-            </div>
-            <p>Fight Club</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <img src="assets/img/forrestgump.jpg" alt="">
-
-            </div>
-            <p>Forrest Gump</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <img src="assets/img/pulpfiction.jpg" alt="">
-            </div>
-            <p>Pulp Fiction</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <img src="assets/img/thegodfather.jpg" alt="">
-            </div>
-            <p>The God Father</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <img src="assets/img/12angrymen.jpg" alt="">
-            </div>
-            <p>12 Angry Men</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <img src="assets/img/lordoftherings.jpg" alt="">
-            </div>
-            <p>Lord of The Rings</p>
-            <p class="stock">Stock:0</p>
-          </div>
-          <div class="card">
-            <div class="image-placeholder">
-                <a href="/movie-detail">
-                  <img src="assets/img/venomlastdance.png" alt="">
-                </a>
-            </div>
-            <p>Venom: The Last Dance</p>
-            <p class="stock">Stock:0</p>
-          </div>
-        </div>
-        <div class="add-film">
-          <a href="/admin/add-movie"><button>Add Film +</button></a>
-        </div>
+            <p th:utext="${film.title}">Film Title</p>
+          </a>
+          <th:block th:if="${#lists.isEmpty(films)}">
+            <p>No films found. Please try a different search!</p>
+          </th:block>
+        </div>    
       </main>
     </div>
 </body>
