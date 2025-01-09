@@ -22,7 +22,7 @@ public class UserRepoJdbc implements UserRepository{
     }
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
-            // resultSet.getInt("userId"),
+            resultSet.getInt("userId"),
             resultSet.getString("name"),
             resultSet.getString("email"),
             resultSet.getString("password"),
