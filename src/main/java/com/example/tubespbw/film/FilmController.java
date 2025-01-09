@@ -56,7 +56,7 @@ public class FilmController {
 
         System.out.println(filmCount);
         
-        int show = 21;
+        int show = 4;
         int start = (page - 1) * show;
         int pageCount = (int) Math.ceil((double) filmCount / show);
 
