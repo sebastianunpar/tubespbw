@@ -88,7 +88,7 @@ public class FilmService {
         return repo.searchActorsByName(actorName);
     }
     public void changeValidActor(int actorId) {
-        repo.changeValidGenre(actorId);
+        repo.changeValidActor(actorId);
     }
     // 
     public List<Actor> getAllActor() throws SQLException {
