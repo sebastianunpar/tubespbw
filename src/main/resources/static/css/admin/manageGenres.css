@@ -1,244 +1,25 @@
-.page-container {
-    height: 100vh;
-}
-  p {
-    font-family: "Inter-SemiBold", sans-serif;
-    line-height: 100%;
-    letter-spacing: -0.01em;
-  }
-
-  a {
-    all: unset;
-}
-
-body{
+/* Global Styles */
+body {
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    color: #ffffff;
     font-family: "Inter-SemiBold", sans-serif;
     margin: 0;
     padding: 0;
+    height: 100vh;
 }
 
-.header {
-    grid-area: header;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    background-color: #2B2B2B;
-    border-left:1px solid #202020;
-}
-  
-.dashboard-header {
-    font-weight: 600;
-    font-size: 28px;
-    color: #FEC600;
-}
-
-.main-content{
+/* Centering the main content */
+.main-content {
+    /* margin: 0 auto; Centers the content horizontally */
+    padding: 20px;
+    /* display: flex; */
+    /* flex-direction: column; */
     background: linear-gradient(145deg, #121212, #1E1E1E);
-
+    /* border-radius: 8px; */
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
 }
 
-
-/* Sidebar Navigation Items */
-/* below here is specified main content */
-.title-container{
-    font-size: 40px;
-    font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 20px;
-}
-.main-content-grid{
-    display: grid;
-    grid-template-areas: 
-    
-    "banyak-film pemasukan film-terlaris"
-    "genre aktor film-terlaris";
-    gap:20px;
-    color : #ffffff;
-    grid-template-rows: repeat(2,1fr);
-    box-sizing: border-box;
-    font-family: "Inter-SemiBold", sans-serif; 
-    height: 100%;
-    font-size: 16px;
-}
-.main-content-grid span{
-    font-size: 26px;
-    color: #FEC600;
-    font-weight: bold
-}
-.main-content-grid p{
-    font-size: 16px;
-}
-.main-container{
-    background-color: #2b2b2b;
-    box-sizing: border-box;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-.main-container .icon-main{
-    width: 70px;
-    height: 70px;
-}
-
-.banyak-film{
-    grid-area: banyak-film;
-    justify-items: center;
-}
-
-
-.total-pemasukan{
-    grid-area: pemasukan;
-    justify-items: center;
-}
-
-/* .total-pemasukan img{
-    
-    background-color: #09B96D;
-    opacity: 30%;
-    padding: 10px;
-    border-radius: 90px;
-} */
-.film-terlaris,.banyak-aktor,.banyak-film,.banyak-genre,.total-pemasukan{
-    align-content: center;
-    justify-items: center;
-}
-.banyak-genre{
-    grid-area:genre;
-    justify-items: center;
-}
-
-.banyak-aktor{
-    grid-area: aktor;
-    justify-items: center;
-}
-
-.film-terlaris{
-    grid-area: film-terlaris;
-    justify-items: center;
-}
-.film-terlaris>span>p{
-    text-align: center;
-    margin-top:5px;
-}
-.film-terlaris>span{
-    color:white;
-}
-.img-title-terlaris{
-    width: 80%;
-    height: 65%;
-    background-color: white;
-    margin-bottom: 20px;
-}
-
-.main-content{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.icon-main{
-    color: white;
-}
-.main-container {
-    background: linear-gradient(145deg, #2B2B2B, #545454);
-}
-
-/* manage actors */
-.container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-.search-bar {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.search-bar input {
-    padding: 10px;
-    font-size: 16px;
-    width: 300px;
-    height: 15px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.search-bar button {
-    padding: 10px 15px;
-    background-color: #FFDC52;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.search-bar button:hover {
-    background-color: #b19525;
-    color: white;
-
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th, table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-table th {
-    background-color: #f8f8f8;
-}
-
-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.action-head {
-    text-align: center;
-}
-
-.actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    align-items: center;
-}
-
-.actions button {
-    font-size: 14px;
-    padding: 6px 12px;
-    cursor: pointer;
-    background-color: red;
-    border-radius: 4px;
-    color: white;
-    border: none;
-}
-
-.actions button:hover {
-    background-color: #c82333;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-}
-
+/* Genre and actor section */
 .nav-links {
     list-style: none;
     display: flex;
@@ -263,25 +44,167 @@ header {
     color: #f1c40f;
 }
 
-.add-new {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
-
-.add-button {
-    padding: 10px 15px;
-    background-color: #FFDC52;
+/* Buttons */
+.add-button,
+.search-bar button {
+    background-color: #fecd1a;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
     color: #333;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.add-button:hover {
+.add-button:hover,
+.search-bar button:hover {
     background-color: #b19525;
     color: white;
+}
+
+/* Search Bar */
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+    width: 20%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #fecd1a;
+}
+
+/* Table Styles */
+.styled-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.styled-table th, .styled-table td {
+    padding: 12px 15px;
+    text-align: left;
+    color: #ffffff;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.styled-table th {
+    padding: 12px 15px;
+    text-align: center; /* Center-align the text */
+    vertical-align: middle; /* Vertically align the text */
+    background-color: #fecd1a;
+    color: black;
+}
+
+.styled-table thead {
+    background-color: #fecd1a;
+    color: #333;
+    font-weight: bold;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #2a2a2a;
+}
+
+.styled-table td {
+    padding: 12px 15px;
+    text-align: center; /* Center-align the text for actions column */
+    vertical-align: middle; /* Vertically align content for all cells */
+}
+
+.actions a, .actions button {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.actions .btn-warning {
+    background-color: #f39c12;
+    color: white;
+}
+
+.actions .btn-warning:hover {
+    background-color: #d35400;
+}
+
+.actions .btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.actions .btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.action-head {
+    text-align: center; /* Center the text horizontally */
+    vertical-align: middle; /* Center the text vertically */
+}
+
+.actions {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Align items vertically */
+    justify-content: center; /* Center items horizontally */
+    gap: 10px; /* Add space between buttons */
+}
+
+.actions a, .actions button {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block; /* Ensure buttons are inline */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.btn-warning {
+    background-color: #f39c12;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-warning:hover {
+    background-color: #d35400;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-disable {
+    border: 1px solid red; /* Red outline */
+    background-color: transparent; /* Transparent background */
+    color: white; /* Red text */
+    padding: 8px 15px; /* Adjust padding for a balanced button size */
+    border-radius: 4px; /* Rounded corners (optional) */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.btn-disable:hover {
+    background-color: red; /* Red background on hover */
+    color: white; /* White text on hover */
 }

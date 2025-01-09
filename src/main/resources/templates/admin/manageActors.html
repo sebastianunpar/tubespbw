@@ -48,30 +48,29 @@
             <header>
                 <nav>
                     <ul class="nav-links">
-                        <li><a href="/admin/manage-genres">Genre</a></li>
-                        <li><a href="/admin/manage-actors" class="active">Aktor</a></li>
+                        <li><a href="/admin/manage-genres"><h1>Genre</h1></a></li>
+                        <li><a href="/admin/manage-actors" class="active"><h1>Aktor</h1></a></li>
                     </ul>
                 </nav>
             </header>
             <div class="container">
-                <h1>Manage Aktor</h1>
-                
-                <!-- Add New Actor Button -->
-                <div class="add-new">
-                    <a href="/admin/add-actor-page" class="add-button">+ Add New Actor</a>
+                <div class="header-row">
+                    <!-- <h1>Manage Actors</h1> -->
                 </div>
-
+        
                 <!-- Search Bar -->
                 <div class="search-bar">
                     <form action="/admin/search-actors" method="GET">
                         <input type="text" name="actor_name" placeholder="Search Actor by Name" 
-                        th:value="${param.actor_name}" >
+                               th:value="${param.actor_name}">
                         <button type="submit">Search</button>
                     </form>
                 </div>
+                <br>
+                <a href="/admin/add-actor-page" class="add-button">+ Add New Actor</a>
         
                 <!-- Actors Table -->
-                <table>
+                <table class="styled-table">
                     <thead>
                         <tr>
                             <th>ID Actor</th>
@@ -81,34 +80,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr>
-                            <td>1</td>
-                            <td>Jason Statham</td>
-                            <td class="actions">
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </td>
-                        </tr> -->
-                        <!-- Add more actor rows here -->
-
                         <tr th:each="actor : ${actors}">
                             <td th:text="${actor.actorId}"></td>
                             <td th:text="${actor.name}"></td>
                             <td th:text="${actor.valid ? 'Yes' : 'No'}"></td>
                             <td class="actions">
-                                <a th:href="@{/admin/actor/{actorId}(actorId=${actor.actorId})}">
-                                    <button>Edit</button>
+                                <a th:href="@{/admin/actor/{actorId}(actorId=${actor.actorId})}" class="btn btn-warning">
+                                    Edit
                                 </a>
-                                <form th:action="@{/admin/change-valid-actor}" method="POST">
+                                <form th:action="@{/admin/change-valid-actor}" method="POST" class="inline-form">
                                     <input type="hidden" name="actorId" th:value="${actor.actorId}">
-                                    <button type="submit" th:text="${actor.valid ? 'Disable' : 'Enable'}"></button>
+                                    <button 
+                                        th:if="${actor.valid}"
+                                        type="submit" 
+                                        th:text="Disable" 
+                                        class="btn-disable">
+                                    </button>
+                                    <button 
+                                        th:if="${!actor.valid}"
+                                        type="submit" 
+                                        th:text="Enable" 
+                                        class="btn-danger">
+                                    </button>
                                 </form>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        
+        </div>
+                
         </div> 
     </div>
 </body>

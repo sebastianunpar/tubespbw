@@ -1,5 +1,4 @@
 * {
-<<<<<<< HEAD
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -117,12 +116,6 @@
     justify-content: space-around;
     max-height: 700px;
     overflow: auto;
-=======
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
->>>>>>> fe6241c545abe6cdae9120a3266c42925c7b0a68
 }
 
 body {
@@ -138,7 +131,7 @@ body {
 
 .container {
   display: flex;
-  background-color: #1B0A0A;
+  background-color: #000000;
   border-radius: 10px;
   overflow: hidden;
   width: 90%;
@@ -265,7 +258,6 @@ table td:nth-of-type(2) {
   text-align: right;
 }
 
-<<<<<<< HEAD
   .tab {
     color: white;
     padding: 10px 15px;
@@ -314,45 +306,4 @@ div.emptyMessage {
   justify-content: center;
   align-items: center;
   color: #808080;
-=======
-table td:nth-of-type(1) {
-  width: 70%;
-}
-
-.tab {
-  color: white;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.tab.active {
-  text-shadow: 0 0 20px rgba(255, 193, 7, 1);
-  border: 0.5px solid #FEC600;
-  border-bottom: 3px solid #FEC600;
-
-}
-
-.rental-info h2 {
-  margin-bottom: 10px;
-}
-
-.rental-info p {
-  margin: 5px 0;
-}
-
-.overdue {
-  color: white;
-  font-weight: bold;
-  margin-top: 20px;
-  box-sizing: border-box;
-}
-
-.red {
-  color: red;
-}
-
-.profile p {
-  font-size: 15px;
->>>>>>> fe6241c545abe6cdae9120a3266c42925c7b0a68
 }

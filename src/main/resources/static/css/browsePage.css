@@ -74,20 +74,11 @@
    transform: scale(1.05);
  }
 
-<<<<<<< HEAD
-  img {
-    width: 135px;
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 5px; 
-  }
-
   nav#filmPagination {
     padding: 2em;
     text-align: center;
   }
   
-=======
  /*filter*/
  .filter button {
    background-color: transparent;
@@ -193,7 +184,6 @@
  #search-icon.reset:hover {
    background-color: #FEC600;
  }
->>>>>>> fe6241c545abe6cdae9120a3266c42925c7b0a68
 
 
  .open-btn {

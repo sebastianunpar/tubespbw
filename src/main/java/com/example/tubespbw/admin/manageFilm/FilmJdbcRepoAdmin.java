@@ -1,4 +1,4 @@
-package com.example.tubespbw.film;
+package com.example.tubespbw.admin.manageFilm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,18 +17,18 @@ import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
 
 @Repository
-public class FilmJdbcRepo implements FilmRepository{
+public class FilmJdbcRepoAdmin implements FilmRepositoryAdmin{
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override //untuk page browse, cuma perlu id title poster
-    public List<Film> getAll() throws SQLException {
+    public List<FilmAdmin> getAll() throws SQLException {
         String sql = "SELECT filmId, title, stock, poster FROM film";
         return jdbcTemplate.query(sql, this::mapRowToFilm);
     }
-    private Film mapRowToFilm (ResultSet resultSet, int rowNum) throws SQLException {
-        return new Film (
+    private FilmAdmin mapRowToFilm (ResultSet resultSet, int rowNum) throws SQLException {
+        return new FilmAdmin (
             resultSet.getInt("filmId"),
             resultSet.getString("title"),
             resultSet.getInt("stock"),
@@ -56,21 +56,21 @@ public class FilmJdbcRepo implements FilmRepository{
     }
 
     @Override //untuk page per film, perlu semua detail 
-    public Optional<FilmDetail> getFilmDetail(int filmId) throws SQLException{
+    public Optional<FilmDetailAdmin> getFilmDetail(int filmId) throws SQLException{
         String sql = "SELECT * FROM film WHERE filmId = ?";
-        List<FilmDetail> films = jdbcTemplate.query(sql, this::mapRowToFilmDetail, filmId);
+        List<FilmDetailAdmin> films = jdbcTemplate.query(sql, this::mapRowToFilmDetail, filmId);
         if (films.isEmpty()) {
             return Optional.empty();
         }
-        FilmDetail film = films.get(0);
+        FilmDetailAdmin film = films.get(0);
         List<String> genres = getFilmGenres(filmId);
         List<String> actors = getFilmActors(filmId);
         film.setGenres(genres);
         film.setActors(actors);
         return Optional.of(film);
     }
-    private FilmDetail mapRowToFilmDetail (ResultSet resultSet, int rowNum) throws SQLException {
-        return new FilmDetail (
+    private FilmDetailAdmin mapRowToFilmDetail (ResultSet resultSet, int rowNum) throws SQLException {
+        return new FilmDetailAdmin (
             resultSet.getInt("filmId"),
             resultSet.getString("title"),
             resultSet.getString("synopsis"),
@@ -177,7 +177,7 @@ public class FilmJdbcRepo implements FilmRepository{
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println(valid);
         boolean newValid = !valid;
-        sql = "UPDATE actor SET valid = ? WHERE actorId = ?";
+        sql = "UPDATE actor SET valid = ? WHERE genreId = ?";
         jdbcTemplate.update(sql, newValid, actorId);
     }
     // 
@@ -225,13 +225,13 @@ public class FilmJdbcRepo implements FilmRepository{
         return resultSet.getInt("filmId");
     }
     @Override
-    public List<Film> searchFilms(String movieName) {
+    public List<FilmAdmin> searchFilms(String movieName) {
         String sql = "SELECT filmId, title, stock, poster FROM film WHERE title ILIKE ?";
         String likeQuery = "%" + movieName + "%";
         return jdbcTemplate.query(sql, this::mapRowToFilm, likeQuery);
     }
     @Override
-    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
+    public List<FilmAdmin> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
             throws SQLException {
                 String sql = """
                     SELECT DISTINCT film.filmId, film.title, film.stock, film.poster 
@@ -274,61 +274,5 @@ public class FilmJdbcRepo implements FilmRepository{
                 // Gunakan NamedParameterJdbcTemplate untuk parameter binding
                 NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
                 return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
-    }
-
-    @Override
-    public int getFilmCount() {
-        String sql = "SELECT COUNT(*) FROM film";
-        return jdbcTemplate.queryForObject(sql, Integer.class);
-    }
-
-    @Override
-    public int getFilmCountByName(String movieName) {
-        String sql = "SELECT COUNT(*) FROM film WHERE title ILIKE ?";
-        String likeQuery = "%" + movieName + "%";
-        return jdbcTemplate.queryForObject(sql, Integer.class, likeQuery);
-    }
-
-    @Override
-    public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
-        String sql = """
-            SELECT COUNT(DISTINCT film.filmId)
-            FROM film
-            LEFT JOIN filmActor ON filmActor.filmId = film.filmId
-            LEFT JOIN filmGenre ON filmGenre.filmId = film.filmId
-            LEFT JOIN actor ON actor.actorId = filmActor.actorId
-            LEFT JOIN genre ON genre.genreId = filmGenre.genreId
-        """;
-
-        StringBuilder whereClause = new StringBuilder();
-        Map<String, Object> parameters = new HashMap<>();
-
-        if (actorNames != null && !actorNames.isEmpty()) {
-            whereClause.append("actor.name IN (:actorNames) ");
-            parameters.put("actorNames", actorNames);
-        }
-
-        if (genreNames != null && !genreNames.isEmpty()) {
-            if (whereClause.length() > 0) {
-                whereClause.append("AND ");
-            }
-            whereClause.append("genre.name IN (:genreNames) ");
-            parameters.put("genreNames", genreNames);
-        }
-
-        if (movieName != null && !movieName.isEmpty()) {
-            if (whereClause.length() > 0) {
-                whereClause.append("AND ");
-            }
-            whereClause.append("film.title ILIKE :movieName ");
-            parameters.put("movieName", "%" + movieName + "%");
-        }
-
-        if (whereClause.length() > 0) {
-            sql += "WHERE " + whereClause.toString();
-        }
-
-        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-        return namedParameterJdbcTemplate.queryForObject(sql, parameters, Integer.class);
     }
 }

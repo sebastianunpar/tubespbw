@@ -134,11 +134,11 @@ public class AdminController {
         return "admin/filmGraph";
     }
 
-    @GetMapping("/manage-movie")
-    @RequiresRole("admin")
-    public String showManageMovie() {
-        return "admin/browseAdmin";
-    }
+    // @GetMapping("/manage-movie")
+    // @RequiresRole("admin")
+    // public String showManageMovie() { 
+    //     return "admin/browseAdmin";
+    // }
 
     @GetMapping("/add-movie")
     @RequiresRole("admin")

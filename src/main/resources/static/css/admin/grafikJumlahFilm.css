@@ -1,4 +1,4 @@
-.page-container {
+/* .page-container {
     display: grid;
     grid-template-areas:
       "logo header"
@@ -86,7 +86,7 @@ body{
 }
 
 /* Sidebar Navigation Items */
-.navigation .menu-item {
+/* .navigation .menu-item {
     font-size: 16px;
     margin-bottom: 20px;
     cursor: pointer;
@@ -123,7 +123,7 @@ body{
   }
   
   /* Footer Links */
-  .footer-links ul li {
+  /* .footer-links ul li {
     margin-bottom: 15px;
   }
   
@@ -135,8 +135,12 @@ body{
     font-size: 12px;
     margin-left: auto;
   }
-  
-  .main-content {
+   */
+
+
+/* ----------------------------------------------------- */
+
+.main-content {
     background-color: #202020;
     padding: 15px; /* Dikurangi */
 }
@@ -169,7 +173,7 @@ body{
     padding: 10px; /* Lebih kecil */
     border-radius: 8px;
     font-size: 12px;
-    width: 95%;
+    width: 100%;
 }
 .chart-header {
     display: flex;
@@ -185,7 +189,7 @@ body{
     border-radius: 5px;
 }
 
-span {
+span#filmSewa {
     color: #cccccc;
 }
 
@@ -204,4 +208,14 @@ span {
 .download:hover {
     background-color: #f7b500; /* Darker yellow on hover */
     transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+}
+
+.center-container {
+    display: inline-block;
+    width: 75%;
 }
