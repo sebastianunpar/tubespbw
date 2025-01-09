@@ -74,6 +74,11 @@
    transform: scale(1.05);
  }
 
+  nav#filmPagination {
+    padding: 2em;
+    text-align: center;
+  }
+  
  /*filter*/
  .filter button {
    background-color: transparent;

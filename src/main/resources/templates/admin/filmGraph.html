@@ -1,109 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/admin/grafikJumlahFilm.css">
     <title>Penjualan</title>
     <script src="/js/admin/grafikJumlahFilm.js" defer></script>
+    <!-- <script src="/js/admin/graph.js" defer></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="page-container">
-
         <div class="logo">
-            <p class="morent">
-              <img src="/assets/img/LOGO-PBW_FIX.png" alt="">
-            </p>
+            <img src="/assets/img/logo.png" class="morent">
         </div>
 
-        <!-- Header Section -->
-        <div class="header">
-            <p class="dashboard-header">Grafik Penjualan</p>
-            <img class="profile" src="/assets/svg/generic-avatar0.svg" />
-        </div>
-
-      <!-- Sidebar Section -->
-      <div class="sidebar">
-        <div class="navigation">
-        <div class="menu-item dashboard">
-            <img class="icon-dashboard" src="/assets/svg/home-20.svg" />
-            <a href="/admin">
-                <p class="nav-dashboard">Dashboard</p>
-            </a>
-        </div>
-
-        <div class="menu-item daftar-film">
-            <img class="icon-film" src="/assets/svg/film.svg" />
-            <a href="/admin/add-movie">
-                <p class="nav-daftar-film">Daftar Film</p>
-            </a>
-        </div>
-
-        <div class="menu-item genre-aktor">
-            <img class="icon-genre-aktor" src="/assets/svg/folder-check0.svg" />
-            <a href="/admin/manage-genres">
-                <p class="nav-genre-aktor">Genre & Aktor</p>
-            </a>
-            <!-- <span class="badge">13</span> -->
-        </div>
-
-        <div class="menu-item laporan">
-            <img class="icon-laporan" src="/assets/svg/icon-graph0.svg" />
-            <a href="/admin/report">
-                <p class="nav-laporan">Laporan</p>
-            </a>
-        </div>
-
-        <div class="nav-divider">
-            <hr class="solid" />
-        </div>
-
-        <div class="menu-item log-out">
-            <img class="icon-log-out" src="/assets/svg/logout-040.svg" />
-            <a href="/login">
-                <p class="nav-log-out">Log Out</p>
-            </a>
-        </div>
-
-        <div class="menu-item faq">
-            <img class="icon-faq" src="/assets/svg/help-circle-contained0.svg" />
-            <a href="#">
-                <p class="nav-faq">FAQ</p>
-            </a>
-        </div>
-        </div>
-    </div>
+        <header class="navbar">
+            <div class="nav-left">
+              <!-- nambah link -->
+              <div class="nav-item">
+                <a th:href="@{/admin}">HOME</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/current-rentals}">RENTALS</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+              </div>
+              <div class="nav-item active" >
+                <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+              </div>
+            </div>
+            <div class="nav-right">
+              
+              <a th:href="@{/}">
+                <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+              </a>
+            </div>
+            <!-- nambah link -->
+          </header>
 
         <div class="main-content">
-            <div class="tabs">
-                <button class="tab active">By Jumlah Film</button>
-                <button class="tab">By Pemasukan</button>
-                <button class="download">Download PDF</button>
-            </div>
-            <div class="chart-container">
-                <div class="chart-header">
-                <span>Film sewa</span>
-                <select class="year-select">
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                </select>
+            <div class="center-container">
+                <div class="tabs">
+                    <button class="tab active" id="filmCountButton" onclick="window.location.href='/admin/film-graph';">By Jumlah Film</button>
+                    <button class="tab" id="incomeButton" onclick="window.location.href='/admin/income-graph';">By Pemasukan</button>
+                    <!-- <button class="download">Download PDF</button> -->
                 </div>
-                <canvas id="chart"></canvas>
-            </div>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <span id="filmSewa">Film sewa</span>
+                        <!-- <select class="year-select">
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select> -->
+                    </div>
+                    <canvas id="chart" th:attr="data-data=${data}"></canvas>
+                </div>
             </div>
         </div>
-        
     </div>
 </body>
 </html>

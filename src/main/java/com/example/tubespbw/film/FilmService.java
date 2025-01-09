@@ -1,14 +1,11 @@
 package com.example.tubespbw.film;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
@@ -130,7 +127,16 @@ public class FilmService {
         }
         return films;
     }
-    
-    
 
+    public int getFilmCount() {
+        return repo.getFilmCount();
+    }
+
+    public int getFilmCountByName(String movieName) {
+        return repo.getFilmCountByName(movieName);
+    }
+
+    public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
+        return repo.getFilmCountByActorAndGenre(actorNames, genreNames, movieName);
+    }
 }
