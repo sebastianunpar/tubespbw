@@ -16,15 +16,15 @@ public class RentalRepoJdbc implements RentalRepository {
 
     @Override
     public List<Rental> getUserRentals(int userId) {
-        String sql = "SELECT rentalId, rentalDate, dueDate, returnDate, rental.filmId, film.title, userId, metodePembayaran, noPembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NULL";
+        String sql = "SELECT rentalId, rentalDate,  returnDate, rental.filmId, film.title, userId, metodePembayaran, noPembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NULL";
         return jdbcTemplate.query(sql, this::mapRowToRental, userId);
     }
+
     private Rental mapRowToRental(ResultSet resultSet, int rowNum) throws SQLException {
         return new Rental(
             resultSet.getInt("rentalId"),
             resultSet.getDate("rentalDate") != null ? resultSet.getDate("rentalDate").toLocalDate() : null,
-            resultSet.getDate("dueDate") != null ? resultSet.getDate("rentalDate").toLocalDate() : null,
-            resultSet.getDate("returnDate") != null ? resultSet.getDate("rentalDate").toLocalDate() : null,
+            resultSet.getDate("returnDate") != null ? resultSet.getDate("returnDate").toLocalDate() : null,
             resultSet.getInt("filmId"),
             resultSet.getString("title"),
             resultSet.getInt("userId"),
@@ -35,7 +35,7 @@ public class RentalRepoJdbc implements RentalRepository {
 
     @Override
     public List<Rental> getUserRentalHistory(int userId) {
-        String sql = "SELECT rentalId, rentalDate, dueDate, returnDate, rental.filmId, film.title, userId, metodePembayaran, noPembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NOT NULL";
+        String sql = "SELECT rentalId, rentalDate, returnDate, rental.filmId, film.title, userId, metodePembayaran, noPembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NOT NULL";
         return jdbcTemplate.query(sql, this::mapRowToRental, userId);
     }
 

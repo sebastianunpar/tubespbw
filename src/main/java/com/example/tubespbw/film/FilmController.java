@@ -12,19 +12,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
- 
+
+import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.user.User;
+
+import jakarta.servlet.http.HttpSession;
+
+import com.example.tubespbw.actor.Actor;
+
 @Controller
 public class FilmController {
     @Autowired
     FilmService service;
 
     @GetMapping("/browse")
-    public String showBrowse(Model model, 
-                            @RequestParam(value = "movieName", required = false) String movieName,
-                            @RequestParam(value = "actorName", required = false) List<String> actorName,
-                            @RequestParam(value = "genreName", required = false) List<String> genreName, 
-                            @RequestParam(name = "page", defaultValue = "1") int page) throws SQLException {
-
+    public String showBrowse(Model model, HttpSession session,
+            @RequestParam(value = "movieName", required = false) String movieName,
+            @RequestParam(value = "actorName", required = false) List<String> actorName,
+            @RequestParam(value = "genreName", required = false) List<String> genreName, 
+            @RequestParam(name = "page", defaultValue = "1") int page) throws SQLException {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
         if (actorName == null) {
             actorName = new ArrayList<>();
         }
@@ -34,9 +44,9 @@ public class FilmController {
         
         int filmCount = 0;
         List<Film> films;
-        if ((movieName != null && !movieName.isEmpty()) || 
-            (actorName != null && !actorName.isEmpty()) || 
-            (genreName != null && !genreName.isEmpty())) {
+        if ((movieName != null && !movieName.isEmpty()) ||
+                (actorName != null && !actorName.isEmpty()) ||
+                (genreName != null && !genreName.isEmpty())) {
             films = service.filterFilmsByActorAndGenre(actorName, genreName, movieName);
             filmCount = service.getFilmCountByActorAndGenre(actorName, genreName, movieName);
         } else {

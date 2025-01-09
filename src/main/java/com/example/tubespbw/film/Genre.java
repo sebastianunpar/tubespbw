@@ -1,13 +1,13 @@
-package com.example.tubespbw.film;
+// package com.example.tubespbw.film;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+// import lombok.AllArgsConstructor;
+// import lombok.Data;
 
-@Data
-@AllArgsConstructor
+// @Data
+// @AllArgsConstructor
 
-public class Genre {
-    private int genreId;
-    private String name;
-    private boolean valid;
-}
+// public class Genre {
+//     private int genreId;
+//     private String name;
+//     private boolean valid;
+// }

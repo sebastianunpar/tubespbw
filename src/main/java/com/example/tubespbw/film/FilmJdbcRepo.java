@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.actor.Actor;
 
 @Repository
 public class FilmJdbcRepo implements FilmRepository{
@@ -106,7 +110,7 @@ public class FilmJdbcRepo implements FilmRepository{
 
     @Override
     public List<Genre> getAllGenre() throws SQLException {
-        String sql = "SELECT * FROM genre";
+        String sql = "SELECT * FROM genre ORDER BY name";
         return jdbcTemplate.query(sql, this::mapRowToGenreObj);
     }
     private Genre mapRowToGenreObj(ResultSet resultSet, int rowNum) throws SQLException {
@@ -117,9 +121,69 @@ public class FilmJdbcRepo implements FilmRepository{
         );
     }
 
+    // Genre
+    @Override
+    public Genre getGenreById(int genreId) throws SQLException {
+        String sql = "SELECT * FROM genre WHERE genreId = ?";
+        return jdbcTemplate.queryForObject(sql, this::mapRowToGenreObj, genreId);
+        // return genre;
+    }
+
+    @Override
+    public void updateGenre(int genreId, String genreName, boolean genreValid) throws SQLException {
+        String sql = "UPDATE genre SET name = ?, valid = ? WHERE genreId = ?";
+        jdbcTemplate.update(sql, genreName, genreValid, genreId);
+    }   
+    @Override
+    public List<Genre> searchGenresByName(String genreName) {
+        String sql = "SELECT * FROM genre WHERE LOWER(name) LIKE ?";
+        return jdbcTemplate.query(sql, this::mapRowToGenreObj, "%"+genreName.toLowerCase()+"%");
+    }
+
+    @Override
+    public void changeValidGenre(int genreId) {
+        String sql = "SELECT valid FROM genre WHERE genreId = ?";
+        boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, genreId);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(valid);
+        boolean newValid = !valid;
+        sql = "UPDATE genre SET valid = ? WHERE genreId = ?";
+        jdbcTemplate.update(sql, newValid, genreId);
+    }
+
+    // Aktor
+    @Override
+    public Actor getActorById(int actorId) throws SQLException {
+        String sql = "SELECT * FROM actor WHERE actorId = ?";
+        return jdbcTemplate.queryForObject(sql, this::mapRowToActorObj, actorId);
+    }
+
+    @Override
+    public void updateActor(int actorId, String actorName, boolean actorValid) throws SQLException {
+        String sql = "UPDATE actor SET name = ?, valid = ? WHERE actorId = ?";
+        jdbcTemplate.update(sql, actorName, actorValid, actorId);
+    }
+
+    @Override
+    public List<Actor> searchActorsByName(String actorName) {
+        String sql = "SELECT * FROM actor WHERE LOWER(name) LIKE ?";
+        return jdbcTemplate.query(sql, this::mapRowToActorObj, "%"+actorName.toLowerCase()+"%");
+    }
+
+    @Override
+    public void changeValidActor(int actorId) {
+        String sql = "SELECT valid FROM actor WHERE actorId = ?";
+        boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, actorId);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(valid);
+        boolean newValid = !valid;
+        sql = "UPDATE actor SET valid = ? WHERE genreId = ?";
+        jdbcTemplate.update(sql, newValid, actorId);
+    }
+    // 
     @Override
     public List<Actor> getAllActor() throws SQLException {
-        String sql = "SELECT * FROM actor";
+        String sql = "SELECT * FROM actor ORDER BY name";
         return jdbcTemplate.query(sql, this::mapRowToActorObj);
     }
     private Actor mapRowToActorObj(ResultSet resultSet, int rowNum) throws SQLException {

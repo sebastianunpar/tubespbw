@@ -9,8 +9,7 @@ DROP TABLE IF EXISTS rental CASCADE;
 CREATE TABLE users (
     userId SERIAL PRIMARY KEY,
     name VARCHAR(50),
-    email VARCHAR(70) UNIQUE,
-    -- password VARCHAR(50),
+    email VARCHAR(70),
     password VARCHAR(255),
     role VARCHAR(10) CHECK (role IN ('user', 'admin'))
 );
@@ -53,7 +52,6 @@ CREATE TABLE filmGenre (
 CREATE TABLE rental (
     rentalId SERIAL PRIMARY KEY,
     rentalDate DATE NOT NULL,
-    dueDate DATE NOT NULL,
     returnDate DATE,
     filmId INT NOT NULL REFERENCES film(filmId),
     userId INT NOT NULL REFERENCES users(userId),
@@ -69,14 +67,15 @@ INSERT INTO users (name, email, password, role) VALUES
 ('iger tanks', 'iger@gmail.com', '$2a$10$G0h8VT9Y.GrxHhAkFjx/Ce2/0BuniDcFKQ9sDNzLtF1UokuAtmuTi', 'user'),
 ('john doe', 'john@gmail.com', '$2a$10$8ZSoXXloIJ78bRllM2ckOuzpbv1IfjOH4T0a9u43ks.4dN7qQGhLe', 'user');
 
+
 INSERT INTO film (title, synopsis, poster, stock, price, valid)
 VALUES
-    ('The Adventure Begins', 'A young adventurer sets off on a perilous journey to find the lost city of gold, facing dangers and discovering secrets along the way.', NULL, 50, 12.99, 'true'),
-    ('Mystery at Midnight', 'A detective is called to solve a series of mysterious disappearances that seem to be connected to a supernatural entity.', NULL, 30, 15.49, 'true'),
-    ('Love in the City', 'Two people from different worlds find themselves falling in love while navigating the challenges of living in a bustling city.', NULL, 100, 9.99, 'true'),
-    ('The Last Hero', 'In a dystopian future, a former soldier must become the last hope for humanity after an AI uprising.', NULL, 75, 20.00, 'true'),
-    ('Space Odyssey', 'A crew of astronauts embarks on a mission to explore a distant galaxy, but things take a dangerous turn when they encounter an alien race.', NULL, 40, 18.99, 'true'),
-    ('The Haunted House', 'A group of friends decides to spend the weekend in a supposedly haunted mansion, only to discover the horrifying truth.', NULL, 60, 10.49, 'true');
+    ('The Adventure Begins', 'A young adventurer sets off on a perilous journey to find the lost city of gold, facing dangers and discovering secrets along the way.', NULL, 50, 90000, 'true'),
+    ('Mystery at Midnight', 'A detective is called to solve a series of mysterious disappearances that seem to be connected to a supernatural entity.', NULL, 30, 80000, 'true'),
+    ('Love in the City', 'Two people from different worlds find themselves falling in love while navigating the challenges of living in a bustling city.', NULL, 100, 60000, 'true'),
+    ('The Last Hero', 'In a dystopian future, a former soldier must become the last hope for humanity after an AI uprising.', NULL, 75, 70000, 'true'),
+    ('Space Odyssey', 'A crew of astronauts embarks on a mission to explore a distant galaxy, but things take a dangerous turn when they encounter an alien race.', NULL, 40, 40000, 'true'),
+    ('The Haunted House', 'A group of friends decides to spend the weekend in a supposedly haunted mansion, only to discover the horrifying truth.', NULL, 60, 90000, 'true');
 	
 INSERT INTO actor (name,valid)
 VALUES
@@ -133,28 +132,16 @@ VALUES
     (5, 10); -- 'Space Odyssey' is also Adventure
     
 
-INSERT INTO rental (rentalDate, dueDate, returnDate, filmId, userId, metodePembayaran,noPembayaran)
+INSERT INTO rental (rentalDate, returnDate, filmId, userId, metodePembayaran,noPembayaran)
 VALUES
-    ('2024-12-01', '2024-12-15', '2024-12-12', 1, 1, 'BCA','123400022341'),  -- User 1 rented film 1
-    ('2024-12-02', '2024-12-16', '2024-12-14', 2, 2, 'BCA','123400022342'),         -- User 2 rented film 2
-    ('2024-12-03', '2024-12-17', '2024-12-16', 3, 3, 'Mandiri','123400022331'),    -- User 3 rented film 3
-    ('2024-12-04', '2024-12-18', NULL, 4, 4, 'BCA','123400022362'),          -- User 4 rented film 4 (not returned yet)
-    ('2024-12-05', '2024-12-19', '2024-12-18', 5, 5, 'Mandiri','123400022345'),        -- User 5 rented film 5
-	('2024-12-01', '2024-12-15', '2024-12-12', 1, 5, 'BRI','123400022347'),  -- User 1 rented film 1
-    ('2024-12-02', '2024-12-16', '2024-12-14', 2, 4, 'BRI','123400022348'),         -- User 2 rented film 2
-    ('2024-12-03', '2024-12-17', '2024-12-16', 3, 3, 'BCA','123400022349'),    -- User 3 rented film 3
-    ('2024-12-04', '2024-12-18', NULL, 4, 2, 'Mandiri','123400022350'),          -- User 4 rented film 4 (not returned yet)
-    ('2024-12-05', '2024-12-19', '2024-12-18', 5, 1, 'BRI','123400022361');
-
-
-
-
-
-
-
-
-
-
-
-
+    ('2025-01-01', '2025-01-08', 3, 6, 'BCA','123400022341'),  -- User 1 rented film 1
+    ('2024-12-02', '2024-12-09', 2, 2, 'BCA','123400022342'),         -- User 2 rented film 2
+    ('2024-12-03', '2024-12-10', 3, 3, 'Mandiri','123400022331'),    -- User 3 rented film 3
+    ('2024-12-04', NULL, 4, 4, 'BCA','123400022362'),          -- User 4 rented film 4 (not returned yet)
+    ('2024-12-05', '2024-12-10', 5, 5, 'Mandiri','123400022345'),        -- User 5 rented film 5
+	('2024-12-01', '2024-12-02', 1, 5, 'BRI','123400022347'),  -- User 1 rented film 1
+    ('2024-12-02', '2024-12-04', 2, 4, 'BRI','123400022348'),         -- User 2 rented film 2
+    ('2024-12-03', '2024-12-06', 3, 3, 'BCA','123400022349'),    -- User 3 rented film 3
+    ('2024-12-04', NULL, 4, 2, 'Mandiri','123400022350'),          -- User 4 rented film 4 (not returned yet)
+    ('2024-12-05', '2024-12-08', 5, 6, 'BRI','123400022361');
 

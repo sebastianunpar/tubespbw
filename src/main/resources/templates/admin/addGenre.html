@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Genre</title>
+    <link rel="stylesheet" href="/css/admin/manageGenres.css">
+    <link rel="stylesheet" href="/css/general.css">
+</head>
+<body>
+    <div class="page-container">
+
+        <div class="logo">
+            <img src="/assets/img/logo.png" class="morent">
+        </div>
+  
+        <header class="navbar">
+            <div class="nav-left">
+              <!-- nambah link -->
+            <div class="nav-item">
+                <a href="/admin">HOME</a>
+            </div>
+            <div class="nav-item" >
+                <a href="/admin/manage-movie">MANAGE FILM</a>
+            </div>
+            <div class="nav-item active">
+                <a href="/admin/manage-genres">GENRE & ACTOR</a>
+            </div>
+            <div class="nav-item" >
+                <a href="/admin/report">GRAPH & REPORT</a>
+            </div>
+            </div>
+            <div class="nav-right">
+                
+                <a href="/logout">
+                    <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+                </a>
+            </div>
+            <!-- nambah link -->
+          </header>
+
+        <!-- main contents -->
+        <div class="main-content">
+            <header>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/admin/manage-genres" class="active">Genre</a></li>
+                        <li><a href="/admin/manage-actors" >Aktor</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="container">
+                <h1>Add New Genre</h1>
+                <form action="/admin/add-genre-page" method="POST">
+                    <label for="genreName">Genre Name:</label>
+                    <input type="text" id="genreName" name="newGenre" required>
+                    <button type="submit">Add Genre</button>
+                </form>
+            </div>
+        </div>
+    </div>        
+</body>
+</html>

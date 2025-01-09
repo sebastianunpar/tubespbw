@@ -92,33 +92,51 @@
     </div>
     <div class="loginPageContainer">
         <div class="loginContainer">
-            <h2>Log In</h2>
+            <h2>log in</h2>
             <!-- form login -->
-            <form id="loginForm" action="login" method="post">
+            <form id="loginForm" th:action="@{/login}" method="post">
                 <!-- email -->
-                <input type="text" placeholder="email" name="email" required>
+                <div class="input-group">
+                    <input class="input" type="text" name="email" required>
+                    <label class="label" for="email">Email</label>
+                </div>
                 <!-- password -->
-                <input type="password" placeholder="password" name="password" required>
+                <div class="input-group">
+                    <input class="input" type="password"  name="password" required>
+                    <label class="label" for="password">Password</label>
+                </div>                    
                 <p th:if="${error}" th:text="${error}"></p>
                 <button type="submit" class="loginButton">Log in</button>
             </form>
             <!-- form register -->
             <form id="registerForm" class="hidden" th:object="${user}" th:action="@{/register}" method="post">
                 <!-- nama -->
-                <input type="text" placeholder="name" name="name" th:field="*{name}" required>
-                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                <div class="input-group">
+                    <input class="input" type="text" name="name" th:field="*{name}" required>
+                    <label class="label" for="name">Name</label>
+                </div>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
 
                 <!-- email -->
-                <input type="text" placeholder="email" name="email" th:field="*{email}" required>
-                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                <div class="input-group">
+                    <input class="input" type="text" name="email" th:field="*{email}" required>
+                    <label class="label" for="email">Email</label>
+                </div>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"class="error"></p>
 
                 <!-- password -->
-                <input type="password" placeholder="password" name="password" th:field="*{password}" required>
-                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                <div class="input-group">
+                    <input class="input" type="password" name="password" th:field="*{password}" required>
+                    <label class="label" for="password">Password</label>
+                </div>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></p>
 
                 <!-- confirm pass -->
-                <input type="password" placeholder="confirm password" name="confirmpassword" th:field="*{confirmpassword}" required>
-                <p th:if="${#fields.hasErrors('confirmpassword')}" th:errors="*{confirmpassword}"></p>
+                <div class="input-group">
+                    <input class="input" type="password" name="confirmpassword" th:field="*{confirmpassword}" required>
+                    <label class="label" for="confirmpassword">Confirm Password</label>
+                </div>
+                <p th:if="${#fields.hasErrors('confirmpassword')}" th:errors="*{confirmpassword}" class="error"></p>
 
                 <button type="submit" class="loginButton">Register</button>
             </form>

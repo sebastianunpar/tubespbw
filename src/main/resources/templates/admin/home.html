@@ -25,21 +25,24 @@
           <div class="nav-left">
             <!-- nambah link -->
             <div class="nav-item active">
-              <a href="/admin">HOME</a>
-            </div>
-            <div class="nav-item" >
-              <a href="/admin/manage-movie">MANAGE FILM</a>
+              <a th:href="@{/admin}">HOME</a>
             </div>
             <div class="nav-item">
-              <a href="/admin/manage-genres">GENRE & ACTOR</a>
+              <a th:href="@{/admin/current-rentals}">RENTALS</a>
             </div>
             <div class="nav-item" >
-              <a href="/admin/report">GRAPH & REPORT</a>
+              <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+            </div>
+            <div class="nav-item">
+              <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+            </div>
+            <div class="nav-item" >
+              <a th:href="@{/admin/report}">GRAPH & REPORT</a>
             </div>
           </div>
           <div class="nav-right">
-            <img src ="/assets/svg/user-avatar.svg" class="avatar">
-            <a href="/">
+            
+            <a th:href="@{/}">
               <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
             </a>
           </div>
@@ -50,30 +53,30 @@
 
             <div class="main-content-grid">
                 <div class="main-container banyak-film">
-                        <img src="/assets/svg/movie-recorder.svg" class="icon-main">
-                        <p>Banyak film saat ini</p>
-                        <p><span>30</span> film</p>
+                    <img src="/assets/svg/movie-recorder.svg" class="icon-main">
+                    <p>Banyak film saat ini</p>
+                    <p><span th:text="${bykFilm}"></span> film</p>
                 </div>
                 <div class="main-container total-pemasukan">
                     <img src="/assets/svg/money-bag.svg" class="icon-main">
                     <p>Total pemasukan saat ini</p>
-                    <p>Rp.<span>30.000.000</span></p>
+                    <span th:text="${totalIncome}"></span>
                 </div>
                 <div class="main-container banyak-genre">
                     <img src="/assets/svg/theater-masks.svg" class="icon-main">
                     <p>Banyak genre saat ini</p>
-                    <p><span>30</span> genre</p>
+                    <p><span th:text="${bykGenre}"></span> genre</p>
                 </div>
                 <div class="main-container banyak-aktor">
                     <img src="/assets/svg/people.svg" class="icon-main">
                     <p>Banyak aktor saat ini</p>
-                    <p><span>30</span> aktor</p>
+                    <p><span th:text="${bykAktor}"></span> aktor</p>
                 </div>
                 <div class="main-container film-terlaris">
                     <span class="title-container-film-terlaris">Film terlaris<p class="bulan-ini">bulan ini</p></span>
-                    <div class="img-title-terlaris"></div>
-                    <span class="title-terlaris">Titanis(2020)</span>
-                    <p><span>99</span>x disewa</p>
+                    <div class="img-title-terlaris"><img  th:src="'/poster'"></div>
+                    <span class="title-terlaris" th:text="${titleTerlaris}"></span>
+                    <p><span th:text="${bykDisewa}"></span>x disewa</p>
                 </div>
             </div>   
         </div> 
