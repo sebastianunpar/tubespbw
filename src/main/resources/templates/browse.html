@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse UI</title>
+  <link rel="stylesheet" href="css/general.css">
   <link rel="stylesheet" href="css/browsePage.css">
   <script src="js/pengguna/browsePage.js" defer></script>
   
@@ -18,7 +19,7 @@
 
 </head>
 <body>
-
+  <div class="page-container">
   <dialog id="filter-dialog">
     <form th:action="@{/browse}" method="get">
       <div class="filter-container">
@@ -64,21 +65,18 @@
     </form>
   </dialog>
   
-  
+  <div class="logo">
+    <img src="/assets/img/logo.png" class="morent">
+</div>
 
   <header class="navbar">
+    
     <div class="nav-left">
-      <div class="nav-item logo">
-        <img src="assets/img/Logo-Tubes_PBW.png" alt="">
-      </div>
       <div class="nav-item">
-        <a href="/">HOME</a>
+        <a th:href="@{/}">HOME</a>
       </div>
       <div class="nav-item active" >
-        <a href="/browse">BROWSE</a>
-      </div>
-      <div class="nav-item" >
-        <a href="/">ABOUT US</a>
+          <a  th:href="@{/browse}">BROWSE</a>
       </div>
     </div>
 
@@ -97,17 +95,25 @@
     </div>
 
     <div class="nav-right">
-      <a href="/rentals">
-        <div class="profile-icon"></div>
-      </a>
+      <th:block th:if="${user != null}">
+        <a th:href="@{/rentals}"><img  src ="/assets/svg/user-avatar.svg" class="avatar profile-icon"></a>
+        <a th:href="@{/}">
+          <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+        </a>
+      </th:block>
+      <th:block th:if="${user == null}">
+          <!-- If the user is not logged in -->
+          <a href="/login" ><button class="login-btn">Login</button></a>
+      </th:block>
+      
     </div>
   </header>
-
+<div class="main-content">
   <main class="content">
     <div class="card-container">
       <a th:href="@{'/film/'} + ${film.filmId}" class="card" th:each="film : ${films}">
         <div class="image-placeholder">
-          <img th:src="'data:image/jpeg;base64,' + ${film.base64Poster}" alt="Poster">
+          <img class="poster" th:src="'data:image/jpeg;base64,' + ${film.base64Poster}" alt="Poster">
         </div>
         <p th:utext="${film.title}">Film Title</p>
       </a>
@@ -116,5 +122,7 @@
       </th:block>
     </div>    
   </main>
+</div>
+</div>
 </body>
 </html>

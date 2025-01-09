@@ -17,4 +17,5 @@ public class RentalService {
     public List<Rental> getUserRentalHistory(int userId) {
         return rentalRepo.getUserRentalHistory(userId);
     }
+
 }

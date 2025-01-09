@@ -1,0 +1,63 @@
+.about-us-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.about-us-header {
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+}
+
+.logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.mission-section,
+.team-section,
+.location-section {
+    padding: 40px 20px;
+}
+
+.mission-section img,
+.team-container .team-member img {
+    max-width: 100%;
+    height: auto;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    text-align: center;
+    width: 150px;
+}
+
+.team-member h3 {
+    margin: 10px 0;
+}
+
+.location-info {
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}

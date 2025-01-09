@@ -14,19 +14,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.SQLException;
 
 import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.user.User;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.example.tubespbw.actor.Actor;
- 
+
 @Controller
 public class FilmController {
     @Autowired
     FilmService service;
 
     @GetMapping("/browse")
-    public String showBrowse(Model model, 
-                            @RequestParam(value = "movieName", required = false) String movieName,
-                            @RequestParam(value = "actorName", required = false) List<String> actorName,
-                            @RequestParam(value = "genreName", required = false) List<String> genreName) throws SQLException {
-        
+    public String showBrowse(Model model, HttpSession session,
+            @RequestParam(value = "movieName", required = false) String movieName,
+            @RequestParam(value = "actorName", required = false) List<String> actorName,
+            @RequestParam(value = "genreName", required = false) List<String> genreName) throws SQLException {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
         if (actorName == null) {
             actorName = new ArrayList<>();
         }
@@ -35,9 +42,9 @@ public class FilmController {
         }
 
         List<Film> films;
-        if ((movieName != null && !movieName.isEmpty()) || 
-            (actorName != null && !actorName.isEmpty()) || 
-            (genreName != null && !genreName.isEmpty())) {
+        if ((movieName != null && !movieName.isEmpty()) ||
+                (actorName != null && !actorName.isEmpty()) ||
+                (genreName != null && !genreName.isEmpty())) {
             films = service.filterFilmsByActorAndGenre(actorName, genreName, movieName);
         } else {
             films = service.getAllFilmUser();
@@ -52,7 +59,6 @@ public class FilmController {
 
         return "browse";
     }
-
 
     @GetMapping("/film/{filmId}")
     public String showMovieDetail(@PathVariable("filmId") int filmId, Model model) throws SQLException {

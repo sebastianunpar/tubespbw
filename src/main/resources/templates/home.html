@@ -4,32 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie Renting Website</title>
+  <link rel="shortcut icon" type="png" href="/assets/img/tabLogo.png">
+  <link rel="stylesheet" href="css/general.css">
   <link rel="stylesheet" href="css/home.css">
   <script href="js/home.js" defer></script>
   
 </head>
 <body>
-
-    <!-- nav bar -->
+<div class="page-container">
+    <div class="logo">
+        <img src="/assets/img/logo.png" class="morent">
+    </div>
     <header class="navbar">
-        <!-- bagian kiri -->
         <div class="nav-left">
+            <!-- nambah link -->
             <div class="nav-item active">
-                <a href="/">HOME</a>
+                <a th:href="@{/}">HOME</a>
             </div>
             <div class="nav-item" >
-                <a href="/browse">BROWSE</a>
-            </div>
-            <div class="nav-item">
-                <a href="">ABOUT US</a>
+                <a  th:href="@{/browse}">BROWSE</a>
             </div>
         </div>
-
-        <!-- bagian login -->
         <div class="nav-right">
             <th:block th:if="${user != null}">
                 <!-- If the user is logged in -->
-                <span>Welcome, <strong th:text="${user.name}"></strong>!</span>
+                <span class="nav-greeting">Welcome, <strong th:text="${user.name}"></strong>!</span>
                 <a href="/logout"><button>Logout</button></a>
             </th:block>
             <th:block th:if="${user == null}">
@@ -41,13 +40,13 @@
     </header>
     
 
-    <main>
+    <main class="main-content">
         <section class="welcome-section">
             <h1>Welcome to <span>MOREnt.</span></h1>
             <p>
-                Ayo cari film favorit kamu dan sewa sekarang! Kamu juga dapat mampir mengunjungi toko offline  
+                Ayo cari film favorit kamu dan sewa sekarang! Ambil DVD yang kamu sewa di toko offline  
                 <strong>MoreEnt. </strong> 
-                di Jl unpar ema ema.
+                <a href="#location" class="location-tag"><b>di Jl unpar ema ema.</b></a>
             </p>
         </section>
 
@@ -74,7 +73,17 @@
                 </label>
             </section>
         </section>
-
+        <section id="location">
+            <div class="location-container">
+                <div class="location-text">
+                    <div class="location-icon"><img src="/assets/svg/location.svg"></div>
+                    <p class="location-title">Our Location</p>
+                    <p class="location-desc">Morent Store is located in Universitas Katolik Parahyangan. Visit Us!</p>
+                </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3961.128544235783!2d107.6004179!3d-6.8751984!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6ee129c896d%3A0xb01ca182dac12846!2sUniversitas%20Katolik%20Parahyangan!5e0!3m2!1sid!2sid!4v1736340392398!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>    
+            </div>
+        </section>
   </main>
+</div>
 </body>
 </html>

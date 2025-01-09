@@ -1,173 +1,187 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-  
-  body {
-    background-color: #000000;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    overflow: hidden;
-  }
-  
-  .container {
-    display: flex;
-    background-color: #1B0A0A;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 90%;
-    gap:30px;
-  }
-  
-  .back-btn img{
-    width: 20px;
-  }
-
-  .back-btn{
-    position: absolute;
-    top: 10%;
-    left: 5%;
-    display: flex;
-    justify-content: baseline;
-    font-size: 20px;
-  }
-  .left-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 30%;
-  }
-  .profile{
-    background-color: #2c2c2c;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    border-radius: 50px;
-  }
-  
-  .profile-pic {
-    background-color: #444;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  
-  h2 {
-    margin: 10px 0;
-  }
-  
-  p {
-    font-size: 14px;
-    color: #ccc;
-  }
-  
-  .logout-btn {
-    background-color: #444;
-    color: white;
-    margin-top:20px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .right-panel {
-    background-color: #333;
-    width: 80%;
-    padding: 20px;
-    position: relative;
-    border-radius: 50px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    max-height: 500px;
-  }
-  
-  nav {
-    display: flex;
-    gap: 10px;
-    margin-top:20px;
-    margin-left: 20px;
-    margin-bottom: 10px;
-  }
-  .tab:hover {
-    color: #ffc107; /* Change color to yellow on hover */
-    text-shadow: 0 0 15px rgba(255, 193, 7, 0.5); /* Subtle yellow glow on hover */
-  }
-  
-.rental-info{
-    box-sizing: border-box;
-    justify-content: space-around;
-    max-height: 700px;
-    overflow: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-table{
-    width: 95%;
-    box-sizing: border-box;
-    margin-left: 20px;
+body {
+  background-color: #000000;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  background-color: #1B0A0A;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 90%;
+  gap: 30px;
+}
+
+.back-btn img {
+  width: 20px;
+}
+
+.back-btn {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  display: flex;
+  justify-content: baseline;
+  font-size: 20px;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+
+.profile {
+  background-color: #2c2c2c;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-radius: 50px;
+}
+
+.profile-pic {
+  background-color: #444;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 10px 0;
+}
+
+p {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.logout-btn {
+  background-color: #444;
+  color: white;
+  margin-top: 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.logout-btn a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.right-panel {
+  background-color: #333;
+  width: 80%;
+  padding: 20px;
+  position: relative;
+  border-radius: 50px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.tab:hover {
+  color: #ffc107;
+  /* Change color to yellow on hover */
+  text-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+  /* Subtle yellow glow on hover */
+}
+
+.rental-info {
+  box-sizing: border-box;
+  justify-content: space-around;
+  max-height: 700px;
+  overflow: auto;
+}
+
+table {
+  width: 95%;
+  box-sizing: border-box;
+  margin-left: 20px;
 }
 
 table tr td {
-    border-bottom: 1px solid #ccc; /* You can change the color to your preference */
+  border-bottom: 1px solid #ccc;
+  /* You can change the color to your preference */
 }
 
-table td:nth-of-type(2){
-    text-align: right;
-}
-table td:nth-of-type(1){
-    width: 70%;
+table td:nth-of-type(2) {
+  text-align: right;
 }
 
-  .tab {
-    color: white;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .tab.active {
-    text-shadow: 0 0 20px rgba(255, 193, 7, 1);
-    border: 0.5px solid #FEC600;
-    border-bottom: 3px solid #FEC600;
-    
-  }
-  
-  .rental-info h2 {
-    margin-bottom: 10px;
-  }
-  
-  .rental-info p {
-    margin: 5px 0;
-  }
-  
-  .overdue {
-    color: white;
-    font-weight: bold;
-    margin-top: 20px;
-    box-sizing: border-box;
-  }
-  
-  .red {
-    color: red;
-  }
-  
-.profile p{
-    font-size: 15px;
+table td:nth-of-type(1) {
+  width: 70%;
+}
+
+.tab {
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tab.active {
+  text-shadow: 0 0 20px rgba(255, 193, 7, 1);
+  border: 0.5px solid #FEC600;
+  border-bottom: 3px solid #FEC600;
+
+}
+
+.rental-info h2 {
+  margin-bottom: 10px;
+}
+
+.rental-info p {
+  margin: 5px 0;
+}
+
+.overdue {
+  color: white;
+  font-weight: bold;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.red {
+  color: red;
+}
+
+.profile p {
+  font-size: 15px;
 }

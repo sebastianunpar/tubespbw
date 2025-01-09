@@ -3,8 +3,8 @@
     grid-template-areas:
         "logo nav"
         " main main";
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: 130px 1fr;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 110px 1fr;
     min-height: 100vh;
     background: linear-gradient(145deg, #121212, #1E1E1E);
 }
@@ -26,7 +26,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 120px;
+    margin-left: 100px;
 }
 
 .morent {
@@ -40,6 +40,7 @@ body {
     gap: 50px;
     align-items: center;
     padding: 10px 60px;
+    padding-top: 0;
     padding-left: 0;
     grid-area: nav;
     /*background-color: #1e1e1e;*/
@@ -47,7 +48,7 @@ body {
 
 /* Navbar styling */
 .nav-item {
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
     color: white;
     position: relative;
@@ -125,6 +126,7 @@ body {
 
 .icon-logout {
     width: 35px;
+    cursor: pointer;
 }
 
 a {

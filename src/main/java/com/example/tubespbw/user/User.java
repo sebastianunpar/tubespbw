@@ -1,6 +1,5 @@
 package com.example.tubespbw.user;
 
-
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import jakarta.validation.constraints.Email;

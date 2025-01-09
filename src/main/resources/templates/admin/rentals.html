@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/laporanBulanan.css">
+    <link rel="stylesheet" href="/css/admin/lease.css">
+    <title>Current Rentals</title>
+</head>
+<body>
+    <div class="page-container">
+        <div class="logo">
+            <img src="/assets/img/logo.png" class="morent">
+        </div>
+
+        <header class="navbar">
+            <div class="nav-left">
+              <!-- nambah link -->
+              <div class="nav-item">
+                <a th:href="@{/admin}">HOME</a>
+              </div>
+              <div class="nav-item active">
+                <a th:href="@{/admin/current-rentals}">RENTALS</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+              </div>
+            </div>
+            <div class="nav-right">
+              
+              <a th:href="@{/}">
+                <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+              </a>
+            </div>
+            <!-- nambah link -->
+          </header>
+        
+        <div class="main-content">
+            <div class="upper-content">
+                <div class="left-upper">
+                    <div class="page-title">Ongoing Rentals</div>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search..."/>
+                        <img src="/assets/img/search-bar-logo.png">
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Email Penyewa</th>
+                        <th>Judul Film</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Pemasukan</th>
+                        <th>Status Sewa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="report, iterStat : ${reports}">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td th:text="${report.emailPenyewa}"></td>
+                        <td th:text="${report.judulFilm}"></td>
+                        <td th:text="${report.tanggalPeminjaman}"></td>
+                        <td th:text="${report.formattedPemasukan}"></td>
+                        <td>
+                          <form th:action="@{/admin/current-rentals/mark-done}" method="post">
+                              <input type="hidden" name="rentalId" th:value="${report.rentalId}">
+                              <button type="submit" class="done-btn">Done</button>
+                          </form>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

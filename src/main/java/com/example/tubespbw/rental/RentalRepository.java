@@ -4,5 +4,7 @@ import java.util.List;
 
 public interface RentalRepository {
     List<Rental> getUserRentals(int userId);
+
     List<Rental> getUserRentalHistory(int userId);
+
 }

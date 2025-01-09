@@ -18,28 +18,30 @@
         <header class="navbar">
             <div class="nav-left">
               <!-- nambah link -->
-            <div class="nav-item">
-                <a href="/admin">HOME</a>
-            </div>
-            <div class="nav-item" >
-                <a href="/admin/manage-movie">MANAGE FILM</a>
-            </div>
-            <div class="nav-item active">
-                <a href="/admin/manage-genres">GENRE & ACTOR</a>
-            </div>
-            <div class="nav-item" >
-                <a href="/admin/report">GRAPH & REPORT</a>
-            </div>
+              <div class="nav-item">
+                <a th:href="@{/admin}">HOME</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/current-rentals}">RENTALS</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+              </div>
+              <div class="nav-item active">
+                <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+              </div>
             </div>
             <div class="nav-right">
-                <img src ="/assets/svg/user-avatar.svg" class="avatar">
-                <a href="/logout">
-                    <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
-                </a>
+              
+              <a th:href="@{/}">
+                <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+              </a>
             </div>
             <!-- nambah link -->
           </header>
-
         <!-- main contents -->
         <div class="main-content">
             <header>
