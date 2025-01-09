@@ -8,6 +8,51 @@
     <title>Browser Admin</title>
 </head>
 <body>
+  <dialog id="filter-dialog">
+    <form th:action="@{/browse}" method="get">
+      <div class="filter-container">
+        <!-- Actor Filter -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <input type="text" id="actor-search" placeholder="Search Actor..." class="filter-input" />
+          </div>
+          <div class="filter-options" id="actor-options">
+            <!-- Loop untuk actors -->
+            <th:block th:each="actor : ${actors}">
+                <label>
+                    <input type="checkbox" name="actorName" th:value="${actor.name}" 
+                          th:checked="${#lists.contains(actorName ?: {}, actor.name)}" />
+                    <span th:text="${actor.name}"></span>
+                </label>
+            </th:block>
+          </div>
+        </div>
+  
+        <!-- Genre Filter -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <input type="text" id="genre-search" placeholder="Search Genre..." class="filter-input" />
+          </div>
+          <div class="filter-options" id="genre-options">
+            <!-- Loop untuk genres -->
+            <th:block th:each="genre : ${genres}">
+                <label>
+                    <input type="checkbox" name="genreName" th:value="${genre.name}" 
+                          th:checked="${#lists.contains(genreName ?: {}, genre.name)}" />
+                    <span th:text="${genre.name}"></span>
+                </label>
+            </th:block>
+          </div>
+        </div>
+      </div>
+  
+      <div class="dialog-footer">
+        <button id="apply-filters" class="apply-btn" type="submit">Apply</button>
+      </div>
+      <button id="close-dialog" class="close-btn" type="button">&times;</button>
+    </form>
+  </dialog>
+  
     <div class="page-container">
       <div class="logo">
         <img src="/assets/img/logo.png" class="morent">
@@ -26,6 +71,19 @@
           </div>
           <div class="nav-item" >
             <a href="/admin/report">GRAPH & REPORT</a>
+          </div>
+        </div>
+        <div class="nav-middle">
+          <div class="search-bar">
+            <form method="get" th:action="@{/browse}">
+              <input type="text"  name="movieName"  id="search-input" placeholder="Search movie name..." value=""  th:value="${movieName}"/>
+              <button type="submit" class="search-button">
+                <img id="search-icon" src="/assets/img/search-bar-logo.png" alt="Search Icon" />
+              </button>
+            </form>
+          </div>    
+          <div class="filter">
+            <button id="open-dialog" class="open-btn"><img src="/assets/svg/filter-logo.svg"></button>
           </div>
         </div>
         <div class="nav-right">
