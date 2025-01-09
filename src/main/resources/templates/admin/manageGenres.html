@@ -45,17 +45,16 @@
             <header>
                 <nav>
                     <ul class="nav-links">
-                        <li><a href="/admin/manage-genres" class="active">Genre</a></li>
-                        <li><a href="/admin/manage-actors" >Aktor</a></li>
+                        <li><a href="/admin/manage-genres" class="active"><h1>Genre</h1></a></li>
+                        <li><a href="/admin/manage-actors" ><h1>Aktor</h1></a></li>
                     </ul>
                 </nav>
             </header>
             <div class="container">
-                <h1>Manage Movie Genres</h1>
+                <!-- <h1>Manage Movie Genres</h1> -->
 
                 <!-- Add New Genre Button -->
                 <div class="add-new">
-                    <a href="/admin/add-genre-page" class="add-button">+ Add New Genre</a>
                 </div>
                 
                 <div class="search-bar">
@@ -65,8 +64,10 @@
                         <button type="submit">Search</button>
                     </form>
                 </div>
-        
-                <table>
+                <br>
+                <a href="/admin/add-genre-page" class="add-button">+ Add New Genre</a>
+
+                <table class="styled-table">
                     <thead>
                         <tr>
                             <th>ID Genre</th>
@@ -92,15 +93,21 @@
                             <td th:text="${genre.name}"></td>
                             <td th:text="${genre.valid ? 'Yes' : 'No'}"></td>
                             <td class="actions">
-                                <!-- <form th:action="@{/admin/edit-genre}" method="GET"> -->
-                                    <!-- <input type="hidden" name="genreId" th:value="${genre.genreId}"> -->
-                                <!-- </form> -->
-                                <a th:href="@{/admin/genre/{genreId}(genreId=${genre.genreId})}">
-                                    <button>Edit</button>
+                                <a th:href="@{/admin/genre/{genreId}(genreId=${genre.genreId})}" class="btn btn-warning">
+                                    Edit
                                 </a>
-                                <form th:action="@{/admin/change-valid-genre}" method="POST">
+                                <form th:action="@{/admin/change-valid-genre}" method="POST" class="inline-form">
                                     <input type="hidden" name="genreId" th:value="${genre.genreId}">
-                                    <button type="submit" th:text="${genre.valid ? 'Disable' : 'Enable'}"></button>
+                                    <button 
+                                        th:if="${genre.valid}"
+                                        type="submit"  
+                                        class="btn-disable">Disable
+                                    </button>
+                                    <button
+                                        th:if="${!genre.valid}"
+                                        type="submit"  
+                                        class="btn-danger">Enable
+                                    </button>
                                 </form>
                             </td>
                         </tr>

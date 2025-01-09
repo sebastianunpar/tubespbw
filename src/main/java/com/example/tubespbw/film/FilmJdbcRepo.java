@@ -174,7 +174,7 @@ public class FilmJdbcRepo implements FilmRepository{
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println(valid);
         boolean newValid = !valid;
-        sql = "UPDATE actor SET valid = ? WHERE genreId = ?";
+        sql = "UPDATE actor SET valid = ? WHERE actorId = ?";
         jdbcTemplate.update(sql, newValid, actorId);
     }
     // 
