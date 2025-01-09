@@ -34,4 +34,8 @@ public interface FilmRepository {
     Optional<Integer> getLatestFilmId();
     List<Film> searchFilms(String movieName);
     List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException;
+    // List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames) throws SQLException;
+    int getFilmCount();
+    int getFilmCountByName(String movieName);
+    int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName);
 }

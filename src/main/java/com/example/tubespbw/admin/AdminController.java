@@ -25,10 +25,13 @@ import com.example.tubespbw.actor.Actor;
 import com.example.tubespbw.film.Film;
 import com.example.tubespbw.film.FilmService;
 import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.rental.RentalService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    @Autowired
+    RentalService rentalService;
 
     @Autowired
     FilmService filmService;
@@ -118,15 +121,19 @@ public class AdminController {
         return "admin/monthlyReport";
     }
 
-    @GetMapping("/income")
-    @RequiresRole("admin")
-    public String showIncome() {
+    @GetMapping("/income-graph")
+    // @RequiresRole("admin")
+    public String showIncome(Model model) {
+        List<Double> data = rentalService.getIncomePerMonth();
+        model.addAttribute("data", data);
         return "admin/incomeGraph";
     }
 
     @GetMapping("/film-graph")
-    @RequiresRole("admin")
-    public String showFilmGraph() {
+    // @RequiresRole("admin")
+    public String showFilmGraph(Model model) {
+        List<Integer> data = rentalService.getRentalsPerMonth();
+        model.addAttribute("data", data);
         return "admin/filmGraph";
     }
 
@@ -162,7 +169,7 @@ public class AdminController {
     }
 
     @GetMapping("/report")
-    @RequiresRole("admin")
+    // @RequiresRole("admin")
     public String showReport() {
         return "admin/report";
     }
