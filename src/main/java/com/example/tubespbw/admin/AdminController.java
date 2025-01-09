@@ -166,7 +166,7 @@ public class AdminController {
     }
 
     @GetMapping("/report")
-    @RequiresRole("admin")
+    // @RequiresRole("admin")
     public String showReport() {
         return "admin/report";
     }
