@@ -1,5 +1,6 @@
 package com.example.tubespbw.rental;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -53,5 +54,14 @@ public class RentalRepoJdbc implements RentalRepository {
     }
     private Integer mapRowToRentalCount(ResultSet resultSet, int rowNum) throws SQLException {
         return resultSet.getInt("rentalCount");
+    }
+
+    @Override
+    public List<Double> getIncomePerMonth(int year) {
+        String sql = "WITH months AS (SELECT generate_series(1, 12) AS month) SELECT COALESCE(SUM(f.price), 0) AS income FROM months m LEFT JOIN rental r ON EXTRACT(MONTH FROM r.rentalDate) = m.month AND EXTRACT(YEAR FROM r.rentalDate) = ? LEFT JOIN film f ON r.filmId = f.filmId GROUP BY m.month ORDER BY m.month;";
+        return jdbcTemplate.query(sql, this::mapRowToIncome, year);
+    }
+    private double mapRowToIncome(ResultSet resultSet, int rowNum) throws SQLException {
+        return resultSet.getDouble("income");
     }
 }

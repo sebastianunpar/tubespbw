@@ -124,7 +124,7 @@ public class AdminController {
     @GetMapping("/income-graph")
     // @RequiresRole("admin")
     public String showIncome(Model model) {
-        List<Integer> data = rentalService.getRentalsPerMonth();
+        List<Double> data = rentalService.getIncomePerMonth();
         model.addAttribute("data", data);
         return "admin/incomeGraph";
     }

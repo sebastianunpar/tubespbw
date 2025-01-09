@@ -30,4 +30,9 @@ public class RentalService {
         int year = LocalDate.now().getYear();
         return rentalRepo.getRentalsPerMonth(year);
     }
+
+    public List<Double> getIncomePerMonth() {
+        int year = LocalDate.now().getYear();
+        return rentalRepo.getIncomePerMonth(2024);
+    }
 }
