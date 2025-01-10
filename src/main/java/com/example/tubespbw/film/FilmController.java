@@ -41,6 +41,10 @@ public class FilmController {
         if (genreName == null) {
             genreName = new ArrayList<>();
         }
+
+        System.out.println("Actor Names: " + actorName);
+        System.out.println("Genre Names: " + genreName);
+
         
         int filmCount = 0;
         List<Film> films;

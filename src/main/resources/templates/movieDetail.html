@@ -6,21 +6,25 @@
   <title>Movie Details UI</title>
   <link rel="stylesheet" th:href="@{/css/movieDetail.css}">
   <script th:src="@{/js/pengguna/movieDetail.js}" defer></script>
-
+  <style>
+    a{
+      all:unset;
+    }
+  </style>
 </head>
 <body>
 
   <dialog id="payment-dialog" class="payment-dialog">
     <form class="dialog-content">
-      <h1 th:text="${filmDetail.title}">Rental Summary</h1>
-      <p class="price" th:text="${filmDetail.price}">USD 1,850.00</p>
+      <h1 th:text="${filmDetail.title}"></h1>
+      <p class="price" th:text="${filmDetail.price}"></p>
   
       <div class="rental-summary">
         <div class="rental-detail">
           <table class="summary-table">
             <tr>
               <td>Pickup Location</td>
-              <td>Jl. Raya Ponorogo - Trenggalek, Bancangan</td>
+              <td>Morent Store</td>
             </tr>
             <tr>
               <td>Pickup Date</td>
@@ -79,8 +83,8 @@
   
   <div class="container">
     <!-- Back Button -->
-    <div class="back-button" onclick="goBack()">
-      <span>&larr; Back</span>
+    <div class="back-button">
+      <a th:href="@{/browse}"><span><img src="/assets/svg/back.svg">Back</span></a>
     </div>
 
     <!-- Main Content -->

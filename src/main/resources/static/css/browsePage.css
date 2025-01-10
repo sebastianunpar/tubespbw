@@ -138,24 +138,6 @@
    margin: 5px 0;
  }
 
- /* Apply Button Styling */
- .apply-btn {
-   padding: 10px 20px;
-   background-color: #FEC600;
-   color: #121212;
-   border: none;
-   border-radius: 5px;
-   font-size: 16px;
-   font-weight: bold;
-   cursor: pointer;
-   transition: all 0.3s ease;
- }
-
- /* Hover Effect for Apply Button */
- .apply-btn:hover {
-   transform: scale(1.1);
- }
-
  .input-container {
    position: relative;
    width: 100%;
@@ -201,6 +183,11 @@
    padding: 20px;
    width: 300px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   background: #4a4a4a;
+ }
+
+ label{
+    color: #f5f5f5;
  }
 
  .filter-container {
@@ -291,7 +278,7 @@
  .content {
    padding: 20px;
    display: grid;
-   justify-content: flex-start;
+   justify-content: center;
    margin: 2% 5%;
  }
 
@@ -531,3 +518,59 @@
    background-color: #ffc107;
    color: #121212;
  }
+
+ /* pagination */
+ nav#filmPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* Jarak antar elemen tombol */
+  border-radius: 25px; /* Membulatkan seluruh container */
+}
+
+nav#filmPagination a,
+nav#filmPagination span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px; /* Lebar tombol */
+  height: 40px; /* Tinggi tombol */
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a4a4a; /* Warna teks */
+  text-decoration: none;
+  border-radius: 50%; /* Membuat tombol bulat */
+  background-color: #ffffff; /* Latar tombol */
+  border: 2px solid transparent; /* Border default transparan */
+  transition: all 0.3s ease; /* Transisi animasi hover */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+}
+
+nav#filmPagination a:hover {
+  background-color: #f1f1f1; /* Warna latar saat hover */
+  border-color: #dcdcdc; /* Border abu-abu muda saat hover */
+}
+
+nav#filmPagination a.active {
+  background-color: #ffc107; /* Warna ungu untuk tombol aktif */
+  color: #ffffff; /* Teks putih */
+  border-color: #ffc107; /* Warna border ungu */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Efek bayangan lebih intens */
+}
+
+nav#filmPagination a.disabled {
+  color: #aaa; /* Warna teks abu-abu */
+  pointer-events: none; /* Tidak bisa diklik */
+  background-color: #f5f5f5; /* Latar abu-abu muda */
+  border-color: #f5f5f5; /* Border abu-abu muda */
+}
+
+nav#filmPagination a[aria-label="Previous"],
+nav#filmPagination a[aria-label="Next"] {
+  font-size: 20px; /* Ukuran lebih besar untuk simbol panah */
+  font-weight: bold;
+}
+
+nav#filmPagination span {
+  color: #4a4a4a; /* Warna teks default */
+}

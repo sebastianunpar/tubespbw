@@ -10,4 +10,5 @@ public interface RentalRepository {
     boolean insertRental(LocalDate rentalDate, LocalDate dueDate, int filmId, int userId, String metodePembayaran, String noPembayaran);
     List<Integer> getRentalsPerMonth(int year);
     List<Double> getIncomePerMonth(int year);
+    List<Integer> getRentalYears();
 }
