@@ -288,7 +288,6 @@ public class FilmJdbcRepo implements FilmRepository{
         String likeQuery = "%" + movieName + "%";
         return jdbcTemplate.queryForObject(sql, Integer.class, likeQuery);
     }
-
     @Override
     public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
         String sql = """
