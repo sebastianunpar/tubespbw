@@ -127,3 +127,7 @@
 .main-container {
     background-color: #242424;
 }
+
+.title-terlaris.none {
+    color: red;
+}

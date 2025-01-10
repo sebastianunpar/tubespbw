@@ -5,61 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie Details UI</title>
   <link rel="stylesheet" th:href="@{/css/movieDetail.css}">
-  <link rel="stylesheet" href="/css/confirmation.css">
   <script th:src="@{/js/pengguna/movieDetail.js}" defer></script>
-  <script src="/js/confirmation.js" defer></script>
-
+  <style>
+    a{
+      all:unset;
+    }
+  </style>
 </head>
 <body>
-  <div class="confirmationPopUp" th:if="${success}">
-    <div>
-      <p>Purchase complete</p>
-      <button class="confirmationPopUpButton">OK</button>
-    </div>
-  </div>
 
   <dialog id="payment-dialog" class="payment-dialog">
-    <form action="sewa" class="dialog-content" method="post">
+    <form class="dialog-content">
       <h1 th:text="${filmDetail.title}"></h1>
+      <p class="price" th:text="${filmDetail.price}"></p>
+  
       <div class="rental-summary">
         <div class="rental-detail">
           <table class="summary-table">
             <tr>
               <td>Pickup Location</td>
-              <td>Jl. Raya Ponorogo - Trenggalek, Bancangan</td>
+              <td>Morent Store</td>
             </tr>
             <tr>
-              <td>Rent Date</td>
-              <td th:text="${rentalDate}"></td>
+              <td>Pickup Date</td>
+              <td>Mon, 4 Feb 2024 - 10:00</td>
             </tr>
             <tr>
               <td>Return Date</td>
-              <td th:text="${dueDate}"></td>
+              <td>Thu, 8 Feb 2024 - 10:00</td>
             </tr>
             <tr>
               <td>Duration</td>
-              <td>7 Days</td>
+              <td>4 Days</td>
             </tr>
             <tr class="total-row">
               <td>Total</td>
-              <td class="total-price" th:text="${filmDetail.price}"></td>
+              <td class="total-price">Rp 18.99</td>
             </tr>
           </table>
         </div>
-
-        <input type="hidden" name="filmIdStr" th:value="${filmDetail.filmId}">
   
         <div class="payment-methods">
           <p class="methods-title">Metode Pembayaran</p>
           <label>
-            <input type="radio" name="payment-method" value="BCA" required>
+            <input type="radio" name="payment-method" value="bca" required>
             <span class="method">
               <img src="/assets/img/bca-logo.png" alt="BCA Logo" class="method-logo">
               BCA Virtual Account
             </span>
           </label>
           <label>
-            <input type="radio" name="payment-method" value="Mandiri">
+            <input type="radio" name="payment-method" value="mandiri">
             <span class="method">
               <img src="/assets/img/mandiri-logo.png" alt="Mandiri Logo" class="method-logo">
               Mandiri Virtual Account
@@ -87,8 +83,8 @@
   
   <div class="container">
     <!-- Back Button -->
-    <div class="back-button" onclick="window.location.href='/browse'">
-      <span>&larr; Back</span>
+    <div class="back-button">
+      <a th:href="@{/browse}"><span><img src="/assets/svg/back.svg">Back</span></a>
     </div>
 
     <!-- Main Content -->
