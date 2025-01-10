@@ -16,7 +16,7 @@
     border-radius: 20px;
     padding-left: 40px;
     padding-right: 40px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #ffdc60f6;
 }
 
 .grafik-img,
@@ -34,21 +34,20 @@
     border-radius: 20px;
     padding-left: 40px;
     padding-right: 40px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #ffdc5c;
 }
 
 
 .menu {
-    background: linear-gradient(145deg, #2B2B2B, #545454);
+    background-color: #242424;
     cursor: pointer;
+
 
 }
 
 .menu:hover {
-    background: linear-gradient(145deg, #4a4a4a, #323232);
+    background-color: #313131;
     color: #ffffff;
-    border-left: 4px solid #f5c518;
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(245, 197, 24, 0.6);
+    transform: scale(1.01);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }

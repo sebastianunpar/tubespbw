@@ -18,7 +18,7 @@
 
 </head>
 <body>
-  <a th:href="@{/browse}">
+  <a onclick="window.history.back()">
     <div class="back-btn"><img src="/assets/svg/back.svg">Back</div>
   </a>
   <div class="container">
@@ -31,7 +31,7 @@
 
       <!-- tambah link -->
       <div class="logout-btn">
-        <a href="/login">
+        <a th:href="@{/login}">
           <img src="/assets/svg/logout-icon-admin.svg">Log out
         </a>
       </div>

@@ -26,10 +26,10 @@ if (closeBtn) {
 // Event Listener untuk metode pembayaran
 paymentMethods.forEach((method) => {
   method.addEventListener('change', () => {
-    if (method.value === 'BCA') {
+    if (method.value === 'bca') {
       accountNumber.innerText = '1234 5678 9012 3456'; // Ganti dengan nomor BCA
       bankLogo.innerText = 'BCA Virtual Account';
-    } else if (method.value === 'Mandiri') {
+    } else if (method.value === 'mandiri') {
       accountNumber.innerText = '8077 7000 1414 8659'; // Ganti dengan nomor Mandiri
       bankLogo.innerText = 'Mandiri Virtual Account';
     }

@@ -40,7 +40,6 @@ body {
     gap: 50px;
     align-items: center;
     padding: 10px 60px;
-    padding-top: 0;
     padding-left: 0;
     grid-area: nav;
     /*background-color: #1e1e1e;*/

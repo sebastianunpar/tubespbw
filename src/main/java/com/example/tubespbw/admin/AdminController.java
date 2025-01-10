@@ -56,8 +56,10 @@ public class AdminController {
         List<Actor> actors = filmService.getAllActor();
         model.addAttribute("bykAktor", actors.size());
 
-        model.addAttribute("titleTerlaris", adminRepo.getTitleTerlaris());
+        String titleTerlaris = adminRepo.getTitleTerlaris();
+        model.addAttribute("titleTerlaris", titleTerlaris);
 
+        model.addAttribute("titleTerlaris", titleTerlaris);
         // Retrieve rental count for the most rented movie
         model.addAttribute("bykDisewa", adminRepo.getBykDisewa());
 
@@ -95,7 +97,7 @@ public class AdminController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to mark rental as done.");
         }
-        return "redirect:/rentals";
+        return "redirect:/admin/current-rentals";
 
     }
 
@@ -105,13 +107,16 @@ public class AdminController {
             @RequestParam(value = "end-date", required = false) String endDate,
             Model model) {
         List<ReportData> reports;
-
-        if (startDate != null && endDate != null) {
-            reports = adminRepo.getReportByDateRange(startDate, endDate);
-            model.addAttribute("startDate", startDate);
-            model.addAttribute("endDate", endDate);
-        } else {
+        if (startDate == null && endDate == null) {
             reports = adminRepo.getMonthlyReport();
+        } else {
+            if (!startDate.equals("") && !endDate.equals("")) {
+                reports = adminRepo.getReportByDateRange(startDate, endDate);
+                model.addAttribute("startDate", startDate);
+                model.addAttribute("endDate", endDate);
+            } else {
+                reports = adminRepo.getMonthlyReport();
+            }
         }
 
         model.addAttribute("reports", reports);
@@ -139,8 +144,8 @@ public class AdminController {
 
     // @GetMapping("/manage-movie")
     // @RequiresRole("admin")
-    // public String showManageMovie() { 
-    //     return "admin/browseAdmin";
+    // public String showManageMovie() {
+    // return "admin/browseAdmin";
     // }
 
     @GetMapping("/add-movie")

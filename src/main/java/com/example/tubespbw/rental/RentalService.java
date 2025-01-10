@@ -6,15 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.tubespbw.film.FilmService;
-
 @Service
 public class RentalService {
     @Autowired
     private RentalRepository rentalRepo;
-
-    @Autowired
-    FilmService filmService;
 
     public List<Rental> getUserRentals(int userId) {
         return rentalRepo.getUserRentals(userId);
@@ -24,10 +19,11 @@ public class RentalService {
         return rentalRepo.getUserRentalHistory(userId);
     }
 
-    public boolean insertRental(int filmId, int userId, String metodePembayaran) {
+    public boolean insertRental(int filmId, int userId, String metodePembayaran, String noPembayaran) {
         LocalDate rentalDate = LocalDate.now();
-        filmService.removeFilmStock(filmId);
-        return rentalRepo.insertRental(rentalDate, filmId, userId, metodePembayaran);
+        LocalDate dueDate = rentalDate.plusDays(7);
+
+        return rentalRepo.insertRental(rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran);
     }
 
     public List<Integer> getRentalsPerMonth() {
@@ -37,6 +33,6 @@ public class RentalService {
 
     public List<Double> getIncomePerMonth() {
         int year = LocalDate.now().getYear();
-        return rentalRepo.getIncomePerMonth(year);
+        return rentalRepo.getIncomePerMonth(2024);
     }
 }
