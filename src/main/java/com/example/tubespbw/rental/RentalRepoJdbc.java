@@ -1,6 +1,5 @@
 package com.example.tubespbw.rental;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ public class RentalRepoJdbc implements RentalRepository {
 
     @Override
     public List<Rental> getUserRentals(int userId) {
-        String sql = "SELECT rentalId, rentalDate,  returnDate, rental.filmId, film.title, userId, metodePembayaran, noPembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NULL";
+        String sql = "SELECT rentalId, rentalDate,  returnDate, rental.filmId, film.title, userId, metodePembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NULL";
         return jdbcTemplate.query(sql, this::mapRowToRental, userId);
     }
 
@@ -29,21 +28,20 @@ public class RentalRepoJdbc implements RentalRepository {
             resultSet.getInt("filmId"),
             resultSet.getString("title"),
             resultSet.getInt("userId"),
-            resultSet.getString("metodePembayaran"),
-            resultSet.getString("noPembayaran")
+            resultSet.getString("metodePembayaran")
         );
     }
 
     @Override
     public List<Rental> getUserRentalHistory(int userId) {
-        String sql = "SELECT rentalId, rentalDate, returnDate, rental.filmId, film.title, userId, metodePembayaran, noPembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NOT NULL";
+        String sql = "SELECT rentalId, rentalDate, returnDate, rental.filmId, film.title, userId, metodePembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NOT NULL";
         return jdbcTemplate.query(sql, this::mapRowToRental, userId);
     }
 
     @Override
-    public boolean insertRental(LocalDate rentalDate, LocalDate dueDate, int filmId, int userId, String metodePembayaran, String noPembayaran) {
-        String sql = "INSERT INTO rental (rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran) VALUES (?, ?, ?, ?, ?, ?)";
-        int rowAffected = jdbcTemplate.update(sql, rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran);
+    public boolean insertRental(LocalDate rentalDate, int filmId, int userId, String metodePembayaran) {
+        String sql = "INSERT INTO rental (rentalDate, filmId, userId, metodePembayaran) VALUES (?, ?, ?, ?)";
+        int rowAffected = jdbcTemplate.update(sql, rentalDate, filmId, userId, metodePembayaran);
         return rowAffected > 0;
     }
 
