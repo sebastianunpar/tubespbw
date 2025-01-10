@@ -1,69 +1,84 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const dialog = document.getElementById('filter-dialog');
-  const openButton = document.getElementById('open-dialog');
-  const closeButton = document.getElementById('close-dialog');
+document.addEventListener("DOMContentLoaded", function () {
+    const dialog = document.getElementById("filter-dialog");
+    const openButton = document.getElementById("open-dialog");
+    const closeButton = document.getElementById("close-dialog");
+    const searchForm = document.querySelector('form[th\\:action="@{/admin/manage-movie}"]') || document.querySelector('form[action="/admin/manage-movie"]');
 
-  openButton.addEventListener('click', () => {
-      dialog.showModal();
-  });
+    if (!searchForm) {
+        console.error("Search form not found!");
+        return;
+    }
 
-  closeButton.addEventListener('click', () => {
-      dialog.close();
-  });
+    // Open the filter dialog
+    openButton.addEventListener("click", () => dialog.showModal());
 
-  // Ambil search input actor dan genre
-  const actorSearchInput = document.getElementById("actor-search");
-  const genreSearchInput = document.getElementById("genre-search");
+    // Close the filter dialog without submitting the form
+    closeButton.addEventListener("click", () => {
+        const selectedActors = Array.from(
+            document.querySelectorAll('input[name="actorName"]:checked')
+        ).map(input => input.value);
 
-  // Ambil container actor dan genre
-  const actorOptions = document.getElementById("actor-options");
-  const genreOptions = document.getElementById("genre-options");
+        const selectedGenres = Array.from(
+            document.querySelectorAll('input[name="genreName"]:checked')
+        ).map(input => input.value);
 
-//   // Filter actor berdasarkan input
-//   actorSearchInput.addEventListener("input", function() {
-//       filterOptions(actorSearchInput, actorOptions);
-//   });
+        // Store selected filters in hidden inputs
+        storeSelectedFilters(selectedActors, selectedGenres);
+        dialog.close(); // Close the dialog
+    });
 
-//   // Filter genre berdasarkan input
-//   genreSearchInput.addEventListener("input", function() {
-//       filterOptions(genreSearchInput, genreOptions);
-//   });
+    // Store selected actors and genres in hidden inputs
+    function storeSelectedFilters(selectedActors, selectedGenres) {
+        // Clear existing hidden filters
+        document.querySelectorAll(".hidden-filter").forEach(input => input.remove());
 
-//   // Fungsi filter
-//   function filterOptions(input, container) {
-//       const filterText = input.value.toLowerCase();
-//       const options = container.querySelectorAll("label");
+        const uniqueActors = new Set(selectedActors);
+        const uniqueGenres = new Set(selectedGenres);
 
-//       options.forEach(function(option) {
-//           const optionText = option.querySelector("span").textContent.toLowerCase();
-//           if (optionText.includes(filterText)) {
-//               option.style.display = "";
-//           } else {
-//               option.style.display = "none";
-//           }
-//       });
-//   }
+        // Add hidden inputs for selected actors
+        uniqueActors.forEach(actor => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "actorName";
+            input.value = actor;
+            input.classList.add("hidden-filter");
+            searchForm.appendChild(input);
+        });
 
-  const searchInput = document.getElementById("search-input");
-  const searchIcon = document.getElementById("search-icon");
+        // Add hidden inputs for selected genres
+        uniqueGenres.forEach(genre => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "genreName";
+            input.value = genre;
+            input.classList.add("hidden-filter");
+            searchForm.appendChild(input);
+        });
+    }
 
-  // Fungsi untuk melakukan pencarian
-  function performSearch() {
-      const query = searchInput.value.trim();
-      if (query) {
-          window.location.href = `/browse?movieName=${encodeURIComponent(query)}`;
-      }
-  }
+    // Handle form submission (when user clicks search)
+    searchForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent form submission immediately
 
-  // Event listener untuk klik ikon pencarian
-  searchIcon.addEventListener("click", function() {
-      const query = searchInput.value.trim();
-      if (query) {
-          searchIcon.src = "assets/img/close-icon.png";
-          searchIcon.classList.add("reset");
-          performSearch();  // Lakukan pencarian
-      } 
-  });
+        const movieName = document.querySelector('#search-input').value;
+        let movieNameInput = document.querySelector('input[name="movieName"]');
 
+        // Remove any existing movie name hidden input before adding a new one
+        if (movieNameInput) {
+            movieNameInput.remove();
+        }
 
+        // Add hidden input for movie name only if it's not empty
+        if (movieName) {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "movieName";
+            input.value = movieName;
+            input.classList.add("hidden-filter");
+            searchForm.appendChild(input);
+        }
+
+        // Now submit the form
+        searchForm.submit();
+    });
 });

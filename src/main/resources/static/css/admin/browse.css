@@ -38,20 +38,45 @@ body {
 
 }
 
-.main-content {
+.content {
   padding: 20px;
-  display: flex;
+  display: grid;
   justify-content: center;
+  margin: 2% 5%;
 }
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-  grid-auto-rows: minmax(300px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
-  max-width: 80%;
+  max-width: 1200px;
   width: 100%;
 }
+
+
+ .page-container {
+   display: grid;
+   grid-template-areas:
+     "logo nav"
+     " main main";
+   grid-template-columns: 220px 1fr;
+   grid-template-rows: 110px 1fr;
+   min-height: 100vh;
+   background: linear-gradient(145deg, #121212, #1E1E1E);
+   color: #ccc;
+ }
+
+ p {
+   font-family: "Inter-SemiBold", sans-serif;
+   line-height: 100%;
+   letter-spacing: -0.01em;
+ }
+
+ img.morent {
+   width: 220px;
+   grid-area: logo;
+ }
+
 
 /* Card styling */
 .card {
@@ -114,18 +139,21 @@ body {
 }
 
 .icon-logout {
-  height: 80px;
-  width: 34px;
+  height: 40px;
+  margin-left: 10px;
+  width: 30px;
+  vertical-align: middle;
 }
 
 .nav-middle{
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .search-bar input {
   padding: 8px 40px 8px 10px;
-  width: 200px;
+  width: 125px;
   padding: 8px 35px 8px 15px; /* Tambah ruang untuk ikon di kanan */
   border-radius: 20px;
   border: none;
@@ -267,24 +295,6 @@ transform: scale(1.05);
 background-color: #FEC600;
 }
 
-/* Apply Button Styling */
-.apply-btn {
-  padding: 10px 20px;
-  background-color: #FEC600;
-  color: #121212;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Hover Effect for Apply Button */
-.apply-btn:hover {
-  transform: scale(1.1);
-}
-
  /* Close Button */
  .close-btn {
   position: absolute;
@@ -301,20 +311,18 @@ background-color: #FEC600;
   color: #ffcc00;
 }
 
-.dialog-footer {
-  text-align: right;
-  margin-top: 20px;
-}
 
 dialog {
-  top: 50%; /* Centers vertically */
-  left: 50%; /* Centers horizontally */
-  transform: translate(-50%, -50%); /* Moves the dialog back by 50% of its width/height */
   border: none;
   border-radius: 10px;
   padding: 20px;
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: #4a4a4a;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset by 50% of its own width and height to ensure it’s centered */
+
 }
 
 .add-button {
@@ -342,3 +350,4 @@ dialog {
   box-shadow: 0 0 40px rgba(255, 206, 0, 1); /* More intense glowing on hover */
   background-color: #F8B700; /* Darker yellow on hover */
 }
+

@@ -2,6 +2,7 @@ package com.example.tubespbw.admin;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.time.Year;
 
@@ -148,11 +149,38 @@ public class AdminController {
         return "admin/filmGraph";
     }
 
-    // @GetMapping("/manage-movie")
-    // @RequiresRole("admin")
-    // public String showManageMovie() { 
-    //     return "admin/browseAdmin";
-    // }
+   @GetMapping("/manage-movie")
+   @RequiresRole("admin")
+    public String showBrowse(Model model, 
+                            @RequestParam(value = "movieName", required = false) String movieName,
+                            @RequestParam(value = "actorName", required = false) List<String> actorName,
+                            @RequestParam(value = "genreName", required = false) List<String> genreName) throws SQLException {
+        
+        if (actorName == null) {
+            actorName = new ArrayList<>();
+        }
+        if (genreName == null) {
+            genreName = new ArrayList<>();
+        }
+
+        List<Film> films;
+        if ((movieName != null && !movieName.isEmpty()) || 
+            (actorName != null && !actorName.isEmpty()) || 
+            (genreName != null && !genreName.isEmpty())) {
+            films = filmService.filterFilmsByActorAndGenre(actorName, genreName, movieName);
+        } else {
+            films = filmService.getAllFilmUser();
+        }
+
+        model.addAttribute("actorName", actorName);
+        model.addAttribute("genreName", genreName);
+        model.addAttribute("films", films);
+        model.addAttribute("actors", filmService.getAllActor());
+        model.addAttribute("genres", filmService.getAllGenre());
+        model.addAttribute("movieName", movieName);
+
+        return "admin/browseAdmin";
+    }
 
     @GetMapping("/add-movie")
     @RequiresRole("admin")

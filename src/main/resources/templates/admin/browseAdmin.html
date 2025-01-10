@@ -10,7 +10,6 @@
 </head>
 <body>
   <dialog id="filter-dialog">
-    <form th:action="@{/admin/manage-movie}" method="get">
       <div class="filter-container">
         <!-- Actor Filter -->
         <div class="filter-section">
@@ -47,11 +46,7 @@
         </div>
       </div>
   
-      <div class="dialog-footer">
-        <button id="apply-filters" class="apply-btn" type="submit">Apply</button>
-      </div>
       <button id="close-dialog" class="close-btn" type="button">&times;</button>
-    </form>
   </dialog>
   
     <div class="page-container">
@@ -81,6 +76,8 @@
           <div class="search-bar">
             <form method="get" th:action="@{/admin/manage-movie}">
               <input type="text"  name="movieName"  id="search-input" placeholder="Search movie name..." value=""  th:value="${movieName}"/>
+              <input type="hidden" name="actorName" th:value="${actor}" />
+              <input type="hidden" name="genreName" th:value="${genre}" />
               <button type="submit" class="search-button">
                 <img id="search-icon" src="/assets/img/search-bar-logo.png" alt="Search Icon" />
               </button>
