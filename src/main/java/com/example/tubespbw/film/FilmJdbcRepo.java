@@ -330,4 +330,18 @@ public class FilmJdbcRepo implements FilmRepository{
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
         return namedParameterJdbcTemplate.queryForObject(sql, parameters, Integer.class);
     }
+
+    @Override
+    public boolean removeFilmStock(int filmId) {
+        String sql = "UPDATE film SET stock = stock - 1 WHERE filmId = ? AND stock > 0";
+        int rowsAffected = jdbcTemplate.update(sql, filmId);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean addFilmStock(int filmId) {
+        String sql = "UPDATE film SET stock = stock + 1 WHERE filmId = ?";
+        int rowsAffected = jdbcTemplate.update(sql, filmId);
+        return rowsAffected > 0;
+    }
 }

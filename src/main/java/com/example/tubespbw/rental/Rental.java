@@ -18,7 +18,6 @@ public class Rental {
     private String title;
     private int userId;
     private String metodePembayaran;
-    private String noPembayaran;
 
     public String getFormattedRentalDate() {
         return rentalDate != null ? rentalDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "";

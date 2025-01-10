@@ -138,24 +138,6 @@
    margin: 5px 0;
  }
 
- /* Apply Button Styling */
- /* .apply-btn {
-   padding: 10px 20px;
-   background-color: #FEC600;
-   color: #121212;
-   border: none;
-   border-radius: 5px;
-   font-size: 16px;
-   font-weight: bold;
-   cursor: pointer;
-   transition: all 0.3s ease;
- } */
-
- /* Hover Effect for Apply Button */
- /* .apply-btn:hover {
-   transform: scale(1.1);
- } */
-
  .input-container {
    position: relative;
    width: 100%;
