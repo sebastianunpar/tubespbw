@@ -12,13 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Open the filter dialog
     openButton.addEventListener("click", () => dialog.showModal());
 
-    // Close the filter dialog
-    closeButton.addEventListener("click", () => dialog.close());
-
-    // Preserve selected filters on form submission
-    searchForm.addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent the form from submitting immediately
-
+    // Close the filter dialog without submitting the form
+    closeButton.addEventListener("click", () => {
         const selectedActors = Array.from(
             document.querySelectorAll('input[name="actorName"]:checked')
         ).map(input => input.value);
@@ -27,23 +22,21 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll('input[name="genreName"]:checked')
         ).map(input => input.value);
 
-        const movieName = document.querySelector('#search-input').value;
+        // Store selected filters in hidden inputs
+        storeSelectedFilters(selectedActors, selectedGenres);
+        dialog.close(); // Close the dialog
+    });
 
-        // Clear existing hidden inputs
+    // Store selected actors and genres in hidden inputs
+    function storeSelectedFilters(selectedActors, selectedGenres) {
+        // Clear existing hidden filters
         document.querySelectorAll(".hidden-filter").forEach(input => input.remove());
 
-        // Add hidden inputs for movie name
-        if (movieName) {
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "movieName";
-            input.value = movieName;
-            input.classList.add("hidden-filter");
-            searchForm.appendChild(input);
-        }
+        const uniqueActors = new Set(selectedActors);
+        const uniqueGenres = new Set(selectedGenres);
 
         // Add hidden inputs for selected actors
-        selectedActors.forEach(actor => {
+        uniqueActors.forEach(actor => {
             const input = document.createElement("input");
             input.type = "hidden";
             input.name = "actorName";
@@ -53,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Add hidden inputs for selected genres
-        selectedGenres.forEach(genre => {
+        uniqueGenres.forEach(genre => {
             const input = document.createElement("input");
             input.type = "hidden";
             input.name = "genreName";
@@ -61,6 +54,29 @@ document.addEventListener("DOMContentLoaded", function () {
             input.classList.add("hidden-filter");
             searchForm.appendChild(input);
         });
+    }
+
+    // Handle form submission (when user clicks search)
+    searchForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent form submission immediately
+
+        const movieName = document.querySelector('#search-input').value;
+        let movieNameInput = document.querySelector('input[name="movieName"]');
+
+        // Remove any existing movie name hidden input before adding a new one
+        if (movieNameInput) {
+            movieNameInput.remove();
+        }
+
+        // Add hidden input for movie name only if it's not empty
+        if (movieName) {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "movieName";
+            input.value = movieName;
+            input.classList.add("hidden-filter");
+            searchForm.appendChild(input);
+        }
 
         // Now submit the form
         searchForm.submit();

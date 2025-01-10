@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -230,51 +231,73 @@ public class FilmJdbcRepo implements FilmRepository{
         String likeQuery = "%" + movieName + "%";
         return jdbcTemplate.query(sql, this::mapRowToFilm, likeQuery);
     }
-    @Override
-    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
-            throws SQLException {
-                String sql = """
-                    SELECT DISTINCT film.filmId, film.title, film.stock, film.poster 
-                    FROM film
-                    LEFT JOIN filmActor ON filmActor.filmId = film.filmId
-                    LEFT JOIN filmGenre ON filmGenre.filmId = film.filmId
-                    LEFT JOIN actor ON actor.actorId = filmActor.actorId
-                    LEFT JOIN genre ON genre.genreId = filmGenre.genreId
-                """;
-        
-                // Kondisi filter
-                StringBuilder whereClause = new StringBuilder();
-                Map<String, Object> parameters = new HashMap<>();
-        
-                if (actorNames != null && !actorNames.isEmpty()) {
-                    whereClause.append("actor.name IN (:actorNames) ");
-                    parameters.put("actorNames", actorNames);
-                }
-        
-                if (genreNames != null && !genreNames.isEmpty()) {
-                    if (whereClause.length() > 0) {
-                        whereClause.append("AND ");
-                    }
-                    whereClause.append("genre.name IN (:genreNames) ");
-                    parameters.put("genreNames", genreNames);
-                }
-        
-                if (movieName != null && !movieName.isEmpty()) {
-                    if (whereClause.length() > 0) {
-                        whereClause.append("AND ");
-                    }
-                    whereClause.append("film.title ILIKE :movieName ");
-                    parameters.put("movieName", "%" + movieName + "%");
-                }
-        
-                if (whereClause.length() > 0) {
-                    sql += "WHERE " + whereClause.toString();
-                }
-        
-                // Gunakan NamedParameterJdbcTemplate untuk parameter binding
-                NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-                return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
+   @Override
+public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
+        throws SQLException {
+    // Filter out empty actor names
+    actorNames = actorNames.stream()
+                           .filter(name -> name != null && !name.trim().isEmpty())
+                           .collect(Collectors.toList());
+
+    String sql = """
+        SELECT DISTINCT film.filmId, film.title, film.stock, film.poster 
+        FROM film
+        INNER JOIN filmActor ON filmActor.filmId = film.filmId
+        INNER JOIN actor ON actor.actorId = filmActor.actorId
+        INNER JOIN filmGenre ON filmGenre.filmId = film.filmId
+        INNER JOIN genre ON genre.genreId = filmGenre.genreId
+    """;
+
+    // Kondisi filter
+    StringBuilder whereClause = new StringBuilder();
+    Map<String, Object> parameters = new HashMap<>();
+
+    // Actor filter
+    if (actorNames != null && !actorNames.isEmpty()) {
+        whereClause.append("actor.name IN (:actorNames) ");
+        parameters.put("actorNames", actorNames);
     }
+
+    // Genre filter
+    if (genreNames != null && !genreNames.isEmpty()) {
+        if (whereClause.length() > 0) {
+            whereClause.append("AND ");
+        }
+        whereClause.append("genre.name IN (:genreNames) ");
+        parameters.put("genreNames", genreNames);
+    }
+
+    // Movie name filter
+    if (movieName != null && !movieName.isEmpty()) {
+        if (whereClause.length() > 0) {
+            whereClause.append("AND ");
+        }
+        whereClause.append("film.title ILIKE :movieName ");
+        parameters.put("movieName", "%" + movieName + "%");
+    }
+
+    // Apply where conditions
+    if (whereClause.length() > 0) {
+        sql += "WHERE " + whereClause.toString();
+    }
+
+    // If multiple actors are selected, ensure that all specified actors are in the same movie
+    if (actorNames != null && actorNames.size() > 1) {
+        // Group by filmId and ensure the count of distinct actors matches the number of actors
+        sql += " GROUP BY film.filmId, film.title, film.stock, film.poster";
+        sql += " HAVING COUNT(DISTINCT actor.name) = :actorCount";
+        parameters.put("actorCount", actorNames.size());
+    }
+
+    // Debugging outputs
+    System.out.println(sql);
+    System.out.println(parameters);
+
+    // Use NamedParameterJdbcTemplate for parameter binding
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+    return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
+}
+    
 
     @Override
     public int getFilmCount() {

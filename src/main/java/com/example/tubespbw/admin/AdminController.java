@@ -2,6 +2,7 @@ package com.example.tubespbw.admin;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.time.Year;
 
@@ -39,7 +40,6 @@ public class AdminController {
     AdminJdbcRepo adminRepo;
 
     @GetMapping({ "", "/" })
-    @RequiresRole("admin")
     public String showHome(Model model) throws SQLException {
         // Retrieve all films
         List<Film> films = filmService.getAllFilmUser();
@@ -56,10 +56,8 @@ public class AdminController {
         List<Actor> actors = filmService.getAllActor();
         model.addAttribute("bykAktor", actors.size());
 
-        String titleTerlaris = adminRepo.getTitleTerlaris();
-        model.addAttribute("titleTerlaris", titleTerlaris);
+        model.addAttribute("titleTerlaris", adminRepo.getTitleTerlaris());
 
-        model.addAttribute("titleTerlaris", titleTerlaris);
         // Retrieve rental count for the most rented movie
         model.addAttribute("bykDisewa", adminRepo.getBykDisewa());
 
@@ -67,7 +65,6 @@ public class AdminController {
     }
 
     @GetMapping("/poster")
-    @RequiresRole("admin")
     public ResponseEntity<byte[]> getMostRentedMoviePoster() {
         byte[] poster = adminRepo.getMostRentedMoviePoster();
 
@@ -81,7 +78,6 @@ public class AdminController {
     }
 
     @GetMapping("/current-rentals")
-    @RequiresRole("admin")
     public String showCurrentRentals(Model model) {
         List<ReportData> reports;
         reports = adminRepo.getOngoingRentals();
@@ -91,7 +87,6 @@ public class AdminController {
     }
 
     @PostMapping("/current-rentals/mark-done")
-    @RequiresRole("admin")
     public String markRentalDone(@RequestParam("rentalId") int rentalId, RedirectAttributes redirectAttributes) {
         try {
             adminRepo.updateReturnDate(rentalId, LocalDate.now());
@@ -100,27 +95,23 @@ public class AdminController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to mark rental as done.");
         }
-        return "redirect:/admin/current-rentals";
+        return "redirect:/rentals";
 
     }
 
     @GetMapping("/monthly-report")
-    @RequiresRole("admin")
     public String showMonthlyReport(
             @RequestParam(value = "start-date", required = false) String startDate,
             @RequestParam(value = "end-date", required = false) String endDate,
             Model model) {
         List<ReportData> reports;
-        if (startDate == null && endDate == null) {
-            reports = adminRepo.getMonthlyReport();
+
+        if (startDate != null && endDate != null) {
+            reports = adminRepo.getReportByDateRange(startDate, endDate);
+            model.addAttribute("startDate", startDate);
+            model.addAttribute("endDate", endDate);
         } else {
-            if (!startDate.equals("") && !endDate.equals("")) {
-                reports = adminRepo.getReportByDateRange(startDate, endDate);
-                model.addAttribute("startDate", startDate);
-                model.addAttribute("endDate", endDate);
-            } else {
-                reports = adminRepo.getMonthlyReport();
-            }
+            reports = adminRepo.getMonthlyReport();
         }
 
         model.addAttribute("reports", reports);
@@ -158,11 +149,38 @@ public class AdminController {
         return "admin/filmGraph";
     }
 
-    // @GetMapping("/manage-movie")
-    // @RequiresRole("admin")
-    // public String showManageMovie() {
-    // return "admin/browseAdmin";
-    // }
+   @GetMapping("/manage-movie")
+   @RequiresRole("admin")
+    public String showBrowse(Model model, 
+                            @RequestParam(value = "movieName", required = false) String movieName,
+                            @RequestParam(value = "actorName", required = false) List<String> actorName,
+                            @RequestParam(value = "genreName", required = false) List<String> genreName) throws SQLException {
+        
+        if (actorName == null) {
+            actorName = new ArrayList<>();
+        }
+        if (genreName == null) {
+            genreName = new ArrayList<>();
+        }
+
+        List<Film> films;
+        if ((movieName != null && !movieName.isEmpty()) || 
+            (actorName != null && !actorName.isEmpty()) || 
+            (genreName != null && !genreName.isEmpty())) {
+            films = filmService.filterFilmsByActorAndGenre(actorName, genreName, movieName);
+        } else {
+            films = filmService.getAllFilmUser();
+        }
+
+        model.addAttribute("actorName", actorName);
+        model.addAttribute("genreName", genreName);
+        model.addAttribute("films", films);
+        model.addAttribute("actors", filmService.getAllActor());
+        model.addAttribute("genres", filmService.getAllGenre());
+        model.addAttribute("movieName", movieName);
+
+        return "admin/browseAdmin";
+    }
 
     @GetMapping("/add-movie")
     @RequiresRole("admin")
