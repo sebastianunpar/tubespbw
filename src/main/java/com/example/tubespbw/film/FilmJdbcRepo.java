@@ -110,7 +110,7 @@ public class FilmJdbcRepo implements FilmRepository{
 
     @Override
     public List<Genre> getAllGenre() throws SQLException {
-        String sql = "SELECT * FROM genre ORDER BY name";
+        String sql = "SELECT * FROM genre ORDER BY valid DESC, name ASC";
         return jdbcTemplate.query(sql, this::mapRowToGenreObj);
     }
     private Genre mapRowToGenreObj(ResultSet resultSet, int rowNum) throws SQLException {
@@ -183,7 +183,7 @@ public class FilmJdbcRepo implements FilmRepository{
     // 
     @Override
     public List<Actor> getAllActor() throws SQLException {
-        String sql = "SELECT * FROM actor ORDER BY name";
+        String sql = "SELECT * FROM actor ORDER BY valid DESC, name ASC";
         return jdbcTemplate.query(sql, this::mapRowToActorObj);
     }
     private Actor mapRowToActorObj(ResultSet resultSet, int rowNum) throws SQLException {

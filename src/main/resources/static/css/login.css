@@ -279,6 +279,8 @@ p {
 }
 
 .error {
-    margin-top: 20px;
     color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.9rem;
 }
