@@ -114,8 +114,8 @@ body {
 }
 
 .icon-logout {
-  height: 22px;
-  width: 10px;
+  height: 80px;
+  width: 34px;
 }
 
 .nav-middle{
@@ -318,3 +318,28 @@ dialog {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.add-button button {
+  background-color: #FEC600; /* Yellow color */
+  color: #121212; /* Dark text */
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px 30px; /* Adding more padding */
+  border: none;
+  border-radius: 50px; /* Rounded button */
+  box-shadow: 0 0 20px rgba(255, 206, 0, 0.8); /* Glowing effect */
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease-in-out;
+}
+
+.add-button button:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+  box-shadow: 0 0 40px rgba(255, 206, 0, 1); /* More intense glowing on hover */
+  background-color: #F8B700; /* Darker yellow on hover */
+}

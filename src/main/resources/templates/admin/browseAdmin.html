@@ -91,7 +91,6 @@
           </div>
         </div>
         <div class="nav-right">
-          
           <a th:href="@{/}">
             <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
           </a>
@@ -110,7 +109,12 @@
           <th:block th:if="${#lists.isEmpty(films)}">
             <p>No films found. Please try a different search!</p>
           </th:block>
-        </div>    
+        </div> 
+          <a th:href="@{/admin/add-movie}" >
+            <div class = "add-button">
+              <button>Add Film +</button>
+            </div>
+          </a>   
       </main>
     </div>
 </body>
