@@ -117,3 +117,204 @@ body {
   height: 22px;
   width: 10px;
 }
+
+.nav-middle{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-bar input {
+  padding: 8px 40px 8px 10px;
+  width: 200px;
+  padding: 8px 35px 8px 15px; /* Tambah ruang untuk ikon di kanan */
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background-color: #333; /* Warna awal search bar */
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease; /* Menambahkan transisi untuk perubahan ukuran dan warna */
+}
+
+.search-bar select {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background-color: #333;
+  color: white;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-bar button {
+  background: none; /* Menghapus background default */
+  border: none; /* Menghapus border default */
+  padding: 0; /* Menghapus padding default */
+  cursor: pointer; /* Menambahkan pointer pada hover */
+}
+
+
+/* Untuk ikon pencarian */
+.search-bar img {
+  position: absolute;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Menambahkan transisi saat hover */
+}
+
+.filter button {
+  padding: 5px 10px; /* Perbesar ukuran tombol */
+  font-size: 16px; /* Perbesar teks tombol */
+  border-radius: 20px;
+  border: none;
+  background-color: gray;
+  color: black;
+  cursor: pointer;
+  align-self: center; /* Untuk menyelaraskan dengan search bar */
+  transition: background-color 0.3s;
+}
+
+.filter button:hover {
+  background-color: #FEC600; /* Efek hover */
+  transform: scale(1.05);
+}
+
+/*filter*/
+.filter button {
+background-color: transparent; /* Menghilangkan background */
+border: none; /* Menghilangkan border */
+cursor: pointer;
+display: flex;
+align-items: center; /* Menyelaraskan logo secara vertikal */
+justify-content: center; /* Menyelaraskan logo secara horizontal */
+}
+
+.filter button img {
+width: 25px; /* Ukuran logo sesuai dengan input */
+height: 25px;
+transition: filter 0.3s ease; /* Transisi halus saat hover */
+filter: brightness(0.8); /* Warna kuning agak lebih gelap */
+}
+
+.filter button:hover img {
+filter: brightness(1.2); /* Membuat logo lebih terang saat hover */
+}
+
+.filter-container {
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+.filter-section {
+display: flex;
+flex-direction: column;
+}
+
+.filter-header {
+display: flex;
+align-items: center;
+width: 90%;
+gap: 10px;
+}
+
+.filter-input {
+flex: 1;
+padding: 5px 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+.filter-options label {
+display: block;
+margin: 5px 0;
+}
+
+
+.input-container {
+  position: relative;
+  width: 100%; 
+}
+
+/* Search Icon */
+#search-icon {
+position: absolute;
+right: 15px;
+top: 5px;
+width: 20px;
+height: 20px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+#search-icon:hover{
+padding: 3px;
+border-radius: 15px;
+background-color: #FEC600; /* Efek hover */
+transform: scale(1.05);
+}
+
+/* Search Bar Reset */
+#search-icon.reset:hover {
+background-color: #FEC600;
+}
+
+/* Apply Button Styling */
+.apply-btn {
+  padding: 10px 20px;
+  background-color: #FEC600;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover Effect for Apply Button */
+.apply-btn:hover {
+  transform: scale(1.1);
+}
+
+ /* Close Button */
+ .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #121212;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ffcc00;
+}
+
+.dialog-footer {
+  text-align: right;
+  margin-top: 20px;
+}
+
+dialog {
+  top: 50%; /* Centers vertically */
+  left: 50%; /* Centers horizontally */
+  transform: translate(-50%, -50%); /* Moves the dialog back by 50% of its width/height */
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+

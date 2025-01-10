@@ -18,7 +18,6 @@ public class Rental {
     private String title;
     private int userId;
     private String metodePembayaran;
-    private String noPembayaran;
 
     public String getFormattedRentalDate() {
         return rentalDate != null ? rentalDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "";
@@ -28,9 +27,15 @@ public class Rental {
         return returnDate != null ? returnDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "";
     }
 
+    public String getFormattedDueDate() {
+        LocalDate dueDate = rentalDate.plusDays(7);
+        return dueDate != null ? dueDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "";
+    }
+
     public int getRemainingDays() {
+        LocalDate dueDate = rentalDate.plusDays(7);
         if (rentalDate != null) {
-            return (int) ChronoUnit.DAYS.between(rentalDate, rentalDate.plusDays(7));
+            return (int) ChronoUnit.DAYS.between(LocalDate.now(), dueDate);
         }
         return -1;
     }

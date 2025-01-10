@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 public class User {
-    // private int userId;
+    private Integer userId;
 
     @NotBlank(message = "name is required")
     private String name;

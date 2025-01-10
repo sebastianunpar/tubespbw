@@ -19,18 +19,6 @@ import com.example.tubespbw.actor.Actor;
 import com.example.tubespbw.film.FilmService;
 import com.example.tubespbw.genre.Genre;
 
-
-
-
-// UDAH ADA DI ADMIN CONTROLLER -> @GetMapping("/manage-genres")
-
-// boleh dipindahin ke sini
-
-// -seba
-
-
-
-
 @Controller
 @RequestMapping("/admin")
 public class GenreController {

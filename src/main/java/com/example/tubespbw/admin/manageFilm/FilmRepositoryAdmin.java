@@ -1,4 +1,4 @@
-package com.example.tubespbw.film;
+package com.example.tubespbw.admin.manageFilm;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.Optional;
 import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
 
-public interface FilmRepository {
-    List<Film> getAll() throws SQLException;
+public interface FilmRepositoryAdmin {
+    List<FilmAdmin> getAll() throws SQLException;
     List<String> getFilmGenres(int filmId) throws SQLException;
     List<String> getFilmActors(int filmId) throws SQLException;
-    Optional<FilmDetail> getFilmDetail(int filmId) throws SQLException;
+    Optional<FilmDetailAdmin> getFilmDetail(int filmId) throws SQLException;
     int getFilmSales(int filmId) throws SQLException;
     boolean insertActor(String actor);
     boolean insertGenre(String genre);
@@ -32,12 +32,6 @@ public interface FilmRepository {
     boolean insertFilmGenre(int filmId, int genreId);
     boolean insertFilmActor(int filmId, int actorId);
     Optional<Integer> getLatestFilmId();
-    List<Film> searchFilms(String movieName);
-    List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException;
-    // List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames) throws SQLException;
-    int getFilmCount();
-    int getFilmCountByName(String movieName);
-    int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName);
-    boolean removeFilmStock(int filmId);
-    boolean addFilmStock(int filmId);
+    List<FilmAdmin> searchFilms(String movieName);
+    List<FilmAdmin> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException;
 }

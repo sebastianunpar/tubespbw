@@ -1,11 +1,15 @@
-package com.example.tubespbw.film;
+package com.example.tubespbw.admin.manageFilm;
 
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
@@ -14,13 +18,13 @@ import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
 
 @Service
-public class FilmService {
+public class FilmServiceAdmin {
     @Autowired
-    FilmRepository repo;
+    FilmRepositoryAdmin repo;
 
-    public List<Film> getAllFilmUser() throws SQLException{
-        List<Film> films = repo.getAll();
-        for (Film film : films) {
+    public List<FilmAdmin> getAllFilmUser() throws SQLException{
+        List<FilmAdmin> films = repo.getAll();
+        for (FilmAdmin film : films) {
             String base64Poster = generateBase64Poster(film.getPoster());
             film.setBase64Poster(base64Poster);
         }
@@ -34,8 +38,8 @@ public class FilmService {
         return null;
     }
 
-    public FilmDetail getFilmDetail(int filmId) throws SQLException {
-        FilmDetail filmDetail = repo.getFilmDetail(filmId).get();
+    public FilmDetailAdmin getFilmDetail(int filmId) throws SQLException {
+        FilmDetailAdmin filmDetail = repo.getFilmDetail(filmId).get();
         String base64Poster = generateBase64Poster(filmDetail.getPoster());
         filmDetail.setBase64Poster(base64Poster);
         return filmDetail;
@@ -85,7 +89,7 @@ public class FilmService {
         return repo.searchActorsByName(actorName);
     }
     public void changeValidActor(int actorId) {
-        repo.changeValidActor(actorId);
+        repo.changeValidGenre(actorId);
     }
     // 
     public List<Actor> getAllActor() throws SQLException {
@@ -110,41 +114,21 @@ public class FilmService {
         }
     }
 
-    public List<Film> searchFilms(String query) throws SQLException {
-        List<Film> films = repo.searchFilms(query);
-        for (Film film : films) {
+    public List<FilmAdmin> searchFilms(String query) throws SQLException {
+        List<FilmAdmin> films = repo.searchFilms(query);
+        for (FilmAdmin film : films) {
             String base64Poster = generateBase64Poster(film.getPoster());
             film.setBase64Poster(base64Poster);
         }
         return films;
     }
 
-    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException {
-        List<Film> films = repo.filterFilmsByActorAndGenre(actorNames, genreNames, movieName);
-        for (Film film : films) {
+    public List<FilmAdmin> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException {
+        List<FilmAdmin> films = repo.filterFilmsByActorAndGenre(actorNames, genreNames, movieName);
+        for (FilmAdmin film : films) {
             String base64Poster = generateBase64Poster(film.getPoster());
             film.setBase64Poster(base64Poster);
         }
         return films;
-    }
-
-    public int getFilmCount() {
-        return repo.getFilmCount();
-    }
-
-    public int getFilmCountByName(String movieName) {
-        return repo.getFilmCountByName(movieName);
-    }
-
-    public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
-        return repo.getFilmCountByActorAndGenre(actorNames, genreNames, movieName);
-    }
-
-    public boolean addFilmStock(int filmId) {
-        return repo.addFilmStock(filmId);
-    }
-
-    public boolean removeFilmStock(int filmId) {
-        return repo.removeFilmStock(filmId);
     }
 }

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/user/userHistory-Lease.css">
+  <script defer src="/js/pengguna/rentals.js"></script>
   <title>User Profile</title>
 
   <!-- tambahan style buat link nya -->
@@ -24,8 +25,8 @@
     <div class="left-panel">
       <div class="profile">
         <img src="/assets/svg/user-avatar.svg" class="profile-pic">
-        <h2 \>Nama</h2>
-        <p>Sedang dipinjam: <span></span> film</p>
+        <h2 th:text="${nama}"></h2>
+        <p th:text="'Sedang dipinjam: ' + ${rentalCount} + ' film'"></p>
       </div>
 
       <!-- tambah link -->
@@ -41,25 +42,42 @@
     <div class="right-panel">
       <nav>
         <!-- tambah link -->
-        <div class="tab active">
-          <a href="/rentals" style="color: #FEC600;">SEDANG DIPINJAM</a>
+        <div class="tab active" id="currentRentalTab">
+          <span>SEDANG DIPINJAM</span>
         </div>
-        <div class="tab">
-          <a href="/history">HISTORY</a>
+        <div class="tab" id="historyTab">
+          <span>HISTORY</span>
         </div>
         <!-- tambah link -->
 
       </nav>
-      <div class="rental-info">
-        <table>
+      <div class="rental-info" id="currentRental">
+        <div th:if="${emptyRental}" class="emptyMessage">No rentals</div>
+        <table th:if="${!emptyRental}">
           <tr th:each="rental : ${rentals}">
             <td>
               <h2 th:text="${rental.title}"></h2>
-              <p><strong>ID: </strong><span th:text="${rental.rentalId}"></span></p>
-              <p><strong>Tanggal mulai sewa:</strong> <span th:text="${rental.formattedRentalDate}"></span></p>
+              <p><strong>Rental ID: </strong><span th:text="${rental.rentalId}"></span></p>
+              <p><strong>Tanggal sewa:</strong> <span th:text="${rental.formattedRentalDate}"></span></p>
+              <p><strong>Tanggal kembali:</strong> <span th:text="${rental.formattedDueDate}"></span></p>
             </td>
             <td>
-              <p class="overdue">SISA WAKTU: <span class="red" th:text="${rental.remainingDays}"></span> hari</p>
+              <p th:if="${rental.remainingDays > 0}" class="overdue">SISA WAKTU: <span th:text="${rental.remainingDays}"></span> hari</p>
+              <p th:if="${rental.remainingDays < 1}" class="overdue red">OVERDUE</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="rental-info hidden" id="rentalHistory" th:if="${!emptyHistory}">
+        <div th:if="${emptyHistory}">No rental hisotry</div>
+        <table th:if="${!emptyHistory}">
+          <tr th:each="rental : ${rentalHistory}">
+            <td>
+              <h2 th:text="${rental.title}"></h2>
+              <p><strong>Rental ID: </strong><span th:text="${rental.rentalId}"></span></p>
+              <p><strong>Tanggal sewa:</strong> <span th:text="${rental.formattedRentalDate}"></span></p>
+              <p><strong>Tanggal dikembalikan:</strong> <span th:text="${rental.formattedReturnDate}"></span></p>
             </td>
           </tr>
         </table>

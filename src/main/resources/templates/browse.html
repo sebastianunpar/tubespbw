@@ -120,7 +120,33 @@
       <th:block th:if="${#lists.isEmpty(films)}">
         <p>No films found. Please try a different search!</p>
       </th:block>
-    </div>    
+    </div>   
+    
+    <nav th:if="${pageCount > 1}" id="filmPagination">
+      <!-- Previous Button -->
+      <a th:if="${currentPage > 1}" 
+         th:href="@{/browse(page=${currentPage - 1}, movieName=${movieName}, actorName=${actorName}, genreName=${genreName})}" 
+         aria-label="Previous" 
+         th:class="${currentPage == 1} ? 'disabled' : null">
+          <
+      </a>
+      
+      <!-- Page Numbers -->
+      <span th:each="i : ${#numbers.sequence(1, pageCount)}">
+          <a th:href="@{/browse(page=${i}, movieName=${movieName}, actorName=${actorName}, genreName=${genreName})}" 
+             th:text="${i}" 
+             th:class="${currentPage == i} ? 'active' : null">
+          </a>
+      </span>
+      
+      <!-- Next Button -->
+      <a th:if="${currentPage < pageCount}" 
+         th:href="@{/browse(page=${currentPage + 1}, movieName=${movieName}, actorName=${actorName}, genreName=${genreName})}" 
+         aria-label="Next" 
+         th:class="${currentPage == pageCount} ? 'disabled' : null">
+          >
+      </a>
+    </nav>
   </main>
 </div>
 </div>
