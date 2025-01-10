@@ -19,30 +19,30 @@ document.addEventListener("DOMContentLoaded", function() {
   const actorOptions = document.getElementById("actor-options");
   const genreOptions = document.getElementById("genre-options");
 
-  // Filter actor berdasarkan input
-  actorSearchInput.addEventListener("input", function() {
-      filterOptions(actorSearchInput, actorOptions);
-  });
+//   // Filter actor berdasarkan input
+//   actorSearchInput.addEventListener("input", function() {
+//       filterOptions(actorSearchInput, actorOptions);
+//   });
 
-  // Filter genre berdasarkan input
-  genreSearchInput.addEventListener("input", function() {
-      filterOptions(genreSearchInput, genreOptions);
-  });
+//   // Filter genre berdasarkan input
+//   genreSearchInput.addEventListener("input", function() {
+//       filterOptions(genreSearchInput, genreOptions);
+//   });
 
-  // Fungsi filter
-  function filterOptions(input, container) {
-      const filterText = input.value.toLowerCase();
-      const options = container.querySelectorAll("label");
+//   // Fungsi filter
+//   function filterOptions(input, container) {
+//       const filterText = input.value.toLowerCase();
+//       const options = container.querySelectorAll("label");
 
-      options.forEach(function(option) {
-          const optionText = option.querySelector("span").textContent.toLowerCase();
-          if (optionText.includes(filterText)) {
-              option.style.display = "";
-          } else {
-              option.style.display = "none";
-          }
-      });
-  }
+//       options.forEach(function(option) {
+//           const optionText = option.querySelector("span").textContent.toLowerCase();
+//           if (optionText.includes(filterText)) {
+//               option.style.display = "";
+//           } else {
+//               option.style.display = "none";
+//           }
+//       });
+//   }
 
   const searchInput = document.getElementById("search-input");
   const searchIcon = document.getElementById("search-icon");
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function performSearch() {
       const query = searchInput.value.trim();
       if (query) {
-          window.location.href = `/admin/browseAdmin?movieName=${encodeURIComponent(query)}`;
+          window.location.href = `/browse?movieName=${encodeURIComponent(query)}`;
       }
   }
 

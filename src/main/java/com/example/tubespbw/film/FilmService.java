@@ -120,6 +120,9 @@ public class FilmService {
     }
 
     public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException {
+        System.out.println("Filtering films with actor names: " + actorNames);
+        System.out.println("Filtering films with genre names: " + genreNames);
+        System.out.println("Filtering films with movie name: " + movieName);
         List<Film> films = repo.filterFilmsByActorAndGenre(actorNames, genreNames, movieName);
         for (Film film : films) {
             String base64Poster = generateBase64Poster(film.getPoster());

@@ -1,69 +1,68 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const dialog = document.getElementById('filter-dialog');
-  const openButton = document.getElementById('open-dialog');
-  const closeButton = document.getElementById('close-dialog');
+document.addEventListener("DOMContentLoaded", function () {
+    const dialog = document.getElementById("filter-dialog");
+    const openButton = document.getElementById("open-dialog");
+    const closeButton = document.getElementById("close-dialog");
+    const searchForm = document.querySelector('form[th\\:action="@{/browse}"]') || document.querySelector('form[action="/browse"]');
 
-  openButton.addEventListener('click', () => {
-      dialog.showModal();
-  });
+    if (!searchForm) {
+        console.error("Search form not found!");
+        return;
+    }
 
-  closeButton.addEventListener('click', () => {
-      dialog.close();
-  });
+    // Open the filter dialog
+    openButton.addEventListener("click", () => dialog.showModal());
 
-  // Ambil search input actor dan genre
-  const actorSearchInput = document.getElementById("actor-search");
-  const genreSearchInput = document.getElementById("genre-search");
+    // Close the filter dialog
+    closeButton.addEventListener("click", () => dialog.close());
 
-  // Ambil container actor dan genre
-  const actorOptions = document.getElementById("actor-options");
-  const genreOptions = document.getElementById("genre-options");
+    // Preserve selected filters on form submission
+    searchForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the form from submitting immediately
 
-  // Filter actor berdasarkan input
-  actorSearchInput.addEventListener("input", function() {
-      filterOptions(actorSearchInput, actorOptions);
-  });
+        const selectedActors = Array.from(
+            document.querySelectorAll('input[name="actorName"]:checked')
+        ).map(input => input.value);
 
-  // Filter genre berdasarkan input
-  genreSearchInput.addEventListener("input", function() {
-      filterOptions(genreSearchInput, genreOptions);
-  });
+        const selectedGenres = Array.from(
+            document.querySelectorAll('input[name="genreName"]:checked')
+        ).map(input => input.value);
 
-  // Fungsi filter
-  function filterOptions(input, container) {
-      const filterText = input.value.toLowerCase();
-      const options = container.querySelectorAll("label");
+        const movieName = document.querySelector('#search-input').value;
 
-      options.forEach(function(option) {
-          const optionText = option.querySelector("span").textContent.toLowerCase();
-          if (optionText.includes(filterText)) {
-              option.style.display = "";
-          } else {
-              option.style.display = "none";
-          }
-      });
-  }
+        // Clear existing hidden inputs
+        document.querySelectorAll(".hidden-filter").forEach(input => input.remove());
 
-  const searchInput = document.getElementById("search-input");
-  const searchIcon = document.getElementById("search-icon");
+        // Add hidden inputs for movie name
+        if (movieName) {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "movieName";
+            input.value = movieName;
+            input.classList.add("hidden-filter");
+            searchForm.appendChild(input);
+        }
 
-  // Fungsi untuk melakukan pencarian
-  function performSearch() {
-      const query = searchInput.value.trim();
-      if (query) {
-          window.location.href = `/browse?search=${encodeURIComponent(query)}`;
-      }
-  }
+        // Add hidden inputs for selected actors
+        selectedActors.forEach(actor => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "actorName";
+            input.value = actor;
+            input.classList.add("hidden-filter");
+            searchForm.appendChild(input);
+        });
 
-  // Event listener untuk klik ikon pencarian
-  searchIcon.addEventListener("click", function() {
-      const query = searchInput.value.trim();
-      if (query) {
-          searchIcon.src = "assets/img/close-icon.png";
-          searchIcon.classList.add("reset");
-          performSearch();  // Lakukan pencarian
-      } 
-  });
+        // Add hidden inputs for selected genres
+        selectedGenres.forEach(genre => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "genreName";
+            input.value = genre;
+            input.classList.add("hidden-filter");
+            searchForm.appendChild(input);
+        });
 
-
+        // Now submit the form
+        searchForm.submit();
+    });
 });
