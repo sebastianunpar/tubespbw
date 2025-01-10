@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -50,15 +51,18 @@ public class AdminJdbcRepo implements AdminRepository {
                         GROUP BY r.filmId
                     )
                     SELECT
-                        f.title
+                        COALESCE(f.title, 'No rentals this month') AS title
                     FROM rentals_in_month rim
-                    JOIN film f ON rim.filmId = f.filmId
+                    LEFT JOIN film f ON rim.filmId = f.filmId
                     ORDER BY rim.rental_count DESC, f.title ASC
                     LIMIT 1
                 """;
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, year, month);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // Or a default value
+        }
 
-        // Use `jdbcTemplate.queryForObject` to execute the query and retrieve the title
-        return jdbcTemplate.queryForObject(sql, String.class, year, month);
     }
 
     @Override
@@ -87,7 +91,12 @@ public class AdminJdbcRepo implements AdminRepository {
                 """;
 
         // Use `jdbcTemplate.queryForObject` to execute the query and retrieve the title
-        return jdbcTemplate.queryForObject(sql, String.class, year, month);
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, year, month);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // Or a default value
+        }
+
     }
 
     @Override

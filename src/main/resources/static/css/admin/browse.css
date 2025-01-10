@@ -39,20 +39,27 @@ body {
 }
 
 .content {
-  padding: 20px;
-  display: grid;
-  justify-content: center;
-  margin: 2% 5%;
+  padding: 20px; /* Padding untuk jarak di sekitar */
+  display: flex; /* Gunakan flexbox */
+  flex-direction: column; /* Atur elemen secara vertikal */
+  justify-content: flex-start; /* Atur posisi lebih ke atas */
+  align-items: center; /* Tengah secara horizontal */
+  height: 100vh; /* Penuhi tinggi layar */
+  margin: 0 auto; /* Margin otomatis untuk tengah horizontal */
+  box-sizing: border-box; /* Sertakan padding dan border dalam ukuran total */
+  gap: 20px; /* Jarak antara elemen konten (opsional) */
 }
 
+/* Kontainer grid untuk kartu */
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid responsif */
+  gap: 20px; /* Jarak antar-kartu */
+  max-width: 1100px; /* Batas maksimum lebar */
+  width: 100%; /* Penuhi lebar area yang tersedia */
+  justify-content: center; /* Pastikan grid tetap di tengah */
+  margin-top: 20px; /* Tambahkan sedikit jarak dari atas jika diperlukan */
 }
-
 
  .page-container {
    display: grid;
@@ -201,7 +208,7 @@ body {
 .filter button {
   padding: 5px 10px; /* Perbesar ukuran tombol */
   font-size: 16px; /* Perbesar teks tombol */
-  border-radius: 20px;
+  border-radius: 50px;
   border: none;
   background-color: gray;
   color: black;

@@ -3,15 +3,18 @@ package com.example.tubespbw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.tubespbw.user.LoginRequest;
 import com.example.tubespbw.user.User;
 
 import com.example.tubespbw.user.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class LoginController {
@@ -20,17 +23,21 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String showLogin(User user) {
+    public String showLogin(LoginRequest loginRequest) {
         return "login";
     }
 
     @PostMapping("/login")
     public String login(
-            @RequestParam String email,
-            @RequestParam String password,
+            @Valid LoginRequest loginRequest,
+            BindingResult bindingResult,
             HttpSession session,
             Model model) {
-        User user = userService.login(email, password);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("loginRequest", loginRequest);
+            return "login";
+        }
+        User user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
         if (user != null) {
             session.setAttribute("user", user);
 
@@ -41,7 +48,7 @@ public class LoginController {
             session.setAttribute("role", "user");
             return "redirect:/";
         }
-        model.addAttribute("status", "failed");
+        model.addAttribute("error", "Wrong email or password");
         return "login";
     }
 

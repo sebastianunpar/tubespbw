@@ -32,6 +32,11 @@ public class UserController {
         return "home";
     }
 
+    @GetMapping("/register")
+    public String showRegister(User user) {
+        return "register";
+    }
+
     @PostMapping("register")
     public String register(
             @Valid User user,
@@ -41,7 +46,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             model.addAttribute("formState", "register");
-            return "login";
+            return "register";
         }
         if (!user.getPassword().equals(user.getConfirmpassword())) {
             bindingResult.rejectValue(
@@ -50,12 +55,12 @@ public class UserController {
                     "Password do not match");
             model.addAttribute("user", user);
             model.addAttribute("formState", "register");
-            return "login";
+            return "register";
         }
         boolean success = userService.register(user);
         if (success) {
             model.addAttribute("user", user);
-            return "home";
+            return "redirect:/login";
         } else {
             bindingResult.rejectValue("email", "error.username", "email is already taken");
         }
@@ -63,7 +68,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("formState", "register");
         // return "redirect:/admin";
-        return "login";
+        return "register";
     }
 
     @GetMapping("/rentals")

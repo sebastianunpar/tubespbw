@@ -111,7 +111,7 @@ public class FilmJdbcRepo implements FilmRepository{
 
     @Override
     public List<Genre> getAllGenre() throws SQLException {
-        String sql = "SELECT * FROM genre ORDER BY name";
+        String sql = "SELECT * FROM genre ORDER BY valid DESC, name ASC";
         return jdbcTemplate.query(sql, this::mapRowToGenreObj);
     }
     private Genre mapRowToGenreObj(ResultSet resultSet, int rowNum) throws SQLException {
@@ -184,7 +184,7 @@ public class FilmJdbcRepo implements FilmRepository{
     // 
     @Override
     public List<Actor> getAllActor() throws SQLException {
-        String sql = "SELECT * FROM actor ORDER BY name";
+        String sql = "SELECT * FROM actor ORDER BY valid DESC, name ASC";
         return jdbcTemplate.query(sql, this::mapRowToActorObj);
     }
     private Actor mapRowToActorObj(ResultSet resultSet, int rowNum) throws SQLException {
@@ -352,19 +352,5 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
 
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
         return namedParameterJdbcTemplate.queryForObject(sql, parameters, Integer.class);
-    }
-
-    @Override
-    public boolean removeFilmStock(int filmId) {
-        String sql = "UPDATE film SET stock = stock - 1 WHERE filmId = ? AND stock > 0";
-        int rowsAffected = jdbcTemplate.update(sql, filmId);
-        return rowsAffected > 0;
-    }
-
-    @Override
-    public boolean addFilmStock(int filmId) {
-        String sql = "UPDATE film SET stock = stock + 1 WHERE filmId = ?";
-        int rowsAffected = jdbcTemplate.update(sql, filmId);
-        return rowsAffected > 0;
     }
 }

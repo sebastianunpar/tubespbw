@@ -1,5 +1,6 @@
 package com.example.tubespbw;
 
+import java.io.IOException;
 import java.net.Authenticator;
 
 import org.aspectj.lang.annotation.Aspect;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Aspect
@@ -17,8 +20,11 @@ public class AuthorizationAspect {
     @Autowired
     private HttpSession session;
 
+    @Autowired
+    HttpServletResponse response;
+
     @Before("@annotation(requiresRole)")
-    public void checkAuthorization(RequiresRole requiresRole) {
+    public void checkAuthorization(RequiresRole requiresRole) throws IOException {
         System.out.println("Intercepting method with role: " + requiresRole.value());
 
         // Simulating a user session. Replace with real session handling.
@@ -26,8 +32,8 @@ public class AuthorizationAspect {
         System.out.println("\n\n\n\n");
         System.out.println("Current Role: " + currentRole);
 
-        if (!currentRole.equals(requiresRole.value())) {
-            throw new SecurityException("Access Denied: Insufficient permissions, this page should only be accessed by " + requiresRole.value()+" but your current role is " + currentRole);
+        if (currentRole == null || !currentRole.equals(requiresRole.value())) {
+            response.sendRedirect("/");
         }
     }
 

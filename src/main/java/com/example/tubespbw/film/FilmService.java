@@ -142,12 +142,4 @@ public class FilmService {
     public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
         return repo.getFilmCountByActorAndGenre(actorNames, genreNames, movieName);
     }
-
-    public boolean addFilmStock(int filmId) {
-        return repo.addFilmStock(filmId);
-    }
-
-    public boolean removeFilmStock(int filmId) {
-        return repo.removeFilmStock(filmId);
-    }
 }

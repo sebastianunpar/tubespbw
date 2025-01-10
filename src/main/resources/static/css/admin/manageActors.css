@@ -141,12 +141,12 @@ body {
 }
 
 .actions .btn-danger {
-    background-color: #e74c3c;
+    background-color: green;
     color: white;
 }
 
 .actions .btn-danger:hover {
-    background-color: #c0392b;
+    background-color: green;
 }
 
 .action-head {
@@ -181,22 +181,22 @@ body {
 }
 
 .btn-warning:hover {
-    background-color: #d35400;
+    background-color: green;
 }
 
 .btn-danger {
-    background-color: #e74c3c;
+    background-color: green;
     color: white;
     transition: background-color 0.3s ease;
 }
 
 .btn-danger:hover {
-    background-color: #c0392b;
+    background-color: green;
 }
 
 .btn-disable {
     border: 1px solid red; /* Red outline */
-    background-color: transparent; /* Transparent background */
+    background-color: red; /* Transparent background */
     color: white; /* Red text */
     padding: 8px 15px; /* Adjust padding for a balanced button size */
     border-radius: 4px; /* Rounded corners (optional) */
