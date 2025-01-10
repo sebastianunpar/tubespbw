@@ -531,3 +531,8 @@
    background-color: #ffc107;
    color: #121212;
  }
+
+ #filmPagination a.active {
+  color: #ffc107;
+  text-decoration: underline;
+}

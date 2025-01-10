@@ -62,4 +62,13 @@ public class RentalRepoJdbc implements RentalRepository {
     private double mapRowToIncome(ResultSet resultSet, int rowNum) throws SQLException {
         return resultSet.getDouble("income");
     }
+
+    @Override
+    public List<Integer> getRentalYears() {
+        String sql = "SELECT DISTINCT EXTRACT(YEAR FROM rentalDate) AS year FROM rental ORDER BY year";
+        return jdbcTemplate.query(sql, this::mapRowToYear);
+    }
+    private Integer mapRowToYear(ResultSet resultSet, int rowNum) throws SQLException {
+        return resultSet.getInt("year");
+    }
 }
