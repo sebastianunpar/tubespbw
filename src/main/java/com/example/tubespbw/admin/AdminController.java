@@ -2,9 +2,8 @@ package com.example.tubespbw.admin;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.TextStyle;
 import java.util.List;
-import java.util.Locale;
+import java.time.Year;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -127,18 +126,30 @@ public class AdminController {
     }
 
     @GetMapping("/income-graph")
-    // @RequiresRole("admin")
-    public String showIncome(Model model) {
-        List<Double> data = rentalService.getIncomePerMonth();
+    @RequiresRole("admin")
+    public String showIncome(@RequestParam(value = "year", required = false) Integer selectedYear, Model model) {
+        if (selectedYear == null) {
+            selectedYear = Year.now().getValue();
+        }
+        List<Double> data = rentalService.getIncomePerMonth(selectedYear);
+        List<Integer> years = rentalService.getRentalYears();
+        model.addAttribute("years", years);
+        model.addAttribute("selectedYear", selectedYear);
         model.addAttribute("data", data);
         return "admin/incomeGraph";
     }
 
     @GetMapping("/film-graph")
-    // @RequiresRole("admin")
-    public String showFilmGraph(Model model) {
-        List<Integer> data = rentalService.getRentalsPerMonth();
+    @RequiresRole("admin")
+    public String showFilmGraph(@RequestParam(value = "year", required = false) Integer selectedYear, Model model) {
+        if (selectedYear == null) {
+            selectedYear = Year.now().getValue();
+        }
+        List<Integer> data = rentalService.getRentalsPerMonth(selectedYear);
+        List<Integer> years = rentalService.getRentalYears();
         model.addAttribute("data", data);
+        model.addAttribute("years", years);
+        model.addAttribute("selectedYear", selectedYear);
         return "admin/filmGraph";
     }
 

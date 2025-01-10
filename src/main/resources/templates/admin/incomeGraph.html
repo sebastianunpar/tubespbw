@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="/css/admin/grafikJumlahFilm.css">
     <title>Penjualan</title>
     <script src="/js/admin/grafikJumlahFilm.js" defer></script>
-    <!-- <script src="/js/admin/graph.js" defer></script> -->
+    <script src="/js/pdf.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 <body>
     <div class="page-container">
@@ -44,30 +47,23 @@
             <!-- nambah link -->
           </header>
 
-        <div class="main-content">
+        <div class="main-content"> 
             <div class="center-container">
                 <div class="tabs">
                     <button class="tab" id="filmCountButton" onclick="window.location.href='/admin/film-graph';">By Jumlah Film</button>
                     <button class="tab active" id="incomeButton" onclick="window.location.href='/admin/income-graph';">By Pemasukan</button>
-                    <!-- <button class="download">Download PDF</button> -->
+                    <button class="download" id="download-pdf">Download PDF</button>
                 </div>
                 <div class="chart-container">
                     <div class="chart-header">
-                        <span id="filmSewa">Film sewa</span>
-                        <!-- <select class="year-select">
-                            <option value="January">January</option>
-                            <option value="February">February</option>
-                            <option value="March">March</option>
-                            <option value="April">April</option>
-                            <option value="May">May</option>
-                            <option value="June">June</option>
-                            <option value="July">July</option>
-                            <option value="August">August</option>
-                            <option value="September">September</option>
-                            <option value="October">October</option>
-                            <option value="November">November</option>
-                            <option value="December">December</option>
-                        </select> -->
+                      <span id="filmSewa" th:text="'Income ' + ${selectedYear}"></span>
+                      <form action="/admin/income-graph" method="get">
+                        <select class="year-select" name="year" onchange="this.form.submit()">
+                          <th:block th:each="year : ${years}">
+                              <option th:value="${year}" th:text="${year}" th:selected="${year == selectedYear}"></option>
+                          </th:block>
+                        </select>
+                      </form>
                     </div>
                     <canvas id="chart" th:attr="data-data=${data}"></canvas>
                 </div>

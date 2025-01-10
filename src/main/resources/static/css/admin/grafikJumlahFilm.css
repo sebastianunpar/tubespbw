@@ -171,7 +171,6 @@ body{
     text-align: center;
     background-color: #2a2a2a;
     padding: 10px; /* Lebih kecil */
-    border-radius: 8px;
     font-size: 12px;
     width: 100%;
 }
@@ -222,4 +221,9 @@ span#filmSewa {
 
 .hidden {
     display: none;
+}
+
+#filmSewa {
+    font-size: x-large;
+    color: #FEC600!important;
 }

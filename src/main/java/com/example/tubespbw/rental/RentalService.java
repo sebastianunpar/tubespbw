@@ -26,13 +26,16 @@ public class RentalService {
         return rentalRepo.insertRental(rentalDate, dueDate, filmId, userId, metodePembayaran, noPembayaran);
     }
 
-    public List<Integer> getRentalsPerMonth() {
-        int year = LocalDate.now().getYear();
+    public List<Integer> getRentalsPerMonth(int year) {
         return rentalRepo.getRentalsPerMonth(year);
     }
 
-    public List<Double> getIncomePerMonth() {
-        int year = LocalDate.now().getYear();
-        return rentalRepo.getIncomePerMonth(2024);
+    public List<Double> getIncomePerMonth(int year) {
+        return rentalRepo.getIncomePerMonth(year);
+
+    }
+
+    public List<Integer> getRentalYears() {
+        return rentalRepo.getRentalYears();
     }
 }
