@@ -16,6 +16,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public boolean register(User user) {
+        Optional<User> search = userRepository.findUser(user.getEmail());
+        if (!search.isEmpty()) {
+            return false;
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userRepository.save(user);
@@ -25,6 +29,10 @@ public class UserService {
         }
         return true;
     }
+
+    // public Optional<User> findUserByEmail(String email) {
+    //     return userRepository.findUser(email);
+    // }
 
     public User login(String email, String password) {
         Optional<User> user = userRepository.findUser(email);

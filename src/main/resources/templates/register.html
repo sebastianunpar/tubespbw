@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
-    <script src="js/login.js" defer></script>
-    <title>Log in</title>
+    <title>Register</title>
 </head>
 <body>
     <div class="filmContainer">
@@ -92,9 +91,16 @@
     </div>
     <div class="loginPageContainer">
         <div class="loginContainer">
-            <h2>log in</h2>
-            <!-- form login -->
-            <form id="loginForm" th:object="${loginRequest}" th:action="@{/login}" method="post">
+            <h2>Register</h2>
+            <!-- form register -->
+            <form id="registerForm" th:object="${user}" th:action="@{/register}" method="post">
+                <!-- nama -->
+                <div class="input-group">
+                    <input class="input" type="text" name="name" th:field="*{name}" required>
+                    <label class="label" for="name">Name</label>
+                </div>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
+
                 <!-- email -->
                 <div class="input-group">
                     <input class="input" type="text" name="email" th:field="*{email}" required>
@@ -104,18 +110,23 @@
 
                 <!-- password -->
                 <div class="input-group">
-                    <input class="input" type="password"  name="password" th:field="*{password}"  required>
+                    <input class="input" type="password" name="password" th:field="*{password}" required>
                     <label class="label" for="password">Password</label>
                 </div>
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></p>
-                
-                <p th:if="${error}" th:text="${error}" class="error"></p>
-               
-                <button type="submit" class="loginButton">Log in</button>
+
+                <!-- confirm pass -->
+                <div class="input-group">
+                    <input class="input" type="password" name="confirmpassword" th:field="*{confirmpassword}" required>
+                    <label class="label" for="confirmpassword">Confirm Password</label>
+                </div>
+                <p th:if="${#fields.hasErrors('confirmpassword')}" th:errors="*{confirmpassword}" class="error"></p>
+
+                <button type="submit" class="loginButton">Register</button>
             </form>
-            <div class="registerLink" id="toRegisterContainer">
-                <a href="/register">
-                    <button class="toRegister" id="switchToReg">Register</button>
+            <div class="registerLink" id="toLoginContainer">
+                <a href="/login">
+                    <button class="toRegister" id="switchToLog">Log in</button>
                 </a>
             </div>
         </div>

@@ -40,6 +40,7 @@ public class AdminController {
     AdminJdbcRepo adminRepo;
 
     @GetMapping({ "", "/" })
+    @RequiresRole("admin")
     public String showHome(Model model) throws SQLException {
         // Retrieve all films
         List<Film> films = filmService.getAllFilmUser();
@@ -65,6 +66,7 @@ public class AdminController {
     }
 
     @GetMapping("/poster")
+    @RequiresRole("admin")
     public ResponseEntity<byte[]> getMostRentedMoviePoster() {
         byte[] poster = adminRepo.getMostRentedMoviePoster();
 
@@ -78,6 +80,7 @@ public class AdminController {
     }
 
     @GetMapping("/current-rentals")
+    @RequiresRole("admin")
     public String showCurrentRentals(Model model) {
         List<ReportData> reports;
         reports = adminRepo.getOngoingRentals();
@@ -87,6 +90,7 @@ public class AdminController {
     }
 
     @PostMapping("/current-rentals/mark-done")
+    @RequiresRole("admin")
     public String markRentalDone(@RequestParam("rentalId") int rentalId, RedirectAttributes redirectAttributes) {
         try {
             adminRepo.updateReturnDate(rentalId, LocalDate.now());
@@ -100,6 +104,7 @@ public class AdminController {
     }
 
     @GetMapping("/monthly-report")
+    @RequiresRole("admin")
     public String showMonthlyReport(
             @RequestParam(value = "start-date", required = false) String startDate,
             @RequestParam(value = "end-date", required = false) String endDate,
@@ -122,7 +127,7 @@ public class AdminController {
     }
 
     @GetMapping("/income-graph")
-    // @RequiresRole("admin")
+    @RequiresRole("admin")
     public String showIncome(Model model) {
         List<Double> data = rentalService.getIncomePerMonth();
         model.addAttribute("data", data);
@@ -130,7 +135,7 @@ public class AdminController {
     }
 
     @GetMapping("/film-graph")
-    // @RequiresRole("admin")
+    @RequiresRole("admin")
     public String showFilmGraph(Model model) {
         List<Integer> data = rentalService.getRentalsPerMonth();
         model.addAttribute("data", data);

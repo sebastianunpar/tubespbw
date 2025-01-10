@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/admin/manageGenres.css">
     <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/laporanBulanan.css">
     <title>Manage Genres</title>
 
 </head>
@@ -69,52 +70,54 @@
                 <br>
                 <a href="/admin/add-genre-page" class="add-button">+ Add New Genre</a>
 
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>ID Genre</th>
-                            <th>Genre Name</th>
-                            <th>Valid</th>
-                            <th class="action-head">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Repeat this for each genre -->
-                        <!-- <tr>
-                            <td>1</td>
-                            <td>Action</td>
-                            <td class="actions">
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </td>
-                        </tr> -->
-                        <!-- More rows here... -->
-
-                        <tr th:each="genre : ${genres}">
-                            <td th:text="${genre.genreId}"></td>
-                            <td th:text="${genre.name}"></td>
-                            <td th:text="${genre.valid ? 'Yes' : 'No'}"></td>
-                            <td class="actions">
-                                <a th:href="@{/admin/genre/{genreId}(genreId=${genre.genreId})}" class="btn btn-warning">
-                                    Edit
-                                </a>
-                                <form th:action="@{/admin/change-valid-genre}" method="POST" class="inline-form">
-                                    <input type="hidden" name="genreId" th:value="${genre.genreId}">
-                                    <button 
-                                        th:if="${genre.valid}"
-                                        type="submit"  
-                                        class="btn-disable">Disable
-                                    </button>
-                                    <button
-                                        th:if="${!genre.valid}"
-                                        type="submit"  
-                                        class="btn-danger">Enable
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID Genre</th>
+                                <th>Genre Name</th>
+                                <th>Valid</th>
+                                <th class="action-head">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Repeat this for each genre -->
+                            <!-- <tr>
+                                <td>1</td>
+                                <td>Action</td>
+                                <td class="actions">
+                                    <button>Edit</button>
+                                    <button>Delete</button>
+                                </td>
+                            </tr> -->
+                            <!-- More rows here... -->
+    
+                            <tr th:each="genre, stat : ${genres}">
+                                <td th:text="${stat.count}"></td>
+                                <td th:text="${genre.name}"></td>
+                                <td th:text="${genre.valid ? 'Yes' : 'No'}"></td>
+                                <td class="actions">
+                                    <a th:href="@{/admin/genre/{genreId}(genreId=${genre.genreId})}" class="btn btn-warning">
+                                        Edit
+                                    </a>
+                                    <form th:action="@{/admin/change-valid-genre}" method="POST" class="inline-form">
+                                        <input type="hidden" name="genreId" th:value="${genre.genreId}">
+                                        <button 
+                                            th:if="${genre.valid}"
+                                            type="submit"  
+                                            class="btn-disable">Disable
+                                        </button>
+                                        <button
+                                            th:if="${!genre.valid}"
+                                            type="submit"  
+                                            class="btn-danger">Enable
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                </div>
             </div>
                 
         </div> 
