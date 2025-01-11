@@ -88,7 +88,7 @@ public class FilmController {
     }
 
     @GetMapping("/film/{filmId}")
-    public String showMovieDetail(@PathVariable("filmId") int filmId, Model model) throws SQLException {
+    public String showMovieDetail(@PathVariable("filmId") int filmId, HttpSession session, Model model) throws SQLException {
         FilmDetail filmDetail = service.getFilmDetail(filmId);
         int sales = service.getFilmSales(filmId);
 
@@ -102,6 +102,7 @@ public class FilmController {
         model.addAttribute("sales", sales);
         model.addAttribute("rentalDate", formattedRentalDate);
         model.addAttribute("dueDate", formattedDueDate);
+        session.removeAttribute("purchaseSuccess");
         return "movieDetail";
     }
 
@@ -115,9 +116,10 @@ public class FilmController {
         int userId = user.getUserId();
 
         boolean success = rentalService.insertRental(filmId, userId, paymentMethod);
-        
-        redirectAttributes.addFlashAttribute("success", success);
 
-        return "redirect:/film/" + filmId;
+        if (success)
+            return "redirect:/rentals";
+        else
+            return "redirect:/film/" + filmId;
     }
 }

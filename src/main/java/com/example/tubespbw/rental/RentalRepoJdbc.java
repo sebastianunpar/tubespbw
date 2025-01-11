@@ -17,7 +17,7 @@ public class RentalRepoJdbc implements RentalRepository {
 
     @Override
     public List<Rental> getUserRentals(int userId) {
-        String sql = "SELECT rentalId, rentalDate,  returnDate, rental.filmId, film.title, userId, metodePembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NULL";
+        String sql = "SELECT rentalId, rentalDate,  returnDate, rental.filmId, film.title, film.price, userId, metodePembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NULL";
         return jdbcTemplate.query(sql, this::mapRowToRental, userId);
     }
 
@@ -28,6 +28,7 @@ public class RentalRepoJdbc implements RentalRepository {
             resultSet.getDate("returnDate") != null ? resultSet.getDate("returnDate").toLocalDate() : null,
             resultSet.getInt("filmId"),
             resultSet.getString("title"),
+            resultSet.getDouble("price"),
             resultSet.getInt("userId"),
             resultSet.getString("metodePembayaran")
         );
@@ -35,7 +36,7 @@ public class RentalRepoJdbc implements RentalRepository {
 
     @Override
     public List<Rental> getUserRentalHistory(int userId) {
-        String sql = "SELECT rentalId, rentalDate, returnDate, rental.filmId, film.title, userId, metodePembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NOT NULL";
+        String sql = "SELECT rentalId, rentalDate, returnDate, rental.filmId, film.title, film.price, userId, metodePembayaran FROM rental JOIN film on film.filmId = rental.filmId WHERE userId = ? AND returnDate IS NOT NULL";
         return jdbcTemplate.query(sql, this::mapRowToRental, userId);
     }
 

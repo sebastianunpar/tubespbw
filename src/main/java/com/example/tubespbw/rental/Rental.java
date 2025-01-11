@@ -1,8 +1,10 @@
 package com.example.tubespbw.rental;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +18,7 @@ public class Rental {
     private LocalDate returnDate;
     private int filmId;
     private String title;
+    private double price;
     private int userId;
     private String metodePembayaran;
 
@@ -38,5 +41,11 @@ public class Rental {
             return (int) ChronoUnit.DAYS.between(LocalDate.now(), dueDate);
         }
         return -1;
+    }
+
+    public String getPriceRupiah() {
+        Locale indonesia = new Locale("id", "ID");
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(indonesia);
+        return currencyFormat.format(price);
     }
 }

@@ -358,12 +358,12 @@
    color: #ffcc00;
  }
 
- img.poster {
+ /* img.poster { ada 2 sama persis
    width: 135px;
    height: 200px;
    object-fit: cover;
    border-radius: 5px;
- }
+ } */
 
  .nav-middle {
    display: flex;
@@ -526,7 +526,7 @@
   align-items: center;
   gap: 8px; /* Jarak antar elemen tombol */
   border-radius: 25px; /* Membulatkan seluruh container */
-}
+} 
 
 nav#filmPagination a,
 nav#filmPagination span {

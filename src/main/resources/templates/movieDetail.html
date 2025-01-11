@@ -7,7 +7,7 @@
   <link rel="stylesheet" th:href="@{/css/movieDetail.css}">
   <link rel="stylesheet" href="/css/confirmation.css">
   <script th:src="@{/js/pengguna/movieDetail.js}" defer></script>
-  <script src="/js/confirmation.js" defer></script>
+  <!-- <script src="/js/confirmation.js" defer></script> -->
   <style>
     a{
       all:unset;
@@ -16,12 +16,12 @@
 </head>
 <body>
 
-  <div class="confirmationPopUp" th:if="${success}">
+  <!-- <div class="confirmationPopUp" th:if="${success}">
     <div>
       <p>Purchase complete</p>
-      <button class="confirmationPopUpButton">OK</button>
+      <button class="confirmationPopUpButton" onclick="window.history.back();">OK</button>
     </div>
-  </div>
+  </div> -->
 
   <dialog id="payment-dialog" class="payment-dialog">
     <form action="sewa" class="dialog-content" method="post">
@@ -47,7 +47,7 @@
             </tr>
             <tr class="total-row">
               <td>Total</td>
-              <td class="total-price" th:text="${filmDetail.price}"></td>
+              <td class="total-price" th:text="${filmDetail.priceRupiah}"></td>
             </tr>
           </table>
         </div>
@@ -93,7 +93,7 @@
   <div class="container">
     <!-- Back Button -->
     <div class="back-button">
-      <a th:href="@{/browse}"><span><img src="/assets/svg/back.svg">Back</span></a>
+      <a onclick="window.history.back();"><span><img src="/assets/svg/back.svg">Back</span></a>
     </div>
 
     <!-- Main Content -->
@@ -107,8 +107,8 @@
         </div>
         <div class="poster-info">
           <p th:text="'Disewa ' + ${sales} + ' kali'"></p>
-          <p class="available" th:if="${filmDetail.valid}">Available to rent</p>
-          <p class="available" th:if="${!filmDetail.valid}">Out of stock</p>
+          <p class="available" th:if="${filmDetail.stock > 0}">Available to rent</p>
+          <p class="available" th:if="${filmDetail.stock == 0}">Out of stock</p> <!-- gantii available -->
           <p  th:text="'Stock: ' + ${filmDetail.stock}"></p>
         </div>
       </div>
@@ -118,7 +118,8 @@
         <h1 th:text="${filmDetail.title}"></h1>
         <div class="rental-info">
           <p class="label">Sewa</p>
-          <button id="open-dialog" class="open-btn" th:text="${filmDetail.price}"></button>
+          <button id="open-dialog" class="open-btn" th:text="${filmDetail.priceRupiah}" th:if="${filmDetail.stock > 0}"></button>
+          <button class="open-btn" th:text="${filmDetail.priceRupiah}" th:if="${filmDetail.stock == 0}"></button>  <!-- disable button -->
         </div>
         <div class="storyline">
           <p class="label">Synopsis</p>

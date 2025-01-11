@@ -367,4 +367,10 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
         int rowsAffected = jdbcTemplate.update(sql, filmId);
         return rowsAffected > 0;
     }
+
+    @Override
+    public List<Film> getTopFilms(int n) {
+        String sql = "SELECT filmId, title, stock, poster FROM (SELECT film.filmId, title, stock, poster, COUNT(rental.filmId) AS count FROM film JOIN rental ON film.filmId = rental.filmId GROUP BY film.filmId) AS ranked_films ORDER BY count DESC LIMIT ?";
+        return jdbcTemplate.query(sql, this::mapRowToFilm, n);
+    }
 }

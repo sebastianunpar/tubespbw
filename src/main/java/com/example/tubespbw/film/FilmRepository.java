@@ -40,4 +40,5 @@ public interface FilmRepository {
     int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName);
     boolean removeFilmStock(int filmId);
     boolean addFilmStock(int filmId);
+    List<Film> getTopFilms(int n);
 }

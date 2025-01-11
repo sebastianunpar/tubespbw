@@ -16,7 +16,7 @@ public class RentalService {
     @Autowired
     FilmService filmService;
 
-    public List<Rental> getUserRentals(int userId) {
+    public List<Rental> getUserRentals(int userId) { 
         return rentalRepo.getUserRentals(userId);
     }
 
@@ -26,8 +26,11 @@ public class RentalService {
 
     public boolean insertRental(int filmId, int userId, String metodePembayaran) {
         LocalDate rentalDate = LocalDate.now();
-        filmService.removeFilmStock(filmId);
-        return rentalRepo.insertRental(rentalDate, filmId, userId, metodePembayaran);
+        boolean success = filmService.removeFilmStock(filmId);
+        if (success)
+            return rentalRepo.insertRental(rentalDate, filmId, userId, metodePembayaran);
+        else
+            return false;
     }
 
     public List<Integer> getRentalsPerMonth(int year) {
