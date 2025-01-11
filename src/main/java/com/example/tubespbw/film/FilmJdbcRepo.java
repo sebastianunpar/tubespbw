@@ -353,4 +353,24 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
         return namedParameterJdbcTemplate.queryForObject(sql, parameters, Integer.class);
     }
+
+    @Override
+    public boolean removeFilmStock(int filmId) {
+        String sql = "UPDATE film SET stock = stock - 1 WHERE filmId = ? AND stock > 0";
+        int rowsAffected = jdbcTemplate.update(sql, filmId);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean addFilmStock(int filmId) {
+        String sql = "UPDATE film SET stock = stock + 1 WHERE filmId = ?";
+        int rowsAffected = jdbcTemplate.update(sql, filmId);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public List<Film> getTopFilms(int n) {
+        String sql = "SELECT filmId, title, stock, poster FROM (SELECT film.filmId, title, stock, poster, COUNT(rental.filmId) AS count FROM film JOIN rental ON film.filmId = rental.filmId GROUP BY film.filmId) AS ranked_films ORDER BY count DESC LIMIT ?";
+        return jdbcTemplate.query(sql, this::mapRowToFilm, n);
+    }
 }

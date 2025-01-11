@@ -1,6 +1,8 @@
 package com.example.tubespbw.film;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,4 +21,10 @@ public class FilmDetail {
     private List<String> genres;
     private List<String> actors;
     private String base64Poster;
+
+    public String getPriceRupiah() {
+        Locale indonesia = new Locale("id", "ID");
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(indonesia);
+        return currencyFormat.format(price);
+    }
 }

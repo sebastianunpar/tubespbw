@@ -101,7 +101,7 @@
         <div class="card-container">
           <a th:href="@{'/film/'} + ${film.filmId}" class="card" th:each="film : ${films}">
             <div class="image-placeholder">
-              <img th:src="'data:image/jpeg;base64,' + ${film.base64Poster}" alt="Poster">
+              <img class="poster" th:src="'data:image/jpeg;base64,' + ${film.base64Poster}" alt="Poster">
             </div>
             <p th:utext="${film.title}">Film Title</p>
           </a>

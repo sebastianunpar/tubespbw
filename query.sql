@@ -18,7 +18,6 @@ CREATE TABLE film (
     filmId SERIAL PRIMARY KEY,
     title VARCHAR(30),
     synopsis VARCHAR(500),
-    -- ganti dari image jadi poster
     poster BYTEA, 
     stock INT CHECK (stock >= 0),
     price NUMERIC,
@@ -55,8 +54,7 @@ CREATE TABLE rental (
     returnDate DATE,
     filmId INT NOT NULL REFERENCES film(filmId),
     userId INT NOT NULL REFERENCES users(userId),
-    metodePembayaran VARCHAR(50) NOT NULL,
-	noPembayaran VARCHAR(50) NOT NULL UNIQUE
+    metodePembayaran VARCHAR(50) NOT NULL
 );
 
 INSERT INTO users (name, email, password, role) VALUES
@@ -132,16 +130,16 @@ VALUES
     (5, 10); -- 'Space Odyssey' is also Adventure
     
 
-INSERT INTO rental (rentalDate, returnDate, filmId, userId, metodePembayaran,noPembayaran)
+INSERT INTO rental (rentalDate, returnDate, filmId, userId, metodePembayaran)
 VALUES
-    ('2025-01-01', '2025-01-08', 3, 6, 'BCA','123400022341'),  -- User 1 rented film 1
-    ('2024-12-02', '2024-12-09', 2, 2, 'BCA','123400022342'),         -- User 2 rented film 2
-    ('2024-12-03', '2024-12-10', 3, 3, 'Mandiri','123400022331'),    -- User 3 rented film 3
-    ('2024-12-04', NULL, 4, 4, 'BCA','123400022362'),          -- User 4 rented film 4 (not returned yet)
-    ('2024-12-05', '2024-12-10', 5, 5, 'Mandiri','123400022345'),        -- User 5 rented film 5
-	('2024-12-01', '2024-12-02', 1, 5, 'BRI','123400022347'),  -- User 1 rented film 1
-    ('2024-12-02', '2024-12-04', 2, 4, 'BRI','123400022348'),         -- User 2 rented film 2
-    ('2024-12-03', '2024-12-06', 3, 3, 'BCA','123400022349'),    -- User 3 rented film 3
-    ('2024-12-04', NULL, 4, 2, 'Mandiri','123400022350'),          -- User 4 rented film 4 (not returned yet)
-    ('2024-12-05', '2024-12-08', 5, 6, 'BRI','123400022361');
+    ('2025-01-01', '2025-01-08', 3, 6, 'BCA'),  -- User 1 rented film 1
+    ('2024-12-02', '2024-12-09', 2, 2, 'BCA'),         -- User 2 rented film 2
+    ('2024-12-03', '2024-12-10', 3, 3, 'Mandiri'),    -- User 3 rented film 3
+    ('2024-12-04', NULL, 4, 4, 'BCA'),          -- User 4 rented film 4 (not returned yet)
+    ('2024-12-05', '2024-12-10', 5, 5, 'Mandiri'),        -- User 5 rented film 5
+	('2024-12-01', '2024-12-02', 1, 5, 'BRI'),  -- User 1 rented film 1
+    ('2024-12-02', '2024-12-04', 2, 4, 'BRI'),         -- User 2 rented film 2
+    ('2024-12-03', '2024-12-06', 3, 3, 'BCA'),    -- User 3 rented film 3
+    ('2024-12-04', NULL, 4, 2, 'Mandiri'),          -- User 4 rented film 4 (not returned yet)
+    ('2024-12-05', '2024-12-08', 5, 6, 'BRI');
 
