@@ -6,16 +6,7 @@ body {
   color: white;
 }
 
-.container {
-  margin: 100px 0 0 200px;
-  width: 70%;
-  height: 450px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.container img {
+.container-movie a {
   width: 10%;
   height: 100%;
   object-fit: cover;
@@ -24,7 +15,21 @@ body {
   transition: all ease-in-out 0.5s;
 }
 
-.container img:hover {
+.container-movie {
+  height: 100%;
+  width: 100%;
+}
+
+.container-movie img {
+  width: 10%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0);
+  transition: all ease-in-out 0.5s;
+}
+
+.container-movie img:hover {
   width: 25%;
 }
 
