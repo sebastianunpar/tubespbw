@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.tubespbw.user.LoginRequest;
 import com.example.tubespbw.user.User;
@@ -55,6 +54,6 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

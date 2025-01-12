@@ -82,6 +82,10 @@ body {
   color: #00ff00;
 }
 
+.poster-info .unavailable {
+  color: #ff1919;
+}
+
 /* Details Section */
 .details-section {
   flex: 2;
@@ -315,6 +319,19 @@ h1 {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 0 10px rgba(255, 234, 0, 0.7), 0 0 20px rgba(255, 234, 0, 0.7);
   /* Glowing effect */
+}
+
+.disabled {
+  color: #505050 !important;
+  background-color: #868686 !important;
+  box-shadow: none !important;
+}
+
+.disabled:hover {
+  color: #505050 !important;
+  background-color: #868686 !important;
+  box-shadow: none !important;
+  cursor: default;
 }
 
 .open-btn:hover {

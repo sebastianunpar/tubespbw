@@ -9,21 +9,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-import com.example.tubespbw.genre.Genre;
+import com.example.tubespbw.rental.RentalService;
 import com.example.tubespbw.user.User;
 
 import jakarta.servlet.http.HttpSession;
-
-import com.example.tubespbw.actor.Actor;
 
 @Controller
 public class FilmController {
     @Autowired
     FilmService service;
+
+    @Autowired
+    RentalService rentalService;
 
     @GetMapping("/browse")
     public String showBrowse(Model model, HttpSession session,
@@ -42,10 +47,6 @@ public class FilmController {
             genreName = new ArrayList<>();
         }
 
-        System.out.println("Actor Names: " + actorName);
-        System.out.println("Genre Names: " + genreName);
-
-        
         int filmCount = 0;
         List<Film> films;
         if ((movieName != null && !movieName.isEmpty()) ||
@@ -58,9 +59,7 @@ public class FilmController {
             filmCount = service.getFilmCount();
         }
 
-        System.out.println(filmCount);
-        
-        int show = 4;
+        int show = 18;
         int start = (page - 1) * show;
         int pageCount = (int) Math.ceil((double) filmCount / show);
 
@@ -80,11 +79,38 @@ public class FilmController {
     }
 
     @GetMapping("/film/{filmId}")
-    public String showMovieDetail(@PathVariable("filmId") int filmId, Model model) throws SQLException {
+    public String showMovieDetail(@PathVariable("filmId") int filmId, HttpSession session, Model model) throws SQLException {
         FilmDetail filmDetail = service.getFilmDetail(filmId);
         int sales = service.getFilmSales(filmId);
+
+        LocalDate rentalDate = LocalDate.now();
+        LocalDate dueDate = rentalDate.plusDays(7);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
+        String formattedRentalDate = rentalDate.format(formatter);
+        String formattedDueDate = dueDate.format(formatter);
+
         model.addAttribute("filmDetail", filmDetail);
         model.addAttribute("sales", sales);
+        model.addAttribute("rentalDate", formattedRentalDate);
+        model.addAttribute("dueDate", formattedDueDate);
+        session.removeAttribute("purchaseSuccess");
         return "movieDetail";
+    }
+
+    @PostMapping("/film/sewa")
+    public String sewa(HttpSession session,RedirectAttributes redirectAttributes, @RequestParam String filmIdStr, @RequestParam("payment-method") String paymentMethod) throws SQLException {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
+        User user = (User)session.getAttribute("user");
+        int filmId = Integer.parseInt(filmIdStr);
+        int userId = user.getUserId();
+
+        boolean success = rentalService.insertRental(filmId, userId, paymentMethod);
+
+        if (success)
+            return "redirect:/rentals";
+        else
+            return "redirect:/film/" + filmId;
     }
 }

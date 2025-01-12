@@ -19,6 +19,14 @@ body {
     /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
 }
 
+.table-container {
+    width: 100% !important;
+}
+
+.main-content {
+    padding: 0 220px;
+}
+
 /* Genre and actor section */
 .nav-links {
     list-style: none;
@@ -155,7 +163,7 @@ body {
 }
 
 .actions {
-    display: flex; /* Use flexbox for alignment */
+    display: inline-flex; /* Use flexbox for alignment */
     align-items: center; /* Align items vertically */
     justify-content: center; /* Center items horizontally */
     gap: 10px; /* Add space between buttons */

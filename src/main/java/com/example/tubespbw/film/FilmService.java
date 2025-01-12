@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Optional;
-
 import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
 
@@ -110,6 +108,30 @@ public class FilmService {
         }
     }
 
+    public boolean updateFilm(MultipartFile poster, String title, int price, int stock, String description, List<Integer> genres, List<Integer> actors, int filmId) {
+        try {
+            byte[] posterBytes;
+            if (poster == null || poster.isEmpty()) {
+                FilmDetail filmDetail = getFilmDetail(filmId);
+                posterBytes = filmDetail.getPoster();
+            }
+            else {
+                posterBytes =  poster.getBytes();;
+            }
+            repo.updateFilm(title, description, posterBytes, stock, price, filmId);
+            for (Integer genre : genres) {
+                repo.insertFilmGenre(filmId, genre);
+            }
+            for (Integer actor : actors) {
+                repo.insertFilmActor(filmId, actor);
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
     public List<Film> searchFilms(String query) throws SQLException {
         List<Film> films = repo.searchFilms(query);
         for (Film film : films) {
@@ -120,9 +142,6 @@ public class FilmService {
     }
 
     public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException {
-        System.out.println("Filtering films with actor names: " + actorNames);
-        System.out.println("Filtering films with genre names: " + genreNames);
-        System.out.println("Filtering films with movie name: " + movieName);
         List<Film> films = repo.filterFilmsByActorAndGenre(actorNames, genreNames, movieName);
         for (Film film : films) {
             String base64Poster = generateBase64Poster(film.getPoster());
@@ -141,5 +160,36 @@ public class FilmService {
 
     public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
         return repo.getFilmCountByActorAndGenre(actorNames, genreNames, movieName);
+    }
+
+    public boolean addFilmStock(int filmId) {
+        return repo.addFilmStock(filmId);
+    }
+
+    public boolean removeFilmStock(int filmId) {
+        return repo.removeFilmStock(filmId);
+    }
+
+    public List<Film> getPopularFilms() {
+        List<Film> films = repo.getTopFilms(5);
+        for (Film film : films) {
+            String base64Poster = generateBase64Poster(film.getPoster());
+            film.setBase64Poster(base64Poster);
+        }
+        return films;
+    }
+
+    public Film getFilmTerlaris() {
+        List<Film> films = repo.getFilmTerlaris();
+        Film film = films.get(0);
+        String base64Poster = generateBase64Poster(film.getPoster());
+        film.setBase64Poster(base64Poster);
+        return film;
+    }
+
+    public int getFilmIdByRentalId(int rentalId) {
+        List<Integer> filmIds = repo.getFilmIdByRentalId(rentalId);
+        int filmId = filmIds.get(0).intValue();
+        return filmId;
     }
 }

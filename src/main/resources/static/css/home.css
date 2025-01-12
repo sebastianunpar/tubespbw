@@ -6,6 +6,33 @@ body {
   color: white;
 }
 
+.container-movie a {
+  width: 10%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0);
+  transition: all ease-in-out 0.5s;
+}
+
+.container-movie {
+  height: 100%;
+  width: 100%;
+}
+
+.container-movie img {
+  width: 10%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0);
+  transition: all ease-in-out 0.5s;
+}
+
+.container-movie img:hover {
+  width: 25%;
+}
+
 a {
   all: unset;
   cursor: pointer;
@@ -212,6 +239,9 @@ a.location-tag :hover {
 
 /* Borrowing Flow Section */
 .borrowing-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 30px 0;
   animation: fadeIn 1s ease-in-out;
 }
@@ -225,7 +255,7 @@ a.location-tag :hover {
 }
 
 .step-card {
-  background-color: #1c1c1c;
+  background-color: #272727;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -251,11 +281,11 @@ a.location-tag :hover {
   font-size: 0.9rem;
 }
 
-.step-card:hover {
+/* .step-card:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 20px rgba(255, 193, 7, 0.7);
   border: 1px solid #ffc107;
-}
+} */
 
 /* About Us Section */
 .about-us {
@@ -291,6 +321,7 @@ a.location-tag :hover {
 .about-header {
   text-align: center;
   margin: 50px 0;
+  margin-bottom: 200px;
 }
 
 .about-header h1 {
@@ -339,4 +370,9 @@ a.location-tag :hover {
   color: #ccc;
   font-size: 16px;
   line-height: 1.5;
+}
+
+img.poster {
+  height: 15em;
+  width: 10em;
 }

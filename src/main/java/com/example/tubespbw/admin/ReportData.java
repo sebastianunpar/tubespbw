@@ -1,6 +1,5 @@
 package com.example.tubespbw.admin;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -14,9 +13,9 @@ public class ReportData {
     private Date tanggalPeminjaman;
     private Date tanggalPengembalian;
     private BigDecimal pemasukan;
-    private String formattedPemasukan; // New field
-    private String formattedTanggalPeminjaman; // For formatted rental date
-    private String formattedTanggalPengembalian; // For formatted return date
+    private String formattedPemasukan;
+    private String formattedTanggalPeminjaman;
+    private String formattedTanggalPengembalian;
 
     public ReportData(int rentalId, String emailPenyewa, String judulFilm, Date tanggalPeminjaman,
             Date tanggalPengembalian,

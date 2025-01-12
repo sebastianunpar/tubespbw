@@ -2,6 +2,7 @@ package com.example.tubespbw.film;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +10,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
@@ -25,7 +26,7 @@ public class FilmJdbcRepo implements FilmRepository{
 
     @Override //untuk page browse, cuma perlu id title poster
     public List<Film> getAll() throws SQLException {
-        String sql = "SELECT filmId, title, stock, poster FROM film";
+        String sql = "SELECT filmId, title, stock, poster FROM film ORDER BY filmId DESC";
         return jdbcTemplate.query(sql, this::mapRowToFilm);
     }
     private Film mapRowToFilm (ResultSet resultSet, int rowNum) throws SQLException {
@@ -85,6 +86,7 @@ public class FilmJdbcRepo implements FilmRepository{
         );
     }
 
+    @SuppressWarnings("deprecation")
     public int getFilmSales(int filmId) throws SQLException {
         String sql = "SELECT COUNT(*) FROM rental WHERE filmId = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{filmId}, Integer.class);
@@ -94,7 +96,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public boolean insertGenre(String genre) {
         String sql = "INSERT INTO genre (name, valid) VALUES (?, 'true')";
         int rowsAffected = jdbcTemplate.update(sql, genre);
-        System.out.println(rowsAffected);
         return rowsAffected > 0;
     }
 
@@ -145,8 +146,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public void changeValidGenre(int genreId) {
         String sql = "SELECT valid FROM genre WHERE genreId = ?";
         boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, genreId);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(valid);
         boolean newValid = !valid;
         sql = "UPDATE genre SET valid = ? WHERE genreId = ?";
         jdbcTemplate.update(sql, newValid, genreId);
@@ -175,8 +174,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public void changeValidActor(int actorId) {
         String sql = "SELECT valid FROM actor WHERE actorId = ?";
         boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, actorId);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(valid);
         boolean newValid = !valid;
         sql = "UPDATE actor SET valid = ? WHERE actorId = ?";
         jdbcTemplate.update(sql, newValid, actorId);
@@ -200,6 +197,19 @@ public class FilmJdbcRepo implements FilmRepository{
         String sql = "INSERT INTO film (title, synopsis, poster, stock, price, valid) VALUES (?, ?, ?, ?, ?, 'true')";
         int rowsAffected = jdbcTemplate.update(sql, title, description, poster, stock, price);
         return rowsAffected > 0;
+    }
+
+    @Override
+    public void updateFilm(String title, String description, byte[] poster, int stock, int price, int filmId) throws SQLException {
+        String sql = """
+            UPDATE film 
+            SET title = ?, synopsis = ?, poster = ?, stock = ?, price = ? 
+            WHERE filmId = ?
+        """;
+        jdbcTemplate.update(sql, title, description, poster, stock, price, filmId);
+
+        jdbcTemplate.update("DELETE FROM filmGenre WHERE filmId = ?", filmId);
+        jdbcTemplate.update("DELETE FROM filmActor WHERE filmId = ?", filmId);    
     }
 
     @Override
@@ -231,72 +241,69 @@ public class FilmJdbcRepo implements FilmRepository{
         String likeQuery = "%" + movieName + "%";
         return jdbcTemplate.query(sql, this::mapRowToFilm, likeQuery);
     }
-   @Override
-public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
-        throws SQLException {
-    // Filter out empty actor names
-    actorNames = actorNames.stream()
-                           .filter(name -> name != null && !name.trim().isEmpty())
-                           .collect(Collectors.toList());
 
-    String sql = """
-        SELECT DISTINCT film.filmId, film.title, film.stock, film.poster 
-        FROM film
-        INNER JOIN filmActor ON filmActor.filmId = film.filmId
-        INNER JOIN actor ON actor.actorId = filmActor.actorId
-        INNER JOIN filmGenre ON filmGenre.filmId = film.filmId
-        INNER JOIN genre ON genre.genreId = filmGenre.genreId
-    """;
+    @Override 
+    public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
+            throws SQLException {
+        // Filter out empty actor names
+        actorNames = actorNames.stream()
+                            .filter(name -> name != null && !name.trim().isEmpty())
+                            .collect(Collectors.toList());
 
-    // Kondisi filter
-    StringBuilder whereClause = new StringBuilder();
-    Map<String, Object> parameters = new HashMap<>();
+        String sql = """
+            SELECT DISTINCT film.filmId, film.title, film.stock, film.poster 
+            FROM film
+            INNER JOIN filmActor ON filmActor.filmId = film.filmId
+            INNER JOIN actor ON actor.actorId = filmActor.actorId
+            INNER JOIN filmGenre ON filmGenre.filmId = film.filmId
+            INNER JOIN genre ON genre.genreId = filmGenre.genreId
+        """;
 
-    // Actor filter
-    if (actorNames != null && !actorNames.isEmpty()) {
-        whereClause.append("actor.name IN (:actorNames) ");
-        parameters.put("actorNames", actorNames);
-    }
+        // Kondisi filter
+        StringBuilder whereClause = new StringBuilder();
+        Map<String, Object> parameters = new HashMap<>();
 
-    // Genre filter
-    if (genreNames != null && !genreNames.isEmpty()) {
-        if (whereClause.length() > 0) {
-            whereClause.append("AND ");
+        // Actor filter
+        if (actorNames != null && !actorNames.isEmpty()) {
+            whereClause.append("actor.name IN (:actorNames) ");
+            parameters.put("actorNames", actorNames);
         }
-        whereClause.append("genre.name IN (:genreNames) ");
-        parameters.put("genreNames", genreNames);
-    }
 
-    // Movie name filter
-    if (movieName != null && !movieName.isEmpty()) {
-        if (whereClause.length() > 0) {
-            whereClause.append("AND ");
+        // Genre filter
+        if (genreNames != null && !genreNames.isEmpty()) {
+            if (whereClause.length() > 0) {
+                whereClause.append("AND ");
+            }
+            whereClause.append("genre.name IN (:genreNames) ");
+            parameters.put("genreNames", genreNames);
         }
-        whereClause.append("film.title ILIKE :movieName ");
-        parameters.put("movieName", "%" + movieName + "%");
+
+        // Movie name filter
+        if (movieName != null && !movieName.isEmpty()) {
+            if (whereClause.length() > 0) {
+                whereClause.append("AND ");
+            }
+            whereClause.append("film.title ILIKE :movieName ");
+            parameters.put("movieName", "%" + movieName + "%");
+        }
+
+        // Apply where conditions
+        if (whereClause.length() > 0) {
+            sql += "WHERE " + whereClause.toString();
+        }
+
+        // If multiple actors are selected, ensure that all specified actors are in the same movie
+        if (actorNames != null && actorNames.size() > 1) {
+            // Group by filmId and ensure the count of distinct actors matches the number of actors
+            sql += " GROUP BY film.filmId, film.title, film.stock, film.poster";
+            sql += " HAVING COUNT(DISTINCT actor.name) = :actorCount";
+            parameters.put("actorCount", actorNames.size());
+        }
+        sql += " ORDER BY film.filmId DESC";
+        // Use NamedParameterJdbcTemplate for parameter binding
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+        return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
     }
-
-    // Apply where conditions
-    if (whereClause.length() > 0) {
-        sql += "WHERE " + whereClause.toString();
-    }
-
-    // If multiple actors are selected, ensure that all specified actors are in the same movie
-    if (actorNames != null && actorNames.size() > 1) {
-        // Group by filmId and ensure the count of distinct actors matches the number of actors
-        sql += " GROUP BY film.filmId, film.title, film.stock, film.poster";
-        sql += " HAVING COUNT(DISTINCT actor.name) = :actorCount";
-        parameters.put("actorCount", actorNames.size());
-    }
-
-    // Debugging outputs
-    System.out.println(sql);
-    System.out.println(parameters);
-
-    // Use NamedParameterJdbcTemplate for parameter binding
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-    return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
-}
     
 
     @Override
@@ -311,6 +318,7 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
         String likeQuery = "%" + movieName + "%";
         return jdbcTemplate.queryForObject(sql, Integer.class, likeQuery);
     }
+
     @Override
     public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
         String sql = """
@@ -352,5 +360,65 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
 
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
         return namedParameterJdbcTemplate.queryForObject(sql, parameters, Integer.class);
+    }
+
+    @Override
+    public boolean removeFilmStock(int filmId) {
+        String sql = "UPDATE film SET stock = stock - 1 WHERE filmId = ? AND stock > 0";
+        int rowsAffected = jdbcTemplate.update(sql, filmId);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean addFilmStock(int filmId) {
+        String sql = "UPDATE film SET stock = stock + 1 WHERE filmId = ?";
+        int rowsAffected = jdbcTemplate.update(sql, filmId);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public List<Film> getTopFilms(int n) {
+        String sql = "SELECT filmId, title, stock, poster FROM (SELECT film.filmId, title, stock, poster, COUNT(rental.filmId) AS count FROM film JOIN rental ON film.filmId = rental.filmId GROUP BY film.filmId) AS ranked_films ORDER BY count DESC LIMIT ?";
+        return jdbcTemplate.query(sql, this::mapRowToFilm, n);
+    }
+
+    @Override
+    public List<Film> getFilmTerlaris() {
+        LocalDate currentDate = LocalDate.now();
+
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+
+        String sql = """
+                    WITH rentals_in_month AS (
+                        SELECT
+                            r.filmId,
+                            COUNT(r.filmId) AS rental_count
+                        FROM rental r
+                        WHERE EXTRACT(YEAR FROM r.rentalDate) = ? AND EXTRACT(MONTH FROM r.rentalDate) = ?
+                        GROUP BY r.filmId
+                    )
+                    SELECT
+                        f.filmId,
+                        f.title,
+                        f.stock,
+                        f.poster
+                    FROM rentals_in_month rim
+                    LEFT JOIN film f ON rim.filmId = f.filmId
+                    ORDER BY rim.rental_count DESC, f.title ASC
+                    LIMIT 1
+                """;
+
+        try {
+            return jdbcTemplate.query(sql, this::mapRowToFilm, year, month);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Integer> getFilmIdByRentalId(int rentalId) {
+        String sql = "SELECT filmId FROM rental WHERE rentalId = ?";
+        return jdbcTemplate.query(sql, this::mapRowToFilmId, rentalId);
     }
 }

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Film</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin/addMovie.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="logo">
+            <img src="/assets/img/logo.png" class="morent">
+          </div>
+          <header class="navbar">
+            <div class="nav-left">
+              <!-- nambah link -->
+              <div class="nav-item ">
+                <a th:href="@{/admin}">HOME</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/current-rentals}">RENTALS</a>
+              </div>
+              <div class="nav-item active" >
+                <a th:href="@{/admin/manage-movie}">MANAGE FILM</a>
+              </div>
+              <div class="nav-item">
+                <a th:href="@{/admin/manage-genres}">GENRE & ACTOR</a>
+              </div>
+              <div class="nav-item" >
+                <a th:href="@{/admin/report}">GRAPH & REPORT</a>
+              </div>
+            </div>
+            <div class="nav-right">
+              
+              <a th:href="@{/logout}">
+                <img src="/assets/svg/logout-icon-admin.svg" class="icon-logout">
+              </a>
+            </div>
+            <!-- nambah link -->
+          </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            
+            <!-- Movie Form -->
+            <form class="movie-form-box" action="/admin/updateFilm" method="POST" enctype="multipart/form-data">
+                <input type="hidden" th:value="${filmDetail.filmId}" name="filmId">
+                <!-- Left Side: Poster Upload -->
+                
+                <div class="poster-section">
+                    <div class="title">
+                        Edit Film
+                    </div>
+                    <label for="poster">Poster Film</label>
+                    <div class="poster-preview" id="posterPreview" th:style="'background-image: url(data:image/jpeg;base64,' + ${filmDetail.base64Poster} + ')'" >
+                        Preview
+                    </div>
+                    <input type="file" id="poster" name="poster" accept="image/jpeg" onchange="previewPoster(event)" th:value="${filmDetail.poster}">
+                </div>
+
+                <!-- Right Side: Inputs -->
+                <div class="movie-details">
+                    <div class="form-group">
+                        <label for="title">Judul</label>
+                        <input th:placeholder="${filmDetail.title}" th:value="${filmDetail.title}" id="title" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Harga</label>
+                        <input type="number" id="price" name="price" th:placeholder="${filmDetail.price}" th:value="${filmDetail.price}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">Stok</label>
+                        <input type="number" id="stock" name="stock" th:placeholder="${filmDetail.stock}" th:value="${filmDetail.stock}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Deskripsi</label>
+                        <textarea id="description" name="description" rows="4" th:placeholder="${filmDetail.synopsis}" th:text="${filmDetail.synopsis}" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Genre</label>
+                        <div class="checkbox-group" id="genreCheckboxes">
+                            <!-- Example genres -->
+                            <th:block th:each="genre : ${genres}">
+                                <input type="checkbox"
+                                       th:id="'genre-' + ${genre.genreId}"
+                                       th:name="genres"
+                                       th:value="${genre.genreId}"
+                                       th:checked="${#lists.contains(filmDetail.genres, genre.name)}" />
+                                <label th:for="'genre-' + ${genre.genreId}" th:text="${genre.name}"></label>
+                            </th:block>
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <label>Aktor</label>
+                        <div class="checkbox-group" id="actorCheckboxes">
+                            <!-- Example actors -->
+                            <th:block th:each="actor : ${actors}">
+                                <input type="checkbox"
+                                       th:id="'actor-' + ${actor.actorId}"
+                                       th:name="actors"
+                                       th:value="${actor.actorId}"
+                                       th:checked="${#lists.contains(filmDetail.actors, actor.name)}" />
+                                <label th:for="'actor-' + ${actor.actorId}" th:text="${actor.name}"></label>
+                            </th:block>
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="/admin/manage-movie">
+                            <button type="button" class="cancel-btn">Batal</button>
+                        </a>
+                        <button type="submit" class="save-btn">Simpan</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Add Genre and Actor Form -->
+            <div class="side-box">
+
+                <div class="form-group">
+                    <h4>Tambah Genre Baru</h4>
+                    <form id="addGenreForm" action="/admin/add-genre-edit" method="POST">
+                        <input type="text" id="newGenre" name="newGenre" placeholder="Masukkan nama genre baru" required>
+                        <input type="hidden" th:value="${filmDetail.filmId}" name="filmId">
+                        <button type="submit" class="add-btn">Tambah Genre</button>
+                    </form>
+                </div>
+
+                <div class="form-group">
+                    <h4>Tambah Aktor Baru</h4>
+                    <form id="addActorForm" action="/admin/add-actor-edit" method="POST">
+                        <input type="text" id="newActor" name="newActor" placeholder="Enter new actor name" required minlength="2" maxlength="100">
+                        <input type="hidden" th:value="${filmDetail.filmId}" name="filmId">
+                        <button type="submit" class="add-btn">Add Actor</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previewPoster(event) {
+            const file = event.target.files[0];
+            const posterPreview = document.getElementById('posterPreview');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    posterPreview.style.backgroundImage = `url('${e.target.result}')`;
+                    posterPreview.innerHTML = ''; // Clear the text
+                };
+                reader.readAsDataURL(file);
+            } else {
+                posterPreview.style.backgroundImage = '';
+                posterPreview.innerHTML = 'No image';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -77,7 +77,7 @@
   nav#filmPagination {
     padding: 2em;
     text-align: center;
-  }
+  } 
   
  /*filter*/
  .filter button {
@@ -131,6 +131,11 @@
    padding: 5px 10px;
    border: 1px solid #ccc;
    border-radius: 5px;
+ }
+
+ .filter-options {
+  max-height: 400px;
+  overflow-y: auto;
  }
 
  .filter-options label {
@@ -287,6 +292,7 @@
    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
    gap: 20px;
    max-width: 1200px;
+   justify-content: center; /* Pastikan grid tetap di tengah */
    width: 100%;
  }
 
@@ -315,8 +321,6 @@
    font-size: 16px;
    margin: 0;
  }
-
-
 
  .open-btn {
    padding: 10px 20px;
@@ -358,12 +362,12 @@
    color: #ffcc00;
  }
 
- img.poster {
+ /* img.poster { ada 2 sama persis
    width: 135px;
    height: 200px;
    object-fit: cover;
    border-radius: 5px;
- }
+ } */
 
  .nav-middle {
    display: flex;
@@ -526,10 +530,10 @@
   align-items: center;
   gap: 8px; /* Jarak antar elemen tombol */
   border-radius: 25px; /* Membulatkan seluruh container */
-}
+} 
 
 nav#filmPagination a,
-nav#filmPagination span {
+nav#filmPagination span a{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -547,8 +551,8 @@ nav#filmPagination span {
 }
 
 nav#filmPagination a:hover {
-  background-color: #f1f1f1; /* Warna latar saat hover */
-  border-color: #dcdcdc; /* Border abu-abu muda saat hover */
+  background-color: #c2c2c2; /* Warna latar saat hover */
+  border-color: #c2c2c2; /* Border abu-abu muda saat hover */
 }
 
 nav#filmPagination a.active {
