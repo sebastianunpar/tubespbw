@@ -74,7 +74,7 @@
                 </div>
                 <div class="main-container film-terlaris">
                     <span class="title-container-film-terlaris">Film terlaris<p class="bulan-ini">bulan ini</p></span>
-                    <div class="img-title-terlaris" ><img  th:if="${titleTerlaris!=null}" th:src="'/poster'"></div>
+                    <div class="img-title-terlaris" ><img th:if="${titleTerlaris!=null}" th:src="'data:image/jpeg;base64,' + ${filmTerlaris.base64Poster}"></div> 
                     <span class="title-terlaris"  th:if="${titleTerlaris!=null}" th:text="${titleTerlaris}"></span>
                     <span class="title-terlaris none"  th:if="${titleTerlaris==null}">No rental yet</span>
                     <p th:if="${bykDisewa!=null}"><span th:text="${bykDisewa}"></span>x disewa</p>

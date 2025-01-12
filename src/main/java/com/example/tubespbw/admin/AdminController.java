@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -60,6 +61,9 @@ public class AdminController {
 
         model.addAttribute("titleTerlaris", adminRepo.getTitleTerlaris());
 
+        Film filmTerlaris = filmService.getFilmTerlaris();
+        model.addAttribute("filmTerlaris", filmTerlaris);
+
         // Retrieve rental count for the most rented movie
         model.addAttribute("bykDisewa", adminRepo.getBykDisewa());
 
@@ -99,7 +103,6 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("error", "Failed to mark rental as done.");
         }
         return "redirect:/admin/current-rentals";
-
     }
 
     @GetMapping("/monthly-report")
@@ -116,10 +119,21 @@ public class AdminController {
             model.addAttribute("endDate", endDate);
         } else {
             reports = adminRepo.getMonthlyReport();
-        }
+        } 
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String firstDay = LocalDate.now().withDayOfMonth(1).format(formatter);
+        String today = LocalDate.now().format(formatter);
+        String rentalCount = adminRepo.getBykDisewa();
+        String title = adminRepo.getTitleTerlaris();
+
+        model.addAttribute("firstDay", firstDay);
+        model.addAttribute("today", today);
+        model.addAttribute("rentalCount", rentalCount);
+        model.addAttribute("title", title);
+        model.addAttribute("genre", adminRepo.getMostPopularGenre());
+        model.addAttribute("actor", adminRepo.getMostPopularActor());
         model.addAttribute("reports", reports);
-
         model.addAttribute("totalIncome", adminRepo.getTotalIncome());
         model.addAttribute("monthlyIncome", adminRepo.getMonthlyIncome());
         return "admin/monthlyReport";

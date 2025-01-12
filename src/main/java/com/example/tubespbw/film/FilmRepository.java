@@ -41,4 +41,5 @@ public interface FilmRepository {
     boolean removeFilmStock(int filmId);
     boolean addFilmStock(int filmId);
     List<Film> getTopFilms(int n);
+    List<Film> getFilmTerlaris();
 }
