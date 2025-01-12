@@ -46,27 +46,16 @@ public class AdminController {
         if (session.getAttribute("user") == null) {
             return "redirect:/login";
         }
-        // Retrieve all films
         List<Film> films = filmService.getAllFilmUser();
-        model.addAttribute("bykFilm", films.size());
-
-        // Retrieve total income
-        model.addAttribute("totalIncome", adminRepo.getTotalIncome());
-
-        // Retrieve all genres
         List<Genre> genres = filmService.getAllGenre();
-        model.addAttribute("bykGenre", genres.size());
-
-        // Retrieve all actors
         List<Actor> actors = filmService.getAllActor();
-        model.addAttribute("bykAktor", actors.size());
-
-        model.addAttribute("titleTerlaris", adminRepo.getTitleTerlaris());
-
         Film filmTerlaris = filmService.getFilmTerlaris();
+        model.addAttribute("bykFilm", films.size());
+        model.addAttribute("totalIncome", adminRepo.getTotalIncome());
+        model.addAttribute("bykGenre", genres.size());
+        model.addAttribute("bykAktor", actors.size());
+        model.addAttribute("titleTerlaris", adminRepo.getTitleTerlaris());
         model.addAttribute("filmTerlaris", filmTerlaris);
-
-        // Retrieve rental count for the most rented movie
         model.addAttribute("bykDisewa", adminRepo.getBykDisewa());
 
         return "admin/home";

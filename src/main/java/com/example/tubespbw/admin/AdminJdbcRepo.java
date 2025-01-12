@@ -35,8 +35,6 @@ public class AdminJdbcRepo implements AdminRepository {
     @Override
     public String getTitleTerlaris() {
         LocalDate currentDate = LocalDate.now();
-
-        // Extract the current year and month as integers
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
 
@@ -327,7 +325,7 @@ public class AdminJdbcRepo implements AdminRepository {
         try {
             return jdbcTemplate.queryForObject(sql, String.class, startDate, endDate);
         } catch (EmptyResultDataAccessException e) {
-            return "No rentals in this period"; // Default message if no results
+            return "No rentals in this period";
         }
     }
 

@@ -242,7 +242,7 @@ public class FilmJdbcRepo implements FilmRepository{
         return jdbcTemplate.query(sql, this::mapRowToFilm, likeQuery);
     }
 
-    @Override
+    @Override 
     public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName)
             throws SQLException {
         // Filter out empty actor names
@@ -318,6 +318,7 @@ public class FilmJdbcRepo implements FilmRepository{
         String likeQuery = "%" + movieName + "%";
         return jdbcTemplate.queryForObject(sql, Integer.class, likeQuery);
     }
+
     @Override
     public int getFilmCountByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) {
         String sql = """
