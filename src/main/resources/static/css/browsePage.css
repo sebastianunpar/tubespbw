@@ -287,6 +287,7 @@
    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
    gap: 20px;
    max-width: 1200px;
+   justify-content: center; /* Pastikan grid tetap di tengah */
    width: 100%;
  }
 
@@ -315,8 +316,6 @@
    font-size: 16px;
    margin: 0;
  }
-
-
 
  .open-btn {
    padding: 10px 20px;
@@ -547,8 +546,8 @@ nav#filmPagination span a{
 }
 
 nav#filmPagination a:hover {
-  background-color: #f1f1f1; /* Warna latar saat hover */
-  border-color: #dcdcdc; /* Border abu-abu muda saat hover */
+  background-color: #c2c2c2; /* Warna latar saat hover */
+  border-color: #c2c2c2; /* Border abu-abu muda saat hover */
 }
 
 nav#filmPagination a.active {

@@ -141,7 +141,7 @@ body{
 /* ----------------------------------------------------- */
 
 .main-content {
-    background-color: #202020;
+    background-color: linear-gradient(145deg, #121212, #1E1E1E);
     padding: 15px; /* Dikurangi */
 }
 

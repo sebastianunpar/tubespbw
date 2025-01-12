@@ -2,6 +2,7 @@ package com.example.tubespbw.film;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +10,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
@@ -85,6 +86,7 @@ public class FilmJdbcRepo implements FilmRepository{
         );
     }
 
+    @SuppressWarnings("deprecation")
     public int getFilmSales(int filmId) throws SQLException {
         String sql = "SELECT COUNT(*) FROM rental WHERE filmId = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{filmId}, Integer.class);
@@ -94,7 +96,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public boolean insertGenre(String genre) {
         String sql = "INSERT INTO genre (name, valid) VALUES (?, 'true')";
         int rowsAffected = jdbcTemplate.update(sql, genre);
-        System.out.println(rowsAffected);
         return rowsAffected > 0;
     }
 
@@ -145,8 +146,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public void changeValidGenre(int genreId) {
         String sql = "SELECT valid FROM genre WHERE genreId = ?";
         boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, genreId);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(valid);
         boolean newValid = !valid;
         sql = "UPDATE genre SET valid = ? WHERE genreId = ?";
         jdbcTemplate.update(sql, newValid, genreId);
@@ -175,8 +174,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public void changeValidActor(int actorId) {
         String sql = "SELECT valid FROM actor WHERE actorId = ?";
         boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, actorId);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(valid);
         boolean newValid = !valid;
         sql = "UPDATE actor SET valid = ? WHERE actorId = ?";
         jdbcTemplate.update(sql, newValid, actorId);
@@ -301,11 +298,6 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
         sql += " HAVING COUNT(DISTINCT actor.name) = :actorCount";
         parameters.put("actorCount", actorNames.size());
     }
-
-    // Debugging outputs
-    System.out.println(sql);
-    System.out.println(parameters);
-
     // Use NamedParameterJdbcTemplate for parameter binding
     NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
     return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
@@ -385,5 +377,45 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
     public List<Film> getTopFilms(int n) {
         String sql = "SELECT filmId, title, stock, poster FROM (SELECT film.filmId, title, stock, poster, COUNT(rental.filmId) AS count FROM film JOIN rental ON film.filmId = rental.filmId GROUP BY film.filmId) AS ranked_films ORDER BY count DESC LIMIT ?";
         return jdbcTemplate.query(sql, this::mapRowToFilm, n);
+    }
+
+    @Override
+    public List<Film> getFilmTerlaris() {
+        LocalDate currentDate = LocalDate.now();
+
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+
+        String sql = """
+                    WITH rentals_in_month AS (
+                        SELECT
+                            r.filmId,
+                            COUNT(r.filmId) AS rental_count
+                        FROM rental r
+                        WHERE EXTRACT(YEAR FROM r.rentalDate) = ? AND EXTRACT(MONTH FROM r.rentalDate) = ?
+                        GROUP BY r.filmId
+                    )
+                    SELECT
+                        f.filmId,
+                        f.title,
+                        f.stock,
+                        f.poster
+                    FROM rentals_in_month rim
+                    LEFT JOIN film f ON rim.filmId = f.filmId
+                    ORDER BY rim.rental_count DESC, f.title ASC
+                    LIMIT 1
+                """;
+
+        try {
+            return jdbcTemplate.query(sql, this::mapRowToFilm, year, month);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Integer> getFilmIdByRentalId(int rentalId) {
+        String sql = "SELECT filmId FROM rental WHERE rentalId = ?";
+        return jdbcTemplate.query(sql, this::mapRowToFilmId, rentalId);
     }
 }

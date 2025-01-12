@@ -6,12 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +43,10 @@ public class AdminController {
 
     @GetMapping({ "", "/" })
     @RequiresRole("admin")
-    public String showHome(Model model) throws SQLException {
+    public String showHome(Model model, HttpSession session) throws SQLException {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         // Retrieve all films
         List<Film> films = filmService.getAllFilmUser();
         model.addAttribute("bykFilm", films.size());
@@ -64,28 +64,34 @@ public class AdminController {
 
         model.addAttribute("titleTerlaris", adminRepo.getTitleTerlaris());
 
+        Film filmTerlaris = filmService.getFilmTerlaris();
+        model.addAttribute("filmTerlaris", filmTerlaris);
+
         // Retrieve rental count for the most rented movie
         model.addAttribute("bykDisewa", adminRepo.getBykDisewa());
 
         return "admin/home";
     }
 
-    @GetMapping("/poster") // ini apa? -seba
-    public ResponseEntity<byte[]> getMostRentedMoviePoster() {
-        byte[] poster = adminRepo.getMostRentedMoviePoster();
+    // @GetMapping("/poster")
+    // public ResponseEntity<byte[]> getMostRentedMoviePoster() {
+    //     byte[] poster = adminRepo.getMostRentedMoviePoster();
 
-        if (poster == null) {
-            return ResponseEntity.notFound().build(); // Return a 404 if no poster is found
-        }
+    //     if (poster == null) {
+    //         return ResponseEntity.notFound().build(); // Return a 404 if no poster is found
+    //     }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG); // Adjust MIME type if necessary (e.g., PNG)
-        return new ResponseEntity<>(poster, headers, HttpStatus.OK);
-    }
+    //     HttpHeaders headers = new HttpHeaders();
+    //     headers.setContentType(MediaType.IMAGE_JPEG); // Adjust MIME type if necessary (e.g., PNG)
+    //     return new ResponseEntity<>(poster, headers, HttpStatus.OK);
+    // }
 
     @GetMapping("/current-rentals")
     @RequiresRole("admin")
-    public String showCurrentRentals(Model model) {
+    public String showCurrentRentals(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         List<ReportData> reports;
         reports = adminRepo.getOngoingRentals();
 
@@ -97,13 +103,13 @@ public class AdminController {
     public String markRentalDone(@RequestParam("rentalId") int rentalId, RedirectAttributes redirectAttributes) {
         try {
             adminRepo.updateReturnDate(rentalId, LocalDate.now());
+            filmService.addFilmStock(filmService.getFilmIdByRentalId(rentalId));
             redirectAttributes.addFlashAttribute("message", "Rental marked as done successfully.");
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to mark rental as done.");
         }
         return "redirect:/admin/current-rentals";
-
     }
 
     @GetMapping("/monthly-report")
@@ -111,8 +117,18 @@ public class AdminController {
     public String showMonthlyReport(
             @RequestParam(value = "start-date", required = false) String startDate,
             @RequestParam(value = "end-date", required = false) String endDate,
-            Model model) {
+            Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         List<ReportData> reports;
+
+        if (startDate == null || startDate.isEmpty()) {
+            startDate = LocalDate.now().withDayOfMonth(1).toString();
+        }
+        if (endDate == null || endDate.isEmpty()) {
+            endDate = LocalDate.now().toString();
+        }
 
         if (startDate != null && endDate != null) {
             reports = adminRepo.getReportByDateRange(startDate, endDate);
@@ -120,10 +136,21 @@ public class AdminController {
             model.addAttribute("endDate", endDate);
         } else {
             reports = adminRepo.getMonthlyReport();
-        }
+        } 
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String firstDay = LocalDate.now().withDayOfMonth(1).format(formatter);
+        String today = LocalDate.now().format(formatter);
+        String rentalCount = adminRepo.getBykDisewa();
+        String title = adminRepo.getTitleTerlaris();
+
+        model.addAttribute("firstDay", firstDay);
+        model.addAttribute("today", today);
+        model.addAttribute("rentalCount", rentalCount);
+        model.addAttribute("title", title);
+        model.addAttribute("genre", adminRepo.getMostPopularGenre());
+        model.addAttribute("actor", adminRepo.getMostPopularActor());
         model.addAttribute("reports", reports);
-
         model.addAttribute("totalIncome", adminRepo.getTotalIncome());
         model.addAttribute("monthlyIncome", adminRepo.getMonthlyIncome());
         return "admin/monthlyReport";
@@ -131,7 +158,10 @@ public class AdminController {
 
     @GetMapping("/income-graph")
     @RequiresRole("admin")
-    public String showIncome(@RequestParam(value = "year", required = false) Integer selectedYear, Model model) {
+    public String showIncome(@RequestParam(value = "year", required = false) Integer selectedYear, Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         if (selectedYear == null) {
             selectedYear = Year.now().getValue();
         }
@@ -145,7 +175,10 @@ public class AdminController {
 
     @GetMapping("/film-graph")
     @RequiresRole("admin")
-    public String showFilmGraph(@RequestParam(value = "year", required = false) Integer selectedYear, Model model) {
+    public String showFilmGraph(@RequestParam(value = "year", required = false) Integer selectedYear, Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         if (selectedYear == null) {
             selectedYear = Year.now().getValue();
         }
@@ -159,11 +192,14 @@ public class AdminController {
 
    @GetMapping("/manage-movie")
    @RequiresRole("admin") 
-    public String showBrowse(Model model, 
+    public String showBrowse(Model model, HttpSession session, 
                             @RequestParam(value = "movieName", required = false) String movieName,
                             @RequestParam(value = "actorName", required = false) List<String> actorName,
                             @RequestParam(value = "genreName", required = false) List<String> genreName, 
                             @RequestParam(name = "page", defaultValue = "1") int page) throws SQLException {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         
         if (actorName == null) {
             actorName = new ArrayList<>();
@@ -184,7 +220,7 @@ public class AdminController {
             filmCount = filmService.getFilmCount();
         }
 
-        int show = 4;
+        int show = 18;
         int start = (page - 1) * show;
         int pageCount = (int) Math.ceil((double) filmCount / show);
 
@@ -206,6 +242,9 @@ public class AdminController {
     @RequiresRole("admin")
     @GetMapping("/edit-movie/{filmId}")
     public String showEditMovie(@PathVariable("filmId") int filmId, HttpSession session, Model model) throws SQLException {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         FilmDetail filmDetail = filmService.getFilmDetail(filmId);
         List<Genre> genres = filmService.getAllGenre();
         List<Actor> actors = filmService.getAllActor();
@@ -228,14 +267,8 @@ public class AdminController {
                             @RequestParam("genres") List<Integer> genres,
                             @RequestParam("actors") List<Integer> actors
                             ) {
-        // System.out.println(title);
-        // System.out.println(price);
-        // System.out.println(stock);
-        // System.out.println(description);
-        // System.out.println(genres);
-        // System.out.println(actors);
         filmService.updateFilm(poster, title, (int)price, stock, description, genres, actors, filmId);
-        return "redirect:/admin/edit-movie/"+filmId;
+        return "redirect:/admin/manage-movie";
     }
     
     @RequiresRole("admin")
@@ -254,7 +287,10 @@ public class AdminController {
 
     @GetMapping("/add-movie")
     @RequiresRole("admin")
-    public String showAddMovie(Model model) throws SQLException {
+    public String showAddMovie(Model model, HttpSession session) throws SQLException {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         List<Genre> genres = filmService.getAllGenre();
         List<Actor> actors = filmService.getAllActor();
         model.addAttribute("genres", genres);
@@ -273,7 +309,10 @@ public class AdminController {
 
     @GetMapping("/report")
     @RequiresRole("admin")
-    public String showReport() {
+    public String showReport(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         return "admin/report";
     }
 }
