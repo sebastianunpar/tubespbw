@@ -55,20 +55,20 @@
         <section class="popular-films">
             <h2>Film Populer</h2>
             <div class="container-movie">
-                <a th:href="@{'/film/'} + ${films[0].filmId}">
-                    <img src="https://i.pinimg.com/736x/c9/20/fa/c920fa82da29b3c37fbc4a7ec797d6a3.jpg" alt="">
+                <a th:href="@{'/film/'} + ${films[0].filmId}"> 
+                    <img th:src="'data:image/jpeg;base64,' + ${films[0].base64Poster}" alt="">
                 </a>
                 <a th:href="@{'/film/'} + ${films[1].filmId}">
-                    <img src="https://i.pinimg.com/236x/f4/e9/2e/f4e92e389367fdf172bab2d120eb526b.jpg" alt="">
+                    <img th:src="'data:image/jpeg;base64,' + ${films[1].base64Poster}" alt="">
                 </a>
                 <a th:href="@{'/film/'} + ${films[2].filmId}">
-                    <img src="https://i.pinimg.com/236x/f4/e9/2e/f4e92e389367fdf172bab2d120eb526b.jpg" alt="">
+                    <img th:src="'data:image/jpeg;base64,' + ${films[2].base64Poster}" alt="">
                 </a>
-                <a href="">
-                    <img src="https://i.pinimg.com/236x/f4/e9/2e/f4e92e389367fdf172bab2d120eb526b.jpg" alt="">
+                <a th:href="@{'/film/'} + ${films[3].filmId}">
+                    <img th:src="'data:image/jpeg;base64,' + ${films[3].base64Poster}" alt="">
                 </a>
-                <a href="">
-                    <img src="https://i.pinimg.com/736x/c9/20/fa/c920fa82da29b3c37fbc4a7ec797d6a3.jpg" alt="">
+                <a th:href="@{'/film/'} + ${films[4].filmId}">
+                    <img th:src="'data:image/jpeg;base64,' + ${films[4].base64Poster}" alt="">
                 </a>
             </div>
         </section>

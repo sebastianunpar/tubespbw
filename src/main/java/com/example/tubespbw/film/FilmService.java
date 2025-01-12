@@ -171,7 +171,7 @@ public class FilmService {
     }
 
     public List<Film> getPopularFilms() {
-        List<Film> films = repo.getTopFilms(3);
+        List<Film> films = repo.getTopFilms(5);
         for (Film film : films) {
             String base64Poster = generateBase64Poster(film.getPoster());
             film.setBase64Poster(base64Poster);

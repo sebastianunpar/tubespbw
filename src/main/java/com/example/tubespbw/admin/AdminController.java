@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.Year;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +38,7 @@ public class AdminController {
     FilmService filmService;
 
     @Autowired
-    AdminJdbcRepo adminRepo;
+    AdminRepository adminRepo;
 
     @GetMapping({ "", "/" })
     @RequiresRole("admin")
@@ -72,19 +71,6 @@ public class AdminController {
 
         return "admin/home";
     }
-
-    // @GetMapping("/poster")
-    // public ResponseEntity<byte[]> getMostRentedMoviePoster() {
-    //     byte[] poster = adminRepo.getMostRentedMoviePoster();
-
-    //     if (poster == null) {
-    //         return ResponseEntity.notFound().build(); // Return a 404 if no poster is found
-    //     }
-
-    //     HttpHeaders headers = new HttpHeaders();
-    //     headers.setContentType(MediaType.IMAGE_JPEG); // Adjust MIME type if necessary (e.g., PNG)
-    //     return new ResponseEntity<>(poster, headers, HttpStatus.OK);
-    // }
 
     @GetMapping("/current-rentals")
     @RequiresRole("admin")
@@ -136,23 +122,18 @@ public class AdminController {
             model.addAttribute("endDate", endDate);
         } else {
             reports = adminRepo.getMonthlyReport();
-        } 
+        }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String firstDay = LocalDate.now().withDayOfMonth(1).format(formatter);
-        String today = LocalDate.now().format(formatter);
-        String rentalCount = adminRepo.getBykDisewa();
-        String title = adminRepo.getTitleTerlaris();
-
-        model.addAttribute("firstDay", firstDay);
-        model.addAttribute("today", today);
-        model.addAttribute("rentalCount", rentalCount);
-        model.addAttribute("title", title);
-        model.addAttribute("genre", adminRepo.getMostPopularGenre());
-        model.addAttribute("actor", adminRepo.getMostPopularActor());
+        model.addAttribute("firstDay", startDate);
+        model.addAttribute("today", endDate);
+        model.addAttribute("rentalCount", adminRepo.getRentalCountByDateRange(startDate, endDate));
+        model.addAttribute("title", adminRepo.getMostPopularFilmTitleByDateRange(startDate, endDate));
+        model.addAttribute("genre", adminRepo.getMostPopularGenreByDateRange(startDate, endDate));
+        model.addAttribute("actor", adminRepo.getMostPopularActorByDateRange(startDate, endDate));
         model.addAttribute("reports", reports);
         model.addAttribute("totalIncome", adminRepo.getTotalIncome());
         model.addAttribute("monthlyIncome", adminRepo.getMonthlyIncome());
+        model.addAttribute("incomeByDate", adminRepo.getTotalPriceByDateRange(startDate, endDate));
         return "admin/monthlyReport";
     }
 
