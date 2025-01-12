@@ -2,6 +2,7 @@ package com.example.tubespbw.film;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -386,4 +388,39 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
         String sql = "SELECT filmId, title, stock, poster FROM (SELECT film.filmId, title, stock, poster, COUNT(rental.filmId) AS count FROM film JOIN rental ON film.filmId = rental.filmId GROUP BY film.filmId) AS ranked_films ORDER BY count DESC LIMIT ?";
         return jdbcTemplate.query(sql, this::mapRowToFilm, n);
     }
+
+    @Override
+    public List<Film> getFilmTerlaris() {
+        LocalDate currentDate = LocalDate.now();
+
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+
+        String sql = """
+                    WITH rentals_in_month AS (
+                        SELECT
+                            r.filmId,
+                            COUNT(r.filmId) AS rental_count
+                        FROM rental r
+                        WHERE EXTRACT(YEAR FROM r.rentalDate) = ? AND EXTRACT(MONTH FROM r.rentalDate) = ?
+                        GROUP BY r.filmId
+                    )
+                    SELECT
+                        f.filmId,
+                        f.title,
+                        f.stock,
+                        f.poster
+                    FROM rentals_in_month rim
+                    LEFT JOIN film f ON rim.filmId = f.filmId
+                    ORDER BY rim.rental_count DESC, f.title ASC
+                    LIMIT 1
+                """;
+
+    try {
+        return jdbcTemplate.query(sql, this::mapRowToFilm, year, month);
+    } catch (EmptyResultDataAccessException e) {
+        return null;
+    }
+}
+
 }

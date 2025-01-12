@@ -547,8 +547,8 @@ nav#filmPagination span a{
 }
 
 nav#filmPagination a:hover {
-  background-color: #f1f1f1; /* Warna latar saat hover */
-  border-color: #dcdcdc; /* Border abu-abu muda saat hover */
+  background-color: #c2c2c2; /* Warna latar saat hover */
+  border-color: #c2c2c2; /* Border abu-abu muda saat hover */
 }
 
 nav#filmPagination a.active {

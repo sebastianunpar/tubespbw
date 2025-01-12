@@ -27,6 +27,7 @@
           <div class="filter-header">
             <input type="text" id="actor-search" placeholder="Search Actor..." class="filter-input" />
           </div>
+          <br>
           <div class="filter-options" id="actor-options">
             <!-- Actor Checkboxes -->
             <th:block th:each="actor : ${actors}">
@@ -42,7 +43,9 @@
         <div class="filter-section">
           <div class="filter-header">
             <input type="text" id="genre-search" placeholder="Search Genre..." class="filter-input" />
+          <br>
           </div>
+          <br>
           <div class="filter-options" id="genre-options">
             <!-- Genre Checkboxes -->
             <th:block th:each="genre : ${genres}">

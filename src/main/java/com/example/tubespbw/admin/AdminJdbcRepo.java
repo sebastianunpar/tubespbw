@@ -66,6 +66,76 @@ public class AdminJdbcRepo implements AdminRepository {
     }
 
     @Override
+    public String getMostPopularGenre() {
+        LocalDate currentDate = LocalDate.now();
+
+        // Extract the current year and month
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+
+        String sql = """
+                WITH genre_count AS (
+                    SELECT
+                        g.name,
+                        COUNT(r.rentalId) AS rental_count
+                    FROM rental r
+                    JOIN film f ON r.filmId = f.filmId
+                    JOIN filmGenre fg ON f.filmId = fg.filmId
+                    JOIN genre g ON fg.genreId = g.genreId
+                    WHERE EXTRACT(YEAR FROM r.rentalDate) = ? 
+                    AND EXTRACT(MONTH FROM r.rentalDate) = ?
+                    GROUP BY g.name
+                )
+                SELECT
+                    COALESCE(g.name, 'No rentals this month') AS genre
+                FROM genre_count g
+                ORDER BY g.rental_count DESC, g.name ASC
+                LIMIT 1
+                """;
+
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, year, month);
+        } catch (EmptyResultDataAccessException e) {
+            return "No rentals this month"; // Default message if no results
+        }
+    }
+
+    @Override
+    public String getMostPopularActor() {
+        LocalDate currentDate = LocalDate.now();
+
+        // Extract the current year and month
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+
+        String sql = """
+                WITH actor_count AS (
+                    SELECT
+                        a.name,
+                        COUNT(r.rentalId) AS rental_count
+                    FROM rental r
+                    JOIN film f ON r.filmId = f.filmId
+                    JOIN filmActor fa ON f.filmId = fa.filmId
+                    JOIN actor a ON fa.actorId = a.actorId
+                    WHERE EXTRACT(YEAR FROM r.rentalDate) = ?
+                    AND EXTRACT(MONTH FROM r.rentalDate) = ?
+                    GROUP BY a.name
+                )
+                SELECT
+                    COALESCE(a.name, 'No rentals this month') AS actor
+                FROM actor_count a
+                ORDER BY a.rental_count DESC, a.name ASC
+                LIMIT 1
+                """;
+
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, year, month);
+        } catch (EmptyResultDataAccessException e) {
+            return "No rentals this month"; // Default message if no results
+        }
+    }
+
+    @Override
     public String getBykDisewa() {
         LocalDate currentDate = LocalDate.now();
 

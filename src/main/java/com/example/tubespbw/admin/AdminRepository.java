@@ -18,4 +18,6 @@ public interface AdminRepository {
     List<ReportData> getMonthlyReport();
 
     List<ReportData> getOngoingRentals();
+    String getMostPopularActor();
+    String getMostPopularGenre();
 }

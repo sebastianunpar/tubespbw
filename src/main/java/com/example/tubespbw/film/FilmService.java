@@ -176,4 +176,12 @@ public class FilmService {
         }
         return films;
     }
+
+    public Film getFilmTerlaris() {
+        List<Film> films = repo.getFilmTerlaris();
+        Film film = films.get(0);
+        String base64Poster = generateBase64Poster(film.getPoster());
+        film.setBase64Poster(base64Poster);
+        return film;
+    }
 }

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/admin/laporanBulanan.css">
+    <link rel="stylesheet" href="/css/admin/pdfReport.css">
+    <script src="/js/pdfReport.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
     <title>Laporan Bulanan</title>
 </head>
 <body>
@@ -94,7 +98,7 @@
                     
             </div>
             <div class ="buttons">
-                <button class="download-btn" type="button">Download Report</button>
+                <button class="download-btn" type="button" id="download-pdf-report">Download Report</button>
             </div>
             
             <div class="table-container">
@@ -145,6 +149,38 @@
             endDateInput.value = endMonthFormatted;
         });
     </script> -->
+    <div class="pdf-report-container">
+        <div class="pdf-report"> 
+            <h1>MOREnt. Monthly Report</h1>
+            <br>
+            <p th:text="'Tanggal: ' + ${firstDay} + ' - ' + ${today}">Tanggal</p>
+            <p th:text="'Pemasukkan: ' + ${monthlyIncome}">Pemasukkan</p>
+            <p th:text="'Total Rental: ' + ${rentalCount}">Total Rental</p>
+            <br>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Nama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Film terlaris</td>
+                        <td th:text="${title}">Film Name</td>
+                    </tr>
+                    <tr>
+                        <td>Genre terpopuler</td>
+                        <td th:text="${genre}">Genre Name</td>
+                    </tr>
+                    <tr>
+                        <td>Actor terpopuler</td>
+                        <td th:text="${actor}">Actor Name</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     
 </body>
 </html>

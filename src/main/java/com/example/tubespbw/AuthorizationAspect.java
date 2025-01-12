@@ -32,10 +32,12 @@ public class AuthorizationAspect {
         System.out.println("\n\n\n\n");
         System.out.println("Current Role: " + currentRole);
 
-        if (currentRole == null || (currentRole.equals("admin") && requiresRole.value().equals("user"))) {
-            response.sendRedirect("/admin");
-        } else if (currentRole == null || (currentRole.equals("user") && requiresRole.value().equals("admin"))) {
+        if (currentRole == null) {
             response.sendRedirect("/");
+        } else if ((currentRole.equals("user") && requiresRole.value().equals("admin"))) {
+            response.sendRedirect("/");
+        } else if ((currentRole.equals("admin") && requiresRole.value().equals("user"))) {
+            response.sendRedirect("/admin");
         }
     }
 
