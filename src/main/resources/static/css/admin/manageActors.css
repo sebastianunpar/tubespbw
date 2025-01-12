@@ -96,6 +96,14 @@ body {
     border-bottom: 1px solid #2a2a2a;
 }
 
+.table-container {
+    width: 100% !important;
+}
+
+.main-content {
+    padding: 0 220px;
+}
+
 .styled-table th {
     padding: 12px 15px;
     text-align: center; /* Center-align the text */

@@ -44,6 +44,7 @@ public class Rental {
     }
 
     public String getPriceRupiah() {
+        @SuppressWarnings("deprecation")
         Locale indonesia = new Locale("id", "ID");
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(indonesia);
         return currencyFormat.format(price);

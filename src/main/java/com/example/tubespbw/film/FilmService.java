@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Optional;
-
 import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
 
@@ -144,9 +142,6 @@ public class FilmService {
     }
 
     public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<String> genreNames, String movieName) throws SQLException {
-        System.out.println("Filtering films with actor names: " + actorNames);
-        System.out.println("Filtering films with genre names: " + genreNames);
-        System.out.println("Filtering films with movie name: " + movieName);
         List<Film> films = repo.filterFilmsByActorAndGenre(actorNames, genreNames, movieName);
         for (Film film : films) {
             String base64Poster = generateBase64Poster(film.getPoster());
@@ -190,5 +185,11 @@ public class FilmService {
         String base64Poster = generateBase64Poster(film.getPoster());
         film.setBase64Poster(base64Poster);
         return film;
+    }
+
+    public int getFilmIdByRentalId(int rentalId) {
+        List<Integer> filmIds = repo.getFilmIdByRentalId(rentalId);
+        int filmId = filmIds.get(0).intValue();
+        return filmId;
     }
 }
