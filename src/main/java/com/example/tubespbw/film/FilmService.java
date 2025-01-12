@@ -112,7 +112,14 @@ public class FilmService {
 
     public boolean updateFilm(MultipartFile poster, String title, int price, int stock, String description, List<Integer> genres, List<Integer> actors, int filmId) {
         try {
-            byte[] posterBytes = poster.getBytes();
+            byte[] posterBytes;
+            if (poster == null || poster.isEmpty()) {
+                FilmDetail filmDetail = getFilmDetail(filmId);
+                posterBytes = filmDetail.getPoster();
+            }
+            else {
+                posterBytes =  poster.getBytes();;
+            }
             repo.updateFilm(title, description, posterBytes, stock, price, filmId);
             for (Integer genre : genres) {
                 repo.insertFilmGenre(filmId, genre);
