@@ -30,7 +30,6 @@ public class ActorController {
     @RequiresRole("admin")
     public String showManageActors(Model model) throws SQLException {
         List<Actor> actors = filmService.getAllActor();
-        System.out.println("Actors: " + actors); // Debug log
         model.addAttribute("actors", actors);
         return "admin/manageActors";
     }
@@ -66,7 +65,6 @@ public class ActorController {
     @GetMapping("/actor/{actorId}")
     @RequiresRole("admin")
     public String showGenreEdit(@PathVariable("actorId") int actorId, Model model) throws SQLException {
-        System.out.println("Fetching actor with ID: " + actorId);
         Actor actor = filmService.getActorById(actorId);
         if (actor == null) {
             throw new RuntimeException("Actor not found with ID: " + actorId);

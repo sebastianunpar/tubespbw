@@ -36,7 +36,6 @@ public class UserController {
             model.addAttribute("user", user);
         }
         List<Film> films = filmService.getPopularFilms();
-        System.out.println(films);
         model.addAttribute("films", films);
         return "home";
     }
@@ -112,7 +111,6 @@ public class UserController {
         int userId = userService.getUserIdFromEmail(user.getEmail());
         if (userId != 0) {
             List<Rental> rentalHisotry = rentalService.getUserRentalHistory(userId);
-            System.out.println(rentalHisotry);
             model.addAttribute("rentalHistory", rentalHisotry);
         }
         return "user/history";

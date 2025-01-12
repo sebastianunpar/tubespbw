@@ -2,8 +2,6 @@ package com.example.tubespbw.admin;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -232,6 +230,7 @@ public class AdminJdbcRepo implements AdminRepository {
         return formatReportData(mapReportDatas(sql));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public List<ReportData> getReportByDateRange(String startDate, String endDate) {
         String sql = """
@@ -261,6 +260,7 @@ public class AdminJdbcRepo implements AdminRepository {
     }
 
     private List<ReportData> formatReportData(List<ReportData> reports) {
+        @SuppressWarnings("deprecation")
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
         currencyFormatter.setMaximumFractionDigits(0); // Ensure no decimals
         currencyFormatter.setMinimumFractionDigits(0);

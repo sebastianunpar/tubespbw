@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.tubespbw.RequiresRole;
-import com.example.tubespbw.actor.Actor;
 import com.example.tubespbw.film.FilmService;
-import com.example.tubespbw.genre.Genre;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,7 +27,6 @@ public class GenreController {
     @RequiresRole("admin")
     public String showManageGenres(Model model) throws SQLException {
         List<Genre> genres = filmService.getAllGenre();
-        System.out.println(genres);
         model.addAttribute("genres", genres);
         return "admin/manageGenres";
     }
@@ -66,7 +62,6 @@ public class GenreController {
     @GetMapping("/genre/{genreId}")
     @RequiresRole("admin")
     public String showGenreEdit(@PathVariable("genreId") int genreId, Model model) throws SQLException {
-        System.out.println("Fetching genre with ID: " + genreId);
         Genre genre = filmService.getGenreById(genreId);
         if (genre == null) {
             throw new RuntimeException("Genre not found with ID: " + genreId);

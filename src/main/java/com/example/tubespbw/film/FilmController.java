@@ -17,14 +17,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.rental.RentalService;
 import com.example.tubespbw.user.User;
 
 import jakarta.servlet.http.HttpSession;
-
-import com.example.tubespbw.RequiresRole;
-import com.example.tubespbw.actor.Actor;
 
 @Controller
 public class FilmController {
@@ -51,10 +47,6 @@ public class FilmController {
             genreName = new ArrayList<>();
         }
 
-        System.out.println("Actor Names: " + actorName);
-        System.out.println("Genre Names: " + genreName);
-
-        
         int filmCount = 0;
         List<Film> films;
         if ((movieName != null && !movieName.isEmpty()) ||
@@ -67,9 +59,7 @@ public class FilmController {
             filmCount = service.getFilmCount();
         }
 
-        System.out.println(filmCount);
-        
-        int show = 4;
+        int show = 18;
         int start = (page - 1) * show;
         int pageCount = (int) Math.ceil((double) filmCount / show);
 

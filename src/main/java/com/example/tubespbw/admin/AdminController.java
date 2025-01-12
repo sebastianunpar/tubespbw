@@ -47,7 +47,10 @@ public class AdminController {
 
     @GetMapping({ "", "/" })
     @RequiresRole("admin")
-    public String showHome(Model model) throws SQLException {
+    public String showHome(Model model, HttpSession session) throws SQLException {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
         // Retrieve all films
         List<Film> films = filmService.getAllFilmUser();
         model.addAttribute("bykFilm", films.size());
@@ -199,7 +202,7 @@ public class AdminController {
             filmCount = filmService.getFilmCount();
         }
 
-        int show = 4;
+        int show = 18;
         int start = (page - 1) * show;
         int pageCount = (int) Math.ceil((double) filmCount / show);
 
@@ -243,12 +246,6 @@ public class AdminController {
                             @RequestParam("genres") List<Integer> genres,
                             @RequestParam("actors") List<Integer> actors
                             ) {
-        // System.out.println(title);
-        // System.out.println(price);
-        // System.out.println(stock);
-        // System.out.println(description);
-        // System.out.println(genres);
-        // System.out.println(actors);
         filmService.updateFilm(poster, title, (int)price, stock, description, genres, actors, filmId);
         return "redirect:/admin/manage-movie";
     }

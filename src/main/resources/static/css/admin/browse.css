@@ -47,14 +47,14 @@ body {
   box-sizing: border-box; /* Sertakan padding dan border dalam ukuran total */
   gap: 20px; /* Jarak antara elemen konten (opsional) */
   grid-area: main;
-}
+} 
 
 /* Kontainer grid untuk kartu */
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid responsif */
   gap: 20px; /* Jarak antar-kartu */
-  max-width: 1100px; /* Batas maksimum lebar */
+  max-width: 1200px; /* Batas maksimum lebar */
   width: 100%; /* Penuhi lebar area yang tersedia */
   justify-content: center; /* Pastikan grid tetap di tengah */
   margin-top: 20px; /* Tambahkan sedikit jarak dari atas jika diperlukan */
@@ -112,11 +112,8 @@ img.poster {
 }
 
 .card p {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
   margin: 0;
-  margin-top: 15px;
-  margin-bottom: 10px;
 }
 
 .add-film {

@@ -14,7 +14,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.actor.Actor;
@@ -87,6 +86,7 @@ public class FilmJdbcRepo implements FilmRepository{
         );
     }
 
+    @SuppressWarnings("deprecation")
     public int getFilmSales(int filmId) throws SQLException {
         String sql = "SELECT COUNT(*) FROM rental WHERE filmId = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{filmId}, Integer.class);
@@ -96,7 +96,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public boolean insertGenre(String genre) {
         String sql = "INSERT INTO genre (name, valid) VALUES (?, 'true')";
         int rowsAffected = jdbcTemplate.update(sql, genre);
-        System.out.println(rowsAffected);
         return rowsAffected > 0;
     }
 
@@ -147,8 +146,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public void changeValidGenre(int genreId) {
         String sql = "SELECT valid FROM genre WHERE genreId = ?";
         boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, genreId);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(valid);
         boolean newValid = !valid;
         sql = "UPDATE genre SET valid = ? WHERE genreId = ?";
         jdbcTemplate.update(sql, newValid, genreId);
@@ -177,8 +174,6 @@ public class FilmJdbcRepo implements FilmRepository{
     public void changeValidActor(int actorId) {
         String sql = "SELECT valid FROM actor WHERE actorId = ?";
         boolean valid = jdbcTemplate.queryForObject(sql, Boolean.class, actorId);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(valid);
         boolean newValid = !valid;
         sql = "UPDATE actor SET valid = ? WHERE actorId = ?";
         jdbcTemplate.update(sql, newValid, actorId);
@@ -303,11 +298,6 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
         sql += " HAVING COUNT(DISTINCT actor.name) = :actorCount";
         parameters.put("actorCount", actorNames.size());
     }
-
-    // Debugging outputs
-    System.out.println(sql);
-    System.out.println(parameters);
-
     // Use NamedParameterJdbcTemplate for parameter binding
     NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
     return namedParameterJdbcTemplate.query(sql, parameters, this::mapRowToFilm);
