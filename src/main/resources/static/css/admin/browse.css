@@ -275,6 +275,10 @@ display: block;
 margin: 5px 0;
 }
 
+.filter-options {
+  max-height: 400px;
+  overflow-y: auto;
+ }
 
 .input-container {
   position: relative;

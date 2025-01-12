@@ -54,7 +54,7 @@
                         Total pemasukan saat ini
                         </div>
                         <div class="nominal-saldo">
-                            <span th:text="${totalIncome}"></span>
+                            <span th:text="${totalIncome}"></span> 
                         </div>
                     </div>
                     <div class="container-saldo">
@@ -127,34 +127,12 @@
             </div>            
         </div>
     </div>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const startDateInput = document.getElementById('start-date');
-            const endDateInput = document.getElementById('end-date');
-    
-            const currentDate = new Date();
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth(); // Get the current month (0 for January, 1 for February, etc.)
-    
-            // Set the start date to the first day of the current month
-            const startOfMonth = new Date(year, month, 1); // Start date: 1st day of this month
-            const startMonthFormatted = startOfMonth.toLocaleDateString('en-CA'); // Format: YYYY-MM-DD
-    
-            // Set the end date to the last day of the current month
-            const endOfMonth = new Date(year, month + 1, 0); // End date: Last day of this month
-            const endMonthFormatted = endOfMonth.toLocaleDateString('en-CA'); // Format: YYYY-MM-DD
-    
-            // Set the values for the date inputs
-            startDateInput.value = startMonthFormatted;
-            endDateInput.value = endMonthFormatted;
-        });
-    </script> -->
     <div class="pdf-report-container">
         <div class="pdf-report"> 
-            <h1>MOREnt. Monthly Report</h1>
+            <h1>MOREnt. Report</h1>
             <br>
             <p th:text="'Tanggal: ' + ${firstDay} + ' - ' + ${today}">Tanggal</p>
-            <p th:text="'Pemasukkan: ' + ${monthlyIncome}">Pemasukkan</p>
+            <p th:text="'Pemasukkan: ' + ${incomeByDate}">Pemasukkan</p>
             <p th:text="'Total Rental: ' + ${rentalCount}">Total Rental</p>
             <br>
             <table class="report-table">

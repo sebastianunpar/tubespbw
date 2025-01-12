@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const dialog = document.getElementById("filter-dialog");
     const openButton = document.getElementById("open-dialog");
     const closeButton = document.getElementById("close-dialog");
+    const genreSearchInput = document.getElementById("genre-search");
+    const actorSearchInput = document.getElementById("actor-search");
+    const genreOptions = document.getElementById("genre-options");
+    const actorOptions = document.getElementById("actor-options");
+
     const searchForm = document.querySelector('form[th\\:action="@{/admin/manage-movie}"]') || document.querySelector('form[action="/admin/manage-movie"]');
 
     if (!searchForm) {
@@ -81,4 +86,23 @@ document.addEventListener("DOMContentLoaded", function () {
         // Now submit the form
         searchForm.submit();
     });
+
+    // Function to filter options
+    function filterOptions(input, optionsContainer, type) {
+        const query = input.value.toLowerCase();
+        const options = optionsContainer.querySelectorAll('label');
+
+        options.forEach(option => {
+            const text = option.querySelector('span').textContent.toLowerCase();
+            if (text.includes(query)) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    }
+
+    // Add event listeners for real-time search
+    genreSearchInput.addEventListener("input", () => filterOptions(genreSearchInput, genreOptions, 'genre'));
+    actorSearchInput.addEventListener("input", () => filterOptions(actorSearchInput, actorOptions, 'actor'));
 });

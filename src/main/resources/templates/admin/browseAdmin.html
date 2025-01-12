@@ -17,24 +17,7 @@
 <body>
   <dialog id="filter-dialog">
       <div class="filter-container">
-        <!-- Actor Filter -->
-        <div class="filter-section">
-          <div class="filter-header">
-            <input type="text" id="actor-search" placeholder="Search Actor..." class="filter-input" />
-          </div>
-          <br>
-          <div class="filter-options" id="actor-options">
-            <!-- Loop untuk actors -->
-            <th:block th:each="actor : ${actors}">
-                <label>
-                    <input type="checkbox" name="actorName" th:value="${actor.name}" 
-                          th:checked="${#lists.contains(actorName ?: {}, actor.name)}" />
-                    <span th:text="${actor.name}"></span>
-                </label>
-            </th:block>
-          </div>
-        </div>
-  
+
         <!-- Genre Filter -->
         <div class="filter-section">
           <div class="filter-header">
@@ -48,6 +31,24 @@
                     <input type="checkbox" name="genreName" th:value="${genre.name}" 
                           th:checked="${#lists.contains(genreName ?: {}, genre.name)}" />
                     <span th:text="${genre.name}"></span>
+                </label>
+            </th:block>
+          </div>
+        </div>
+
+        <!-- Actor Filter -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <input type="text" id="actor-search" placeholder="Search Actor..." class="filter-input" />
+          </div>
+          <br>
+          <div class="filter-options" id="actor-options">
+            <!-- Loop untuk actors -->
+            <th:block th:each="actor : ${actors}">
+                <label>
+                    <input type="checkbox" name="actorName" th:value="${actor.name}" 
+                          th:checked="${#lists.contains(actorName ?: {}, actor.name)}" />
+                    <span th:text="${actor.name}"></span>
                 </label>
             </th:block>
           </div>

@@ -1,5 +1,6 @@
 package com.example.tubespbw.admin;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
@@ -34,8 +35,6 @@ public class AdminJdbcRepo implements AdminRepository {
     @Override
     public String getTitleTerlaris() {
         LocalDate currentDate = LocalDate.now();
-
-        // Extract the current year and month as integers
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
 
@@ -58,7 +57,7 @@ public class AdminJdbcRepo implements AdminRepository {
         try {
             return jdbcTemplate.queryForObject(sql, String.class, year, month);
         } catch (EmptyResultDataAccessException e) {
-            return null; // Or a default value
+            return null;
         }
 
     }
@@ -66,8 +65,6 @@ public class AdminJdbcRepo implements AdminRepository {
     @Override
     public String getMostPopularGenre() {
         LocalDate currentDate = LocalDate.now();
-
-        // Extract the current year and month
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
 
@@ -94,15 +91,13 @@ public class AdminJdbcRepo implements AdminRepository {
         try {
             return jdbcTemplate.queryForObject(sql, String.class, year, month);
         } catch (EmptyResultDataAccessException e) {
-            return "No rentals this month"; // Default message if no results
+            return "No rentals this month";
         }
     }
 
     @Override
     public String getMostPopularActor() {
         LocalDate currentDate = LocalDate.now();
-
-        // Extract the current year and month
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
 
@@ -129,15 +124,13 @@ public class AdminJdbcRepo implements AdminRepository {
         try {
             return jdbcTemplate.queryForObject(sql, String.class, year, month);
         } catch (EmptyResultDataAccessException e) {
-            return "No rentals this month"; // Default message if no results
+            return "No rentals this month";
         }
     }
 
     @Override
     public String getBykDisewa() {
         LocalDate currentDate = LocalDate.now();
-
-        // Extract the current year and month as integers
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
 
@@ -157,12 +150,10 @@ public class AdminJdbcRepo implements AdminRepository {
                     ORDER BY rim.rental_count DESC, f.title ASC
                     LIMIT 1
                 """;
-
-        // Use `jdbcTemplate.queryForObject` to execute the query and retrieve the title
         try {
             return jdbcTemplate.queryForObject(sql, String.class, year, month);
         } catch (EmptyResultDataAccessException e) {
-            return null; // Or a default value
+            return null;
         }
 
     }
@@ -170,8 +161,6 @@ public class AdminJdbcRepo implements AdminRepository {
     @Override
     public byte[] getMostRentedMoviePoster() {
         LocalDate currentDate = LocalDate.now();
-
-        // Extract the current year and month
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
 
@@ -195,6 +184,7 @@ public class AdminJdbcRepo implements AdminRepository {
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> rs.getBytes("poster"), year, month);
     }
 
+    @Override
     public List<ReportData> getOngoingRentals() {
         String sql = """
                     SELECT
@@ -259,6 +249,113 @@ public class AdminJdbcRepo implements AdminRepository {
                         rs.getBigDecimal("pemasukan"))));
     }
 
+    @Override
+    public int getRentalCountByDateRange(String startDate, String endDate) {
+        String sql = """
+                    SELECT COUNT(*) 
+                    FROM rental r
+                    WHERE r.rentalDate BETWEEN ?::date AND ?::date
+                """;
+        return jdbcTemplate.queryForObject(sql, Integer.class, startDate, endDate);
+    }
+
+    @Override
+    public String getTotalPriceByDateRange(String startDate, String endDate) {
+        String sql = """
+                    SELECT SUM(f.price) 
+                    FROM rental r
+                    JOIN film f ON r.filmId = f.filmId
+                    WHERE r.rentalDate BETWEEN ?::date AND ?::date
+                """;
+        Double totalPrice = jdbcTemplate.queryForObject(sql, Double.class, startDate, endDate);
+        
+        if (totalPrice == null) {
+            return "Rp 0";
+        }
+
+        DecimalFormat rupiahFormat = new DecimalFormat("Rp #,##0.00");
+        return rupiahFormat.format(totalPrice);
+    }
+
+    @Override
+    public String getMostPopularFilmTitleByDateRange(String startDate, String endDate) {
+        String sql = """
+                    WITH rentals_in_date_range AS (
+                        SELECT
+                            r.filmId,
+                            COUNT(r.filmId) AS rental_count
+                        FROM rental r
+                        WHERE r.rentalDate BETWEEN ?::date AND ?::date
+                        GROUP BY r.filmId
+                    )
+                    SELECT
+                        COALESCE(f.title, 'No rentals in this period') AS title
+                    FROM rentals_in_date_range rim
+                    LEFT JOIN film f ON rim.filmId = f.filmId
+                    ORDER BY rim.rental_count DESC, f.title ASC
+                    LIMIT 1
+                """;
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, startDate, endDate);
+        } catch (EmptyResultDataAccessException e) {
+            return "No rentals in this period";
+        }
+    }
+
+    @Override
+    public String getMostPopularGenreByDateRange(String startDate, String endDate) {
+        String sql = """
+                    WITH genre_count AS (
+                        SELECT
+                            g.name,
+                            COUNT(r.rentalId) AS rental_count
+                        FROM rental r
+                        JOIN film f ON r.filmId = f.filmId
+                        JOIN filmGenre fg ON f.filmId = fg.filmId
+                        JOIN genre g ON fg.genreId = g.genreId
+                        WHERE r.rentalDate BETWEEN ?::date AND ?::date
+                        GROUP BY g.name
+                    )
+                    SELECT
+                        COALESCE(g.name, 'No rentals in this period') AS genre
+                    FROM genre_count g
+                    ORDER BY g.rental_count DESC, g.name ASC
+                    LIMIT 1
+                """;
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, startDate, endDate);
+        } catch (EmptyResultDataAccessException e) {
+            return "No rentals in this period";
+        }
+    }
+
+    @Override
+    public String getMostPopularActorByDateRange(String startDate, String endDate) {
+        String sql = """
+                    WITH actor_count AS (
+                        SELECT
+                            a.name,
+                            COUNT(r.rentalId) AS rental_count
+                        FROM rental r
+                        JOIN film f ON r.filmId = f.filmId
+                        JOIN filmActor fa ON f.filmId = fa.filmId
+                        JOIN actor a ON fa.actorId = a.actorId
+                        WHERE r.rentalDate BETWEEN ?::date AND ?::date
+                        GROUP BY a.name
+                    )
+                    SELECT
+                        COALESCE(a.name, 'No rentals in this period') AS actor
+                    FROM actor_count a
+                    ORDER BY a.rental_count DESC, a.name ASC
+                    LIMIT 1
+                """;
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, startDate, endDate);
+        } catch (EmptyResultDataAccessException e) {
+            return "No rentals in this period";
+        }
+    }
+
     private List<ReportData> formatReportData(List<ReportData> reports) {
         @SuppressWarnings("deprecation")
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
@@ -271,6 +368,7 @@ public class AdminJdbcRepo implements AdminRepository {
         return reports;
     }
 
+    @Override
     public void updateReturnDate(int rentalId, LocalDate returnDate) {
         String sql = "UPDATE rental SET returnDate = ? WHERE rentalId = ?";
         int rowsUpdated = jdbcTemplate.update(sql, returnDate, rentalId);

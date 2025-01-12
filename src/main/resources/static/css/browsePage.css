@@ -133,6 +133,11 @@
    border-radius: 5px;
  }
 
+ .filter-options {
+  max-height: 400px;
+  overflow-y: auto;
+ }
+
  .filter-options label {
    display: block;
    margin: 5px 0;
