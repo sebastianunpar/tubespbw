@@ -416,11 +416,16 @@ public List<Film> filterFilmsByActorAndGenre(List<String> actorNames, List<Strin
                     LIMIT 1
                 """;
 
-    try {
-        return jdbcTemplate.query(sql, this::mapRowToFilm, year, month);
-    } catch (EmptyResultDataAccessException e) {
-        return null;
+        try {
+            return jdbcTemplate.query(sql, this::mapRowToFilm, year, month);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
-}
 
+    @Override
+    public List<Integer> getFilmIdByRentalId(int rentalId) {
+        String sql = "SELECT filmId FROM rental WHERE rentalId = ?";
+        return jdbcTemplate.query(sql, this::mapRowToFilmId, rentalId);
+    }
 }

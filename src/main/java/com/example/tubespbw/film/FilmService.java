@@ -191,4 +191,10 @@ public class FilmService {
         film.setBase64Poster(base64Poster);
         return film;
     }
+
+    public int getFilmIdByRentalId(int rentalId) {
+        List<Integer> filmIds = repo.getFilmIdByRentalId(rentalId);
+        int filmId = filmIds.get(0).intValue();
+        return filmId;
+    }
 }

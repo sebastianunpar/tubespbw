@@ -101,6 +101,7 @@ public class AdminController {
     public String markRentalDone(@RequestParam("rentalId") int rentalId, RedirectAttributes redirectAttributes) {
         try {
             adminRepo.updateReturnDate(rentalId, LocalDate.now());
+            filmService.addFilmStock(filmService.getFilmIdByRentalId(rentalId));
             redirectAttributes.addFlashAttribute("message", "Rental marked as done successfully.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,7 +250,7 @@ public class AdminController {
         // System.out.println(genres);
         // System.out.println(actors);
         filmService.updateFilm(poster, title, (int)price, stock, description, genres, actors, filmId);
-        return "redirect:/admin/edit-movie/"+filmId;
+        return "redirect:/admin/manage-movie";
     }
     
     @RequiresRole("admin")
