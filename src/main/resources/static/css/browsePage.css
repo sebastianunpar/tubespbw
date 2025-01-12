@@ -77,7 +77,7 @@
   nav#filmPagination {
     padding: 2em;
     text-align: center;
-  }
+  } 
   
  /*filter*/
  .filter button {
@@ -529,7 +529,7 @@
 } 
 
 nav#filmPagination a,
-nav#filmPagination span {
+nav#filmPagination span a{
   display: flex;
   justify-content: center;
   align-items: center;

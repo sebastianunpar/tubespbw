@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.tubespbw.RequiresRole;
 import com.example.tubespbw.film.Film;
 import com.example.tubespbw.film.FilmService;
 import com.example.tubespbw.rental.Rental;
@@ -80,6 +81,7 @@ public class UserController {
     }
 
     @GetMapping("/rentals")
+    @RequiresRole("user")
     public String showRentals(HttpSession session, Model model) {
         if (session.getAttribute("user") == null) {
             return "redirect:/login";
