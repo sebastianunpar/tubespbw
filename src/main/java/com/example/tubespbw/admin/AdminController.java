@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.time.Year;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class AdminController {
     AdminJdbcRepo adminRepo;
 
     @GetMapping({ "", "/" })
+    @RequiresRole("admin")
     public String showHome(Model model) throws SQLException {
         // Retrieve all films
         List<Film> films = filmService.getAllFilmUser();
@@ -64,7 +66,7 @@ public class AdminController {
         return "admin/home";
     }
 
-    @GetMapping("/poster")
+    @GetMapping("/poster") // ini apa? -seba
     public ResponseEntity<byte[]> getMostRentedMoviePoster() {
         byte[] poster = adminRepo.getMostRentedMoviePoster();
 
@@ -78,6 +80,7 @@ public class AdminController {
     }
 
     @GetMapping("/current-rentals")
+    @RequiresRole("admin")
     public String showCurrentRentals(Model model) {
         List<ReportData> reports;
         reports = adminRepo.getOngoingRentals();
@@ -95,11 +98,12 @@ public class AdminController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to mark rental as done.");
         }
-        return "redirect:/rentals";
+        return "redirect:/admin/current-rentals";
 
     }
 
     @GetMapping("/monthly-report")
+    @RequiresRole("admin")
     public String showMonthlyReport(
             @RequestParam(value = "start-date", required = false) String startDate,
             @RequestParam(value = "end-date", required = false) String endDate,
@@ -150,11 +154,12 @@ public class AdminController {
     }
 
    @GetMapping("/manage-movie")
-   @RequiresRole("admin")
+   @RequiresRole("admin") 
     public String showBrowse(Model model, 
                             @RequestParam(value = "movieName", required = false) String movieName,
                             @RequestParam(value = "actorName", required = false) List<String> actorName,
-                            @RequestParam(value = "genreName", required = false) List<String> genreName) throws SQLException {
+                            @RequestParam(value = "genreName", required = false) List<String> genreName, 
+                            @RequestParam(name = "page", defaultValue = "1") int page) throws SQLException {
         
         if (actorName == null) {
             actorName = new ArrayList<>();
@@ -163,14 +168,23 @@ public class AdminController {
             genreName = new ArrayList<>();
         }
 
+        int filmCount = 0;
         List<Film> films;
         if ((movieName != null && !movieName.isEmpty()) || 
             (actorName != null && !actorName.isEmpty()) || 
             (genreName != null && !genreName.isEmpty())) {
             films = filmService.filterFilmsByActorAndGenre(actorName, genreName, movieName);
+            filmCount = filmService.getFilmCountByActorAndGenre(actorName, genreName, movieName);
         } else {
             films = filmService.getAllFilmUser();
+            filmCount = filmService.getFilmCount();
         }
+
+        int show = 4;
+        int start = (page - 1) * show;
+        int pageCount = (int) Math.ceil((double) filmCount / show);
+
+        films = films.stream().skip(start).limit(show).collect(Collectors.toList());
 
         model.addAttribute("actorName", actorName);
         model.addAttribute("genreName", genreName);
@@ -178,6 +192,9 @@ public class AdminController {
         model.addAttribute("actors", filmService.getAllActor());
         model.addAttribute("genres", filmService.getAllGenre());
         model.addAttribute("movieName", movieName);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageCount", pageCount);
 
         return "admin/browseAdmin";
     }
@@ -208,7 +225,7 @@ public class AdminController {
     }
 
     @GetMapping("/report")
-    // @RequiresRole("admin")
+    @RequiresRole("admin")
     public String showReport() {
         return "admin/report";
     }

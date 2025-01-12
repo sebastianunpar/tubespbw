@@ -68,8 +68,8 @@
         </table>
       </div>
 
-      <div class="rental-info hidden" id="rentalHistory" th:if="${!emptyHistory}">
-        <div th:if="${emptyHistory}">No rental hisotry</div>
+      <div class="rental-info hidden" id="rentalHistory">
+        <div th:if="${emptyHistory}" class="emptyMessage">No rental hisotry</div>
         <table th:if="${!emptyHistory}">
           <tr th:each="rental : ${rentalHistory}">
             <td>

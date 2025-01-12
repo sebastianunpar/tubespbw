@@ -108,8 +108,8 @@
         <div class="poster-info">
           <p th:text="'Disewa ' + ${sales} + ' kali'"></p>
           <p class="available" th:if="${filmDetail.stock > 0}">Available to rent</p>
-          <p class="available" th:if="${filmDetail.stock == 0}">Out of stock</p> <!-- gantii available -->
-          <p  th:text="'Stock: ' + ${filmDetail.stock}"></p>
+          <p class="unavailable" th:if="${filmDetail.stock == 0}">Out of stock</p> <!-- gantii available -->
+          <p  th:text="'Stock: ' + ${filmDetail.stock}"></p> 
         </div>
       </div>
 
@@ -117,9 +117,10 @@
       <div class="details-section">
         <h1 th:text="${filmDetail.title}"></h1>
         <div class="rental-info">
-          <p class="label">Sewa</p>
-          <button id="open-dialog" class="open-btn" th:text="${filmDetail.priceRupiah}" th:if="${filmDetail.stock > 0}"></button>
-          <button class="open-btn" th:text="${filmDetail.priceRupiah}" th:if="${filmDetail.stock == 0}"></button>  <!-- disable button -->
+          <p class="label" th:text="${filmDetail.priceRupiah}"></p>
+          <br>
+          <button id="open-dialog" class="open-btn" th:if="${filmDetail.stock > 0}">Sewa</button>
+          <button class="open-btn disabled" th:if="${filmDetail.stock == 0}">Sewa</button>  <!-- disable button -->
         </div>
         <div class="storyline">
           <p class="label">Synopsis</p>
