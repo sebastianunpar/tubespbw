@@ -35,7 +35,6 @@ body {
 
 .main-content {
   background: linear-gradient(145deg, #121212, #1E1E1E);
-
 }
 
 .content {
@@ -44,28 +43,29 @@ body {
   flex-direction: column; /* Atur elemen secara vertikal */
   justify-content: flex-start; /* Atur posisi lebih ke atas */
   align-items: center; /* Tengah secara horizontal */
-  height: 100vh; /* Penuhi tinggi layar */
   margin: 0 auto; /* Margin otomatis untuk tengah horizontal */
   box-sizing: border-box; /* Sertakan padding dan border dalam ukuran total */
   gap: 20px; /* Jarak antara elemen konten (opsional) */
-}
+  grid-area: main;
+} 
 
 /* Kontainer grid untuk kartu */
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid responsif */
   gap: 20px; /* Jarak antar-kartu */
-  max-width: 1100px; /* Batas maksimum lebar */
+  max-width: 1200px; /* Batas maksimum lebar */
   width: 100%; /* Penuhi lebar area yang tersedia */
   justify-content: center; /* Pastikan grid tetap di tengah */
   margin-top: 20px; /* Tambahkan sedikit jarak dari atas jika diperlukan */
 }
 
  .page-container {
+  width: 100%;
    display: grid;
    grid-template-areas:
      "logo nav"
-     " main main";
+     "main main";
    grid-template-columns: 220px 1fr;
    grid-template-rows: 110px 1fr;
    min-height: 100vh;
@@ -83,7 +83,6 @@ body {
    width: 220px;
    grid-area: logo;
  }
-
 
 /* Card styling */
 .card {
@@ -106,14 +105,16 @@ body {
   margin-bottom: 10px;
 }
 
-.card p {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-  margin-top: 15px;
-  margin-bottom: 10px;
+img.poster {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
+.card p {
+  font-size: 16px;
+  margin: 0;
+}
 
 .add-film {
   position: fixed;
@@ -244,9 +245,10 @@ filter: brightness(1.2); /* Membuat logo lebih terang saat hover */
 }
 
 .filter-container {
-display: flex;
-flex-direction: column;
-gap: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .filter-section {
@@ -273,6 +275,10 @@ display: block;
 margin: 5px 0;
 }
 
+.filter-options {
+  max-height: 400px;
+  overflow-y: auto;
+ }
 
 .input-container {
   position: relative;
@@ -358,3 +364,63 @@ dialog {
   background-color: #F8B700; /* Darker yellow on hover */
 }
 
+/* pagination */
+nav#filmPagination {
+  padding: 2em;
+  text-align: center;
+} 
+
+ nav#filmPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* Jarak antar elemen tombol */
+  border-radius: 25px; /* Membulatkan seluruh container */
+} 
+
+nav#filmPagination a,
+nav#filmPagination span a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px !important; /* Lebar tombol */
+  height: 40px !important; /* Tinggi tombol */
+  font-size: 16px !important;
+  font-weight: bold;
+  color: #4a4a4a; /* Warna teks */
+  text-decoration: none;
+  border-radius: 50%; /* Membuat tombol bulat */
+  background-color: #ffffff; /* Latar tombol */
+  border: 2px solid transparent; /* Border default transparan */
+  transition: all 0.3s ease; /* Transisi animasi hover */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+}
+
+nav#filmPagination a:hover {
+  background-color: #c2c2c2; /* Warna latar saat hover */
+  border-color: #c2c2c2; /* Border abu-abu muda saat hover */
+}
+
+nav#filmPagination a.active {
+  background-color: #ffc107; /* Warna ungu untuk tombol aktif */
+  color: #ffffff; /* Teks putih */
+  border-color: #ffc107; /* Warna border ungu */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Efek bayangan lebih intens */
+}
+
+nav#filmPagination a.disabled {
+  color: #aaa; /* Warna teks abu-abu */
+  pointer-events: none; /* Tidak bisa diklik */
+  background-color: #f5f5f5; /* Latar abu-abu muda */
+  border-color: #f5f5f5; /* Border abu-abu muda */
+}
+
+nav#filmPagination a[aria-label="Previous"],
+nav#filmPagination a[aria-label="Next"] {
+  font-size: 20px; /* Ukuran lebih besar untuk simbol panah */
+  font-weight: bold;
+}
+
+nav#filmPagination span {
+  color: #4a4a4a; /* Warna teks default */
+}
