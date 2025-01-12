@@ -1,6 +1,7 @@
 package com.example.tubespbw.film;
 
 import java.text.NumberFormat;
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,4 +28,13 @@ public class FilmDetail {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(indonesia);
         return currencyFormat.format(price);
     }
+
+    public void setPoster(byte[] poster) {
+        this.poster = poster;
+        if (poster != null) {
+            this.base64Poster = Base64.getEncoder().encodeToString(poster);
+        } else {
+            this.base64Poster = null;
+        }
+    }    
 }

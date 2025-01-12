@@ -203,6 +203,19 @@ public class FilmJdbcRepo implements FilmRepository{
     }
 
     @Override
+    public void updateFilm(String title, String description, byte[] poster, int stock, int price, int filmId) throws SQLException {
+        String sql = """
+            UPDATE film 
+            SET title = ?, synopsis = ?, poster = ?, stock = ?, price = ? 
+            WHERE filmId = ?
+        """;
+        jdbcTemplate.update(sql, title, description, poster, stock, price, filmId);
+
+        jdbcTemplate.update("DELETE FROM filmGenre WHERE filmId = ?", filmId);
+        jdbcTemplate.update("DELETE FROM filmActor WHERE filmId = ?", filmId);    
+    }
+
+    @Override
     public boolean insertFilmGenre(int filmId, int genreId) {
         String sql = "INSERT INTO filmGenre (filmId, genreId) VALUES (?, ?)";
         int rowsAffected = jdbcTemplate.update(sql, filmId, genreId);

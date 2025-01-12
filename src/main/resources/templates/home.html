@@ -54,26 +54,23 @@
 
         <section class="popular-films">
             <h2>Popular Films</h2>
-            <input type="radio" name="slider" id="item-1" checked>
-            <input type="radio" name="slider" id="item-2">
-            <input type="radio" name="slider" id="item-3">
-            <section class="carousel">
-                <label for="item-1" class="card" id="movie-1">
-                    <a th:href="@{'/film/'} + ${films[0].filmId}">
-                        <img class="poster" th:src="'data:image/jpeg;base64,' + ${films[0].base64Poster}">
-                    </a>
-                </label>
-                <label for="item-2" class="card" id="movie-2">
-                    <a th:href="@{'/film/'} + ${films[1].filmId}">
-                        <img class="poster" th:src="'data:image/jpeg;base64,' + ${films[1].base64Poster}">
-                    </a>
-                </label>
-                <label for="item-3" class="card" id="movie-3">
-                    <a th:href="@{'/film/'} + ${films[2].filmId}">
-                        <img class="poster" th:src="'data:image/jpeg;base64,' + ${films[2].base64Poster}">
-                    </a>
-                </label>
-            </section>
+            <div class="container">
+                <a th:href="@{'/film/'} + ${films[0].filmId}">
+                    <img th:src="'data:image/jpeg;base64,' + ${films[0].base64Poster}">
+                </a>
+                <a th:href="@{'/film/'} + ${films[1].filmId}">
+                    <img th:src="'data:image/jpeg;base64,' + ${films[1].base64Poster}">
+                </a>
+                <a th:href="@{'/film/'} + ${films[2].filmId}">
+                    <img th:src="'data:image/jpeg;base64,' + ${films[2].base64Poster}">
+                </a>
+                <!-- <a href="">
+                    <img src="https://i.pinimg.com/236x/f4/e9/2e/f4e92e389367fdf172bab2d120eb526b.jpg" alt="">
+                </a>
+                <a href="">
+                    <img src="https://i.pinimg.com/736x/c9/20/fa/c920fa82da29b3c37fbc4a7ec797d6a3.jpg" alt="">
+                </a> -->
+            </div>
         </section>
         <section id="location">
             <div class="location-container">

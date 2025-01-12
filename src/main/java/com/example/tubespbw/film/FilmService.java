@@ -110,6 +110,23 @@ public class FilmService {
         }
     }
 
+    public boolean updateFilm(MultipartFile poster, String title, int price, int stock, String description, List<Integer> genres, List<Integer> actors, int filmId) {
+        try {
+            byte[] posterBytes = poster.getBytes();
+            repo.updateFilm(title, description, posterBytes, stock, price, filmId);
+            for (Integer genre : genres) {
+                repo.insertFilmGenre(filmId, genre);
+            }
+            for (Integer actor : actors) {
+                repo.insertFilmActor(filmId, actor);
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
     public List<Film> searchFilms(String query) throws SQLException {
         List<Film> films = repo.searchFilms(query);
         for (Film film : films) {
