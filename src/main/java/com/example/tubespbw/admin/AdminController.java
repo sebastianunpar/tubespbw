@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,9 +26,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.tubespbw.RequiresRole;
 import com.example.tubespbw.actor.Actor;
 import com.example.tubespbw.film.Film;
+import com.example.tubespbw.film.FilmDetail;
 import com.example.tubespbw.film.FilmService;
 import com.example.tubespbw.genre.Genre;
 import com.example.tubespbw.rental.RentalService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -213,6 +217,55 @@ public class AdminController {
         return "admin/browseAdmin";
     }
 
+    @RequiresRole("admin")
+    @GetMapping("/edit-movie/{filmId}")
+    public String showEditMovie(@PathVariable("filmId") int filmId, HttpSession session, Model model) throws SQLException {
+        FilmDetail filmDetail = filmService.getFilmDetail(filmId);
+        List<Genre> genres = filmService.getAllGenre();
+        List<Actor> actors = filmService.getAllActor();
+    
+        model.addAttribute("filmDetail", filmDetail);
+        model.addAttribute("genres", genres);
+        model.addAttribute("actors", actors);
+        return "admin/editMovie";
+    }
+
+    @RequiresRole("admin")
+    @PostMapping("updateFilm")
+    public String updateMovie(
+                            @RequestParam("filmId") int filmId,
+                            @RequestParam("poster") MultipartFile poster, 
+                            @RequestParam("title") String title, 
+                            @RequestParam double price,
+                            @RequestParam int stock, 
+                            @RequestParam String description, 
+                            @RequestParam("genres") List<Integer> genres,
+                            @RequestParam("actors") List<Integer> actors
+                            ) {
+        // System.out.println(title);
+        // System.out.println(price);
+        // System.out.println(stock);
+        // System.out.println(description);
+        // System.out.println(genres);
+        // System.out.println(actors);
+        filmService.updateFilm(poster, title, (int)price, stock, description, genres, actors, filmId);
+        return "redirect:/admin/edit-movie/"+filmId;
+    }
+    
+    @RequiresRole("admin")
+    @PostMapping("add-genre-edit")
+    public String addGenreEdit(@RequestParam String newGenre, @RequestParam String filmId) {
+        filmService.insertGenre(newGenre);
+        return "redirect:/admin/edit-movie/"+filmId;
+    }
+
+    @RequiresRole("admin")
+    @PostMapping("add-actor-edit")
+    public String addActorEdit(@RequestParam String newActor, @RequestParam String filmId) {
+        filmService.insertActor(newActor);
+        return "redirect:/admin/edit-movie/"+filmId;
+    }
+
     @GetMapping("/add-movie")
     @RequiresRole("admin")
     public String showAddMovie(Model model) throws SQLException {
@@ -228,12 +281,6 @@ public class AdminController {
     public String addFilm(@RequestParam MultipartFile poster, @RequestParam String title, @RequestParam int price,
             @RequestParam int stock, @RequestParam String description, @RequestParam("genres") List<Integer> genres,
             @RequestParam("actors") List<Integer> actors) {
-        // System.out.println(title);
-        // System.out.println(price);
-        // System.out.println(stock);
-        // System.out.println(description);
-        // System.out.println(genres);
-        // System.out.println(actors);
         filmService.insertFilm(poster, title, price, stock, description, genres, actors);
         return "redirect:/admin/add-movie";
     }
